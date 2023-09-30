@@ -7,3 +7,7 @@ html {
   font-family: 'Jost', sans-serif;
   font-family: 'Open Sans', sans-serif;
 }
+
+.ant-select-single {
+  width: 100%;
+}

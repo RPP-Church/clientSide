@@ -5,8 +5,8 @@ import Button from '../../components/Button';
 import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
-  background: ${(props) =>
-    props.loaded === 'true' ? `url(${props.src})` : '#333333d3'};
+  background: ${({loaded, src}) =>
+    loaded === 'true' ? `url(${src})` : '#333333d3'};
   height: 100%;
   background-size: cover;
   background-position: center;

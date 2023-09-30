@@ -1,0 +1,17 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "rules": {
+    "react/prop-types": "off"
+  },
+  "settings": {
+    "import/resolver": "meteor"
+  },
+  "globals": {
+    "_": true,
+    "CSSModule": true,
+    "Streamy": true,
+    "ReactClass": true,
+    "SyntheticKeyboardEvent": true
+  }
+}

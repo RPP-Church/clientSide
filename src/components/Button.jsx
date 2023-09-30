@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import propTypes from 'prop-types';
 
 const Btn = styled.button`
   background-color: ${({ background }) =>
@@ -11,6 +12,7 @@ const Btn = styled.button`
   width: ${({ width }) => width};
   height: ${({ height }) => height};
   font-size: ${({ size }) => size};
+  font-weight: ${({ weight }) => weight};
   cursor: pointer;
 `;
 
@@ -27,6 +29,8 @@ const Button = ({
   hoverBackground,
   hoverColor,
   onClick,
+  weight,
+  disable,
 }) => {
   return (
     <Btn
@@ -48,6 +52,8 @@ const Button = ({
       radius={radius}
       padding={padding}
       onClick={onClick}
+      weight={weight}
+      disabled={disable}
     >
       {text}
     </Btn>
@@ -55,3 +61,21 @@ const Button = ({
 };
 
 export default Button;
+
+Button.propTypes = {
+  Button: propTypes.any,
+  color: propTypes.string,
+  size: propTypes.string,
+  width: propTypes.string,
+  height: propTypes.string,
+  background: propTypes.string,
+  text: propTypes.string,
+  border: propTypes.string,
+  radius: propTypes.string,
+  padding: propTypes.string,
+  hoverBackground: propTypes.string,
+  hoverColor: propTypes.string,
+  onClick: propTypes.func,
+  weight: propTypes.string,
+  disable: propTypes.bool,
+};
