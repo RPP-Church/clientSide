@@ -7,6 +7,7 @@ const NaVbar = styled.nav`
   color: #f1efef;
   border-bottom: 1px solid #f1efef;
   position: sticky;
+  z-index: 99999999;
   top: 0;
 
   .container {
@@ -35,7 +36,6 @@ const NaVbar = styled.nav`
   }
 `;
 const Nav = ({ pathname }) => {
-
   return (
     <>
       {pathname === '/admin/login' ? null : (

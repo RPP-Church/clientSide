@@ -8,6 +8,7 @@ const Select = ({
   handleChange,
   onSearch,
   name,
+  value,
 }) => {
   return (
     <Sel
@@ -17,6 +18,8 @@ const Select = ({
       onChange={(e, d) => handleChange(e, d, name)}
       onSearch={onSearch}
       name={name}
+      allowClear
+      value={value}
     />
   );
 };
@@ -30,4 +33,5 @@ Select.propTypes = {
   width: propTypes.any,
   onSearch: propTypes.func,
   name: propTypes.string,
+  value: propTypes.string,
 };

@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   background-size: cover;
   background-position: center;
   background-attachment: scroll;
+  height: 100vh;
 `;
 
 const Container = styled.div`

@@ -8,6 +8,11 @@ html {
   font-family: 'Open Sans', sans-serif;
 }
 
-.ant-select-single {
+.ant-select-single,
+.ant-picker {
   width: 100%;
 }
+
+
+
+

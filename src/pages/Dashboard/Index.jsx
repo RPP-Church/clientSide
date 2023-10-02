@@ -4,14 +4,15 @@ import { Table } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import Input from '../../components/Input';
-import Select from '../../components/Select';
 import Button from '../../components/Button';
 import { ErrorHandler } from '../../components/ErrorHandler';
-import { Modal } from 'antd';
-import { DatePicker } from 'antd';
+
+import Drawer from '../../components/Drawer';
+import Modal from './Modal';
 
 const Section = styled.section`
   background-color: #eee;
+  /* height: 100vh; */
   .tableDiv {
     padding: 3rem 1rem;
   }
@@ -26,6 +27,10 @@ const Section = styled.section`
   .ant-select,
   .ant-select-single {
     width: 100% !important;
+  }
+
+  .ant-drawer .ant-drawer-content-wrapper {
+    bottom: -120px !important;
   }
 `;
 
@@ -43,24 +48,28 @@ const Header = styled.div`
 
 const columns = [
   {
-    title: 'First Name',
-    dataIndex: 'firstName',
-  },
-  {
-    title: 'Last Name',
-    dataIndex: 'lastName',
+    title: 'Name',
+    dataIndex: 'name',
   },
   {
     title: 'Gender',
     dataIndex: 'gender',
   },
   {
+    title: 'Department',
+    dataIndex: 'department',
+  },
+  {
     title: 'Phone',
     dataIndex: 'phone',
   },
   {
-    title: 'Marital Status',
-    dataIndex: 'maritalStatus',
+    title: 'DOB',
+    dataIndex: 'dob',
+  },
+  {
+    title: 'Status',
+    dataIndex: 'status',
   },
   {
     title: 'Position',
@@ -93,18 +102,35 @@ const Index = () => {
     department: '',
     maritalStatus: '',
     joinedDate: '',
+    DOB: '',
   });
   const [formdata, setFormdata] = useState({
     firstName: '',
     address: '',
     position: '',
     gender: '',
+    maritalStatus: '',
+    membershipType: '',
+    department: '',
+    dob: '',
+    fromDate: '',
+    toDate: '',
+    sort: '',
   });
 
   const [usebounce, setBounce] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+
   const showModal = () => {
     setIsModalOpen(true);
+  };
+
+  const showDrawer = () => {
+    setOpen(true);
+  };
+  const onClose = () => {
+    setOpen(false);
   };
 
   const { isLoading, data, refetch } = useQuery({
@@ -114,8 +140,19 @@ const Index = () => {
         params: {
           name: formdata.firstName,
           gender: formdata.gender,
+          membershipType: formdata.membershipType,
+          maritalStatus: formdata.maritalStatus,
+          position: formdata.position,
+          department: formdata.department,
+          dob: formdata.dob,
+          address: formdata.address,
+          fromDate: formdata.fromDate,
+          toDate: formdata.toDate,
+          sort: formdata.sort,
         },
       });
+
+      onClose();
       return data;
     },
     retry: false,
@@ -125,7 +162,6 @@ const Index = () => {
     queryKey: ['departments'],
     queryFn: async () => {
       const { data } = await axios.get(`/department`);
-
       let options = [];
 
       options = data?.data.map((item) => ({
@@ -133,6 +169,7 @@ const Index = () => {
         label: item.name,
         value: item._id,
       }));
+
       return options;
     },
     retry: false,
@@ -152,16 +189,29 @@ const Index = () => {
     },
   });
 
+  const finddep = (Id) => {
+    let dpartment =
+      departmentRes && departmentRes.length > 0
+        ? departmentRes.find((c) => c.key === Id)
+        : '';
+
+    return dpartment && dpartment.label;
+  };
+
   const TableData = useMemo(() => {
     return data?.data?.length > 0
       ? data?.data?.map((item) => {
           return {
             key: item._id,
-            firstName: item?.firstName,
-            lastName: item?.lastName,
+            name: item?.firstName + ' ' + item?.lastName,
+            dob: new Date(item?.dob).toUTCString()?.slice(0, -12),
+            department:
+              item?.departments && item?.departments[0]
+                ? finddep(item?.departments[0])
+                : '',
             gender: item.gender,
             phone: item?.phone,
-            maritalStatus: item?.maritalStatus,
+            status: item?.maritalStatus,
             position: item?.position,
             address: item?.address,
             membershipType: item?.membershipType,
@@ -172,6 +222,32 @@ const Index = () => {
   }, [data?.data]);
 
   const handleFormdata = (e, data, d) => {
+    if (d && d === 'sort') {
+      setFormdata((p) => ({
+        ...p,
+        sort: e,
+      }));
+      return;
+    }
+    if (d && d === 'fromstart') {
+      if (data && data[0] && data[1]) {
+        setFormdata((p) => ({
+          ...p,
+          fromDate: data[0],
+          toDate: data[1],
+        }));
+      }
+
+      return;
+    }
+    if (d && d === 'dob') {
+      setFormdata((p) => ({
+        ...p,
+        dob: data,
+      }));
+
+      return;
+    }
     setFormdata((p) => ({
       ...p,
       [d ? d : e?.target?.name]:
@@ -180,10 +256,10 @@ const Index = () => {
   };
 
   const handleAddMember = (e, data, d) => {
-    if (d && d === 'joinedDate') {
+    if ((d && d === 'joinedDate') || d === 'DOB') {
       setAddMember((p) => ({
         ...p,
-        joinedDate: data,
+        [d]: data,
       }));
       return;
     }
@@ -207,9 +283,25 @@ const Index = () => {
       membershipType: addmember.membershipType,
       position: addmember.position,
       joinedDate: addmember.joinedDate,
+      dob: addmember.DOB,
     };
 
     mutate(data);
+  };
+
+  const handleReset = () => {
+    setFormdata({
+      firstName: '',
+      address: '',
+      position: '',
+      gender: '',
+      maritalStatus: '',
+      membershipType: '',
+      department: '',
+      dob: '',
+      fromDate: '',
+      toDate: '',
+    });
   };
 
   useEffect(() => {
@@ -226,124 +318,22 @@ const Index = () => {
 
   return (
     <Section>
+      <Drawer
+        placement={'bottom'}
+        onClose={onClose}
+        showDrawer={showDrawer}
+        open={open}
+        handleFormdata={handleFormdata}
+        departmentRes={departmentRes}
+        formdata={formdata}
+      />
       <Modal
-        title='Add New Member'
-        open={isModalOpen}
-        onCancel={() => setIsModalOpen(false)}
-        onOk={handleCreateMember}
-        okText='Add New'
-      >
-        <Form>
-          <div className='container'>
-            <div>
-              <Input
-                placeholder={'First Name'}
-                handleChange={handleAddMember}
-                name='firstName'
-              />
-            </div>
-            <div>
-              <Input
-                placeholder={'Last Name'}
-                name='lastName'
-                handleChange={handleAddMember}
-              />
-            </div>
-            <div>
-              <Input
-                placeholder={'Email'}
-                name='email'
-                handleChange={handleAddMember}
-              />
-            </div>
-            <div>
-              <Input
-                placeholder={'Phone'}
-                name='phone'
-                handleChange={handleAddMember}
-              />
-            </div>
-            <div>
-              <Input
-                placeholder={'Address'}
-                name='address'
-                handleChange={handleAddMember}
-              />
-            </div>
-            <div>
-              <Input
-                placeholder={'Position'}
-                name='position'
-                handleChange={handleAddMember}
-              />
-            </div>
-            <div>
-              <Select
-                width='100%'
-                placeholder={'Select Status'}
-                options={[
-                  { key: 1, label: 'Single', value: 'Single' },
-                  {
-                    key: 2,
-                    label: 'Married',
-                    value: 'Married',
-                  },
-                  {
-                    key: 3,
-                    label: 'Divorce',
-                    value: 'Divorce',
-                  },
-                ]}
-                name='maritalStatus'
-                handleChange={handleAddMember}
-              />
-            </div>
-            <div>
-              <Select
-                width='100%'
-                placeholder={'Select Status'}
-                options={[
-                  { key: 1, label: 'New Member', value: 'New Member' },
-                  {
-                    key: 2,
-                    label: 'Existing Member',
-                    value: 'Existing Member',
-                  },
-                ]}
-                name='membershipType'
-                handleChange={handleAddMember}
-              />
-            </div>
-            <div>
-              <Select
-                width='100%'
-                placeholder={'Select gender'}
-                options={[
-                  { key: 1, label: 'Male', value: 'Male' },
-                  { key: 2, label: 'Female', value: 'Female' },
-                ]}
-                name='gender'
-                handleChange={handleAddMember}
-              />
-            </div>
-            <div>
-              <Select
-                width='100%'
-                placeholder={'Select department'}
-                options={departmentRes}
-                name='department'
-                handleChange={handleAddMember}
-              />
-            </div>
-            <div>
-              <p>Date Joined</p>
-              <DatePicker
-                onChange={(e, d) => handleAddMember(e, d, 'joinedDate')}
-              />
-            </div>
-          </div>
-        </Form>
-      </Modal>
+        isModalOpen={isModalOpen}
+        handleCreateMember={handleCreateMember}
+        setIsModalOpen={setIsModalOpen}
+        handleAddMember={handleAddMember}
+        departmentRes={departmentRes}
+      />
       <div className='btn'>
         <Button
           text={'Add Member'}
@@ -364,25 +354,19 @@ const Index = () => {
               placeholder={'Frist Name'}
               handleChange={handleFormdata}
               name='firstName'
+              value={formdata.firstName}
             />
           </div>
-          <div>
-            <Input
-              type={'text'}
-              placeholder={'address'}
-              handleChange={handleFormdata}
-              name='address'
-            />
-          </div>
-          <div>
+
+          {/* <div>
             <Input
               type={'text'}
               placeholder={'position'}
               handleChange={handleFormdata}
               name='position'
             />
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             <Select
               width='100%'
               placeholder={'Select gender'}
@@ -393,10 +377,33 @@ const Index = () => {
               name='gender'
               handleChange={handleFormdata}
             />
+          </div> */}
+          <div>
+            <Button
+              text={'Reset'}
+              background={'#f1efef'}
+              border={'1px solid #090808'}
+              radius={'5px'}
+              height={'30px'}
+              onClick={handleReset}
+            />
+          </div>
+          <div>
+            <Button
+              text={'Open Filter'}
+              background={'#f1efef'}
+              border={'1px solid #090808'}
+              radius={'5px'}
+              height={'30px'}
+              onClick={() => setOpen(true)}
+              width='80px'
+              size={'12px'}
+            />
           </div>
         </Header>
 
         <Table
+          size='small'
           loading={isLoading}
           columns={columns}
           dataSource={TableData}
@@ -408,13 +415,3 @@ const Index = () => {
 };
 
 export default Index;
-
-const Form = styled.form`
-  margin-top: 2rem;
-  .container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 11px;
-  }
-`;

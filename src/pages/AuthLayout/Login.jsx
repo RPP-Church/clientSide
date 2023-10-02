@@ -17,6 +17,7 @@ const Wrapper = styled.div`
   background-position: center;
   background-attachment: scroll;
   padding-top: 2rem;
+  height: 100vh;
 
   .ant-input {
     background-color: #33333359 !important;

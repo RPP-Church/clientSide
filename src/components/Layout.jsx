@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const LayoutContainer = styled.div`
   display: block;
-  height: 100vh;
+  /* height: 100vh; */
   width: 100%;
   overflow: hidden;
   transition: all 0.5s;

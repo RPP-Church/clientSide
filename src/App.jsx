@@ -50,7 +50,7 @@ function App() {
         </Routes>
       ) : (
         <Container>
-          <h1>Please app is currently available in mobile only</h1>
+          <h1>Please app is currently available on mobile device only</h1>
         </Container>
       )}
     </>
