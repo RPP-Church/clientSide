@@ -90,7 +90,6 @@ const Department = () => {
 
   const { mutate: mutateDelete } = useMutation({
     mutationFn: async (record) => {
-      console.log(record);
       return await axios.delete(`/department/${record?.key}`);
     },
     onSuccess: () => {
