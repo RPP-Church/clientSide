@@ -1,3 +1,9 @@
 export function getToken() {
-  return window.localStorage.getItem('token');
+  let user = window.localStorage.getItem('user');
+  let token;
+  if (user) {
+    token = JSON.parse(user);
+  }
+
+  return token;
 }

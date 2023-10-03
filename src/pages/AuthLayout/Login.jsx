@@ -72,7 +72,7 @@ const Login = () => {
       return await login(form);
     },
     onSuccess: (data) => {
-      localStorage.setItem('token', data?.data?.token);
+      localStorage.setItem('user', JSON.stringify(data?.data));
       localStorage.setItem('refreshToken', data?.data?.refreshToken);
       setUser(data.data);
       navigate('/dashboard');

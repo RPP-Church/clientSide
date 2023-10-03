@@ -8,6 +8,7 @@ import DashboardIndex from './pages/Dashboard/Index';
 import { getToken } from './services/getToken';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Department from './pages/Dashboard/Department';
 
 function App() {
   const { pathname } = useLocation();
@@ -31,7 +32,7 @@ function App() {
 
   return (
     <>
-      <Nav pathname={pathname} />
+      <Nav pathname={pathname} user={token?.name} />
       {show ? (
         <Routes>
           <Route path='/' element={<Home />} />
@@ -42,10 +43,15 @@ function App() {
           <Route
             path='/dashboard'
             element={
-              token ? <Layout /> : <Navigate to='/admin' replace={true} />
+              token && token?.token ? (
+                <Layout />
+              ) : (
+                <Navigate to='/admin' replace={true} />
+              )
             }
           >
             <Route element={<DashboardIndex />} index />
+            <Route element={<Department />} path='department' />
           </Route>
         </Routes>
       ) : (

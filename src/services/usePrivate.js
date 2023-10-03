@@ -11,7 +11,7 @@ const useAxiosPrivate = () => {
     const requestIntercept = axiosPrivate.interceptors.request.use(
       (config) => {
         if (!config.headers['Authorization']) {
-          config.headers['Authorization'] = `Bearer ${token}`;
+          config.headers['Authorization'] = `Bearer ${token?.token}`;
         }
         return config;
       },
@@ -25,7 +25,14 @@ const useAxiosPrivate = () => {
         if (error?.response?.status === 401 && !prevRequest?.sent) {
           prevRequest.sent = true;
           const newAccessToken = await refresh();
-          localStorage.setItem('token', newAccessToken);
+          localStorage.setItem(
+            'user',
+            JSON.stringify({
+              name: token?.name,
+              token: newAccessToken,
+              userId: token?.userId,
+            })
+          );
           prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
           return axiosPrivate(prevRequest);
         }

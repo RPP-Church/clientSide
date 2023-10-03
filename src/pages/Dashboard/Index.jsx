@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import useAxiosPrivate from '../../services/usePrivate';
-import { Table } from 'antd';
+import { Popconfirm, Table } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import Input from '../../components/Input';
@@ -9,6 +9,8 @@ import { ErrorHandler } from '../../components/ErrorHandler';
 
 import Drawer from '../../components/Drawer';
 import Modal from './Modal';
+import FormDiv from './FormDiv';
+import Switch from './Switch';
 
 const Section = styled.section`
   background-color: #eee;
@@ -46,50 +48,105 @@ const Header = styled.div`
   gap: 10px;
 `;
 
-const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-  },
-  {
-    title: 'Gender',
-    dataIndex: 'gender',
-  },
-  {
-    title: 'Department',
-    dataIndex: 'department',
-  },
-  {
-    title: 'Phone',
-    dataIndex: 'phone',
-  },
-  {
-    title: 'DOB',
-    dataIndex: 'dob',
-  },
-  {
-    title: 'Status',
-    dataIndex: 'status',
-  },
-  {
-    title: 'Position',
-    dataIndex: 'position',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-  },
-  {
-    title: 'Membership',
-    dataIndex: 'membershipType',
-  },
-  {
-    title: 'Date Joined',
-    dataIndex: 'joinedDate',
-  },
-];
 const Index = () => {
   const axios = useAxiosPrivate();
+
+  const [dataSource] = useState([
+    {
+      title: 'Name',
+      dataIndex: 'name',
+    },
+    {
+      title: 'Gender',
+      dataIndex: 'gender',
+    },
+    {
+      title: 'Department',
+      dataIndex: 'department',
+    },
+    {
+      title: 'Phone',
+      dataIndex: 'phone',
+    },
+    {
+      title: 'DOB',
+      dataIndex: 'dob',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+    },
+    {
+      title: 'Position',
+      dataIndex: 'position',
+    },
+    {
+      title: 'Address',
+      dataIndex: 'address',
+    },
+    {
+      title: 'Membership',
+      dataIndex: 'membershipType',
+    },
+    {
+      title: 'Date Joined',
+      dataIndex: 'joinedDate',
+    },
+  ]);
+
+  const columns = [
+    {
+      title: 'Name',
+      dataIndex: 'name',
+    },
+    {
+      title: 'Gender',
+      dataIndex: 'gender',
+    },
+    {
+      title: 'Department',
+      dataIndex: 'department',
+    },
+    {
+      title: 'Phone',
+      dataIndex: 'phone',
+    },
+    {
+      title: 'DOB',
+      dataIndex: 'dob',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+    },
+    {
+      title: 'Position',
+      dataIndex: 'position',
+    },
+    {
+      title: 'Address',
+      dataIndex: 'address',
+    },
+    {
+      title: 'Membership',
+      dataIndex: 'membershipType',
+    },
+    {
+      title: 'Date Joined',
+      dataIndex: 'joinedDate',
+    },
+    {
+      title: 'Action',
+      dataIndex: 'action',
+      render: (_, record) =>
+        dataSource.length >= 1 ? (
+          <Popconfirm title='Sure to delete?' onConfirm={(e) => console.log(e)}>
+            <a>Delete</a>
+          </Popconfirm>
+        ) : null,
+    },
+  ];
+
   const [addmember, setAddMember] = useState({
     firstName: '',
     lastName: '',
@@ -310,7 +367,7 @@ const Index = () => {
       clearTimeout(timer);
       setTimeout(() => {
         setBounce(formdata);
-      }, 3000);
+      }, 2000);
     }
 
     return () => clearTimeout(timer);
@@ -326,6 +383,14 @@ const Index = () => {
         handleFormdata={handleFormdata}
         departmentRes={departmentRes}
         formdata={formdata}
+        child={
+          <FormDiv
+            formdata={formdata}
+            handleFormdata={handleFormdata}
+            departmentRes={departmentRes}
+          />
+        }
+        title={<Switch handleFormdata={handleFormdata} formdata={formdata} />}
       />
       <Modal
         isModalOpen={isModalOpen}
@@ -344,6 +409,7 @@ const Index = () => {
           hoverBackground={'#090808'}
           hoverColor={'#fff'}
           onClick={showModal}
+          disable={isLoading}
         />
       </div>
       <div className='tableDiv'>
@@ -390,7 +456,7 @@ const Index = () => {
           </div>
           <div>
             <Button
-              text={'Open Filter'}
+              text={'Filter'}
               background={'#f1efef'}
               border={'1px solid #090808'}
               radius={'5px'}

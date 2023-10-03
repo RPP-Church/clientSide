@@ -1,14 +1,15 @@
 import axios from './api';
+import { getToken } from './getToken';
 
 const useRefreshToken = () => {
-  const token = localStorage.getItem('refreshToken');
-
-  const data = {
-    token,
-  };
+  const token = getToken();
 
   const refresh = async () => {
-    const response = await axios.post('/refresh', data);
+    const response = await axios.get(`/refresh`, {
+      params: {
+        userId: token.userId
+      }
+    });
 
     return response.data.token;
   };

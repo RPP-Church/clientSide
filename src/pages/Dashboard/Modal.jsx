@@ -1,8 +1,9 @@
-import { DatePicker, Modal as Mod } from 'antd';
+import { DatePicker } from 'antd';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
+import Modals from '../../components/Modal';
 
 const Form = styled.form`
   margin-top: 2rem;
@@ -22,11 +23,11 @@ const Modal = ({
   departmentRes,
 }) => {
   return (
-    <Mod
+    <Modals
       title='Add New Member'
       open={isModalOpen}
       onCancel={() => setIsModalOpen(false)}
-      onOk={handleCreateMember}
+      handleOK={handleCreateMember}
       okText='Add New'
     >
       <Form>
@@ -75,9 +76,7 @@ const Modal = ({
           </div>
           <div>
             <p>Date of Birth</p>
-            <DatePicker
-              onChange={(e, d) => handleAddMember(e, d, 'DOB')}
-            />
+            <DatePicker onChange={(e, d) => handleAddMember(e, d, 'DOB')} />
           </div>
           <div>
             <Select
@@ -145,9 +144,16 @@ const Modal = ({
           </div>
         </div>
       </Form>
-    </Mod>
+    </Modals>
   );
 };
 
 export default Modal;
 
+Modal.propTypes = {
+  isModalOpen: propTypes.bool,
+  handleCreateMember: propTypes.func,
+  setIsModalOpen: propTypes.any,
+  handleAddMember: propTypes.func,
+  departmentRes: propTypes.array,
+};
