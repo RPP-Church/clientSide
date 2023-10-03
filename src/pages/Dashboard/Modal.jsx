@@ -21,6 +21,7 @@ const Modal = ({
   setIsModalOpen,
   handleAddMember,
   departmentRes,
+  loading,
 }) => {
   return (
     <Modals
@@ -29,6 +30,7 @@ const Modal = ({
       onCancel={() => setIsModalOpen(false)}
       handleOK={handleCreateMember}
       okText='Add New'
+      loading={loading}
     >
       <Form>
         <div className='container'>
@@ -75,8 +77,11 @@ const Modal = ({
             />
           </div>
           <div>
-            <p>Date of Birth</p>
-            <DatePicker onChange={(e, d) => handleAddMember(e, d, 'DOB')} />
+            <p>Date of Birth (Month & Day allowed)</p>
+            <DatePicker
+              onChange={(e, d) => handleAddMember(e, d, 'DOB')}
+              format={'MM-DD'}
+            />
           </div>
           <div>
             <Select
@@ -156,4 +161,5 @@ Modal.propTypes = {
   setIsModalOpen: propTypes.any,
   handleAddMember: propTypes.func,
   departmentRes: propTypes.array,
+  loading: propTypes.any,
 };

@@ -39,34 +39,13 @@ const Department = () => {
     },
   ]);
 
-  const columns = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-    },
-    {
-      title: 'Created At',
-      dataIndex: 'createdat',
-    },
-    {
-      title: 'Action',
-      dataIndex: 'action',
-      render: (_, record) =>
-        dataSource.length >= 1 ? (
-          <Popconfirm title='Sure to delete?' onConfirm={(e) => console.log(e)}>
-            <a>Delete</a>
-          </Popconfirm>
-        ) : null,
-    },
-  ];
-
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['departments'],
     queryFn: async () => {
       const { data } = await axios.get(`/department`);
       return data;
     },
-    retry: false,
+    // retry: false,
   });
 
   const TableData = useMemo(() => {
@@ -81,7 +60,7 @@ const Department = () => {
       : [];
   }, [data?.data]);
 
-  const { mutate } = useMutation({
+  const { mutate, isLoading: loadAdd } = useMutation({
     mutationFn: async (form) => {
       return await axios.post('/department', form);
     },
@@ -109,6 +88,44 @@ const Department = () => {
     mutate(data);
   };
 
+  const { mutate: mutateDelete } = useMutation({
+    mutationFn: async (record) => {
+      console.log(record);
+      return await axios.delete(`/department/${record?.key}`);
+    },
+    onSuccess: () => {
+      refetch();
+    },
+    onError: (error) => {
+      const message = ErrorHandler(error);
+      alert(message.data.msg);
+    },
+  });
+
+  const columns = [
+    {
+      title: 'Name',
+      dataIndex: 'name',
+    },
+    {
+      title: 'Created At',
+      dataIndex: 'createdat',
+    },
+    {
+      title: 'Action',
+      dataIndex: 'action',
+      render: (_, record) =>
+        dataSource.length >= 1 ? (
+          <Popconfirm
+            title='Sure to delete?'
+            onConfirm={() => mutateDelete(record)}
+          >
+            <a>Delete</a>
+          </Popconfirm>
+        ) : null,
+    },
+  ];
+
   return (
     <Section>
       <Modals
@@ -117,6 +134,7 @@ const Department = () => {
         onCancel={() => setIsModalOpen(false)}
         handleOK={handleSubmit}
         okText='Add New'
+        loading={loadAdd}
       >
         <div>
           <Input

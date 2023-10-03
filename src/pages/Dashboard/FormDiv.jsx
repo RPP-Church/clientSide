@@ -2,11 +2,9 @@ import { DatePicker } from 'antd';
 import Select from '../../components/Select';
 import Input from '../../components/Input';
 import styled from 'styled-components';
-import propTypes from 'prop-types'
-
+import propTypes from 'prop-types';
 
 const { RangePicker } = DatePicker;
-
 
 const Div = styled.div`
   display: flex;
@@ -35,7 +33,10 @@ const FormDiv = ({ formdata, handleFormdata, departmentRes }) => {
       </div>
       <div>
         <label>Date of Birth</label>
-        <DatePicker onChange={(e, d) => handleFormdata(e, d, 'dob')} />
+        <DatePicker
+          onChange={(e, d) => handleFormdata(e, d, 'dob')}
+          format={'MM-DD'}
+        />
       </div>
       <div>
         <Select
@@ -111,15 +112,13 @@ const FormDiv = ({ formdata, handleFormdata, departmentRes }) => {
   );
 };
 
-
-export default FormDiv
+export default FormDiv;
 
 FormDiv.propTypes = {
-    open: propTypes.any,
-    placement: propTypes.string,
-    onClose: propTypes.func,
-    handleFormdata: propTypes.func,
-    departmentRes: propTypes.array,
-    formdata: propTypes.object,
-  };
-  
+  open: propTypes.any,
+  placement: propTypes.string,
+  onClose: propTypes.func,
+  handleFormdata: propTypes.func,
+  departmentRes: propTypes.array,
+  formdata: propTypes.object,
+};

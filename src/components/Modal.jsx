@@ -1,7 +1,15 @@
 import { Modal as Mod } from 'antd';
 import propTypes from 'prop-types';
 
-const Modals = ({ open, handleOK, children, title, okText, onCancel }) => {
+const Modals = ({
+  open,
+  handleOK,
+  children,
+  title,
+  okText,
+  onCancel,
+  loading,
+}) => {
   return (
     <Mod
       title={title}
@@ -9,6 +17,7 @@ const Modals = ({ open, handleOK, children, title, okText, onCancel }) => {
       onCancel={onCancel}
       onOk={handleOK}
       okText={okText}
+      confirmLoading={loading}
     >
       {children}
     </Mod>
@@ -23,4 +32,5 @@ Modals.propTypes = {
   children: propTypes.any,
   okText: propTypes.string,
   onCancel: propTypes.func,
+  loading: propTypes.any,
 };

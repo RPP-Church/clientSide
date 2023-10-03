@@ -64,34 +64,34 @@ const Index = () => {
       title: 'Department',
       dataIndex: 'department',
     },
-    {
-      title: 'Phone',
-      dataIndex: 'phone',
-    },
-    {
-      title: 'DOB',
-      dataIndex: 'dob',
-    },
+    // {
+    //   title: 'Phone',
+    //   dataIndex: 'phone',
+    // },
+    // {
+    //   title: 'DOB',
+    //   dataIndex: 'dob',
+    // },
     {
       title: 'Status',
       dataIndex: 'status',
     },
-    {
-      title: 'Position',
-      dataIndex: 'position',
-    },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-    },
+    // {
+    //   title: 'Position',
+    //   dataIndex: 'position',
+    // },
+    // {
+    //   title: 'Address',
+    //   dataIndex: 'address',
+    // },
     {
       title: 'Membership',
       dataIndex: 'membershipType',
     },
-    {
-      title: 'Date Joined',
-      dataIndex: 'joinedDate',
-    },
+    // {
+    //   title: 'Date Joined',
+    //   dataIndex: 'joinedDate',
+    // },
   ]);
 
   const columns = [
@@ -107,34 +107,34 @@ const Index = () => {
       title: 'Department',
       dataIndex: 'department',
     },
-    {
-      title: 'Phone',
-      dataIndex: 'phone',
-    },
-    {
-      title: 'DOB',
-      dataIndex: 'dob',
-    },
+    // {
+    //   title: 'Phone',
+    //   dataIndex: 'phone',
+    // },
+    // {
+    //   title: 'DOB',
+    //   dataIndex: 'dob',
+    // },
     {
       title: 'Status',
       dataIndex: 'status',
     },
-    {
-      title: 'Position',
-      dataIndex: 'position',
-    },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-    },
+    // {
+    //   title: 'Position',
+    //   dataIndex: 'position',
+    // },
+    // {
+    //   title: 'Address',
+    //   dataIndex: 'address',
+    // },
     {
       title: 'Membership',
       dataIndex: 'membershipType',
     },
-    {
-      title: 'Date Joined',
-      dataIndex: 'joinedDate',
-    },
+    // {
+    //   title: 'Date Joined',
+    //   dataIndex: 'joinedDate',
+    // },
     {
       title: 'Action',
       dataIndex: 'action',
@@ -232,7 +232,7 @@ const Index = () => {
     retry: false,
   });
 
-  const { mutate } = useMutation({
+  const { mutate, isLoading: loadingAdd } = useMutation({
     mutationFn: async (form) => {
       return await axios.post('/user', form);
     },
@@ -261,7 +261,7 @@ const Index = () => {
           return {
             key: item._id,
             name: item?.firstName + ' ' + item?.lastName,
-            dob: new Date(item?.dob).toUTCString()?.slice(0, -12),
+            dob: new Date(item?.dob).toUTCString()?.slice(0, -21),
             department:
               item?.departments && item?.departments[0]
                 ? finddep(item?.departments[0])
@@ -311,6 +311,7 @@ const Index = () => {
         data && data?.value ? data?.value : e?.target?.value,
     }));
   };
+
 
   const handleAddMember = (e, data, d) => {
     if ((d && d === 'joinedDate') || d === 'DOB') {
@@ -398,6 +399,7 @@ const Index = () => {
         setIsModalOpen={setIsModalOpen}
         handleAddMember={handleAddMember}
         departmentRes={departmentRes}
+        loading={loadingAdd}
       />
       <div className='btn'>
         <Button
@@ -474,6 +476,28 @@ const Index = () => {
           columns={columns}
           dataSource={TableData}
           scroll={{ x: true, scrollToFirstRowOnChange: true }}
+          expandable={{
+            expandedRowRender: (record) => (
+              <div>
+                <p style={{ margin: 0 }}>
+                  {record.address ? `Address: ${record.address}` : ''}
+                </p>
+                <p style={{ margin: 0 }}>
+                  {record.phone ? `Phone: ${record.phone}` : ''}
+                </p>
+                <p style={{ margin: 0 }}>
+                  {record.dob ? `Date of Birth: ${record.dob}` : ''}
+                </p>
+                <p style={{ margin: 0 }}>
+                  {record.joinedDate ? `Joined Date: ${record.joinedDate}` : ''}
+                </p>
+                <p style={{ margin: 0 }}>
+                  {record.position ? `Position: ${record.position}` : ''}
+                </p>
+              </div>
+            ),
+            rowExpandable: (record) => record.name !== 'Not Expandable',
+          }}
         />
       </div>
     </Section>
