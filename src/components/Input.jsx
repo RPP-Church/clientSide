@@ -39,6 +39,7 @@ const Input = ({
       type={type}
       width={width}
       name={name}
+      
     />
   );
 };

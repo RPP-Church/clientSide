@@ -4,6 +4,7 @@ import propTypes from 'prop-types';
 import { Avatar } from 'antd';
 import Drawer from '../Drawer';
 import { useState } from 'react';
+import Logo from '../../assets/logo.png';
 
 const NaVbar = styled.nav`
   background-color: #090808;
@@ -52,7 +53,9 @@ const Nav = ({ pathname, user }) => {
       {pathname === '/admin/login' ? null : (
         <NaVbar>
           <div className='container'>
-            <NavLink>RPP</NavLink>
+            <NavLink style={{ display: 'flex', alignItems: 'center' }}>
+              <img src={Logo} alt='logo' height={'40px'} />
+            </NavLink>
             <div className='links'>
               <ul>
                 <NavLink>Blog</NavLink>

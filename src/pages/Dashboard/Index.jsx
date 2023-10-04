@@ -6,11 +6,12 @@ import styled from 'styled-components';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { ErrorHandler } from '../../components/ErrorHandler';
-
+import { DeleteOutlined } from '@ant-design/icons';
 import Drawer from '../../components/Drawer';
 import Modal from './Modal';
 import FormDiv from './FormDiv';
 import Switch from './Switch';
+import { Link } from 'react-router-dom';
 
 const Section = styled.section`
   background-color: #eee;
@@ -84,10 +85,10 @@ const Index = () => {
     //   title: 'Address',
     //   dataIndex: 'address',
     // },
-    {
-      title: 'Membership',
-      dataIndex: 'membershipType',
-    },
+    // {
+    //   title: 'Membership',
+    //   dataIndex: 'membershipType',
+    // },
     // {
     //   title: 'Date Joined',
     //   dataIndex: 'joinedDate',
@@ -127,10 +128,10 @@ const Index = () => {
     //   title: 'Address',
     //   dataIndex: 'address',
     // },
-    {
-      title: 'Membership',
-      dataIndex: 'membershipType',
-    },
+    // {
+    //   title: 'Membership',
+    //   dataIndex: 'membershipType',
+    // },
     // {
     //   title: 'Date Joined',
     //   dataIndex: 'joinedDate',
@@ -141,7 +142,7 @@ const Index = () => {
       render: (_, record) =>
         dataSource.length >= 1 ? (
           <Popconfirm title='Sure to delete?' onConfirm={(e) => console.log(e)}>
-            <a>Delete</a>
+            <DeleteOutlined size={20} />
           </Popconfirm>
         ) : null,
     },
@@ -312,7 +313,6 @@ const Index = () => {
     }));
   };
 
-
   const handleAddMember = (e, data, d) => {
     if ((d && d === 'joinedDate') || d === 'DOB') {
       setAddMember((p) => ({
@@ -471,6 +471,7 @@ const Index = () => {
         </Header>
 
         <Table
+          style={{ fontStyle: 'italic' }}
           size='small'
           loading={isLoading}
           columns={columns}
@@ -478,7 +479,7 @@ const Index = () => {
           scroll={{ x: true, scrollToFirstRowOnChange: true }}
           expandable={{
             expandedRowRender: (record) => (
-              <div>
+              <ExpandDiv>
                 <p style={{ margin: 0 }}>
                   {record.address ? `Address: ${record.address}` : ''}
                 </p>
@@ -494,7 +495,15 @@ const Index = () => {
                 <p style={{ margin: 0 }}>
                   {record.position ? `Position: ${record.position}` : ''}
                 </p>
-              </div>
+                <p style={{ margin: 0 }}>
+                  {record.membershipType
+                    ? `Membership Type: ${record.membershipType}`
+                    : ''}
+                </p>
+                <div>
+                  <Link to={`/dashboard/${record.key}`}>View Details</Link>
+                </div>
+              </ExpandDiv>
             ),
             rowExpandable: (record) => record.name !== 'Not Expandable',
           }}
@@ -505,3 +514,12 @@ const Index = () => {
 };
 
 export default Index;
+
+const ExpandDiv = styled.div`
+  padding: 5px 15px;
+  p {
+    font-size: 0.9rem;
+    font-style: italic;
+    margin: 3px 0;
+  }
+`;

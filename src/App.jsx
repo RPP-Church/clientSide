@@ -9,7 +9,7 @@ import { getToken } from './services/getToken';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Department from './pages/Dashboard/Department';
-
+import MemberDetails from './pages/Dashboard/MemberDetails';
 function App() {
   const { pathname } = useLocation();
   const token = getToken();
@@ -51,6 +51,7 @@ function App() {
             }
           >
             <Route element={<DashboardIndex />} index />
+            <Route element={<MemberDetails />} path=':id' />
             <Route element={<Department />} path='department' />
           </Route>
         </Routes>

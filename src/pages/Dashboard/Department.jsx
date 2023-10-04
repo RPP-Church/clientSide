@@ -7,6 +7,7 @@ import Button from '../../components/Button';
 import Modals from '../../components/Modal';
 import Input from '../../components/Input';
 import { ErrorHandler } from '../../components/ErrorHandler';
+import { DeleteOutlined } from '@ant-design/icons';
 
 const Section = styled.section`
   background-color: #eee;
@@ -40,7 +41,7 @@ const Department = () => {
   ]);
 
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ['departments'],
+    queryKey: ['departmentsdd'],
     queryFn: async () => {
       const { data } = await axios.get(`/department`);
       return data;
@@ -119,7 +120,7 @@ const Department = () => {
             title='Sure to delete?'
             onConfirm={() => mutateDelete(record)}
           >
-            <a>Delete</a>
+            <DeleteOutlined size={20} />
           </Popconfirm>
         ) : null,
     },
