@@ -190,7 +190,7 @@ const MemberDetails = () => {
             </Popconfirm>,
           ]}
         >
-          <Skeleton loading={isLoading} avatar active>
+          <Skeleton loading={isLoading || DeleteUser.isLoading} avatar active>
             {data &&
               data.length > 0 &&
               data.map((item) => (
