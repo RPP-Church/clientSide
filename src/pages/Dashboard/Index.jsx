@@ -136,16 +136,16 @@ const Index = () => {
     //   title: 'Date Joined',
     //   dataIndex: 'joinedDate',
     // },
-    {
-      title: 'Action',
-      dataIndex: 'action',
-      render: (_, record) =>
-        dataSource.length >= 1 ? (
-          <Popconfirm title='Sure to delete?' onConfirm={(e) => console.log(e)}>
-            <DeleteOutlined size={20} />
-          </Popconfirm>
-        ) : null,
-    },
+    // {
+    //   title: 'Action',
+    //   dataIndex: 'action',
+    //   render: (_, record) =>
+    //     dataSource.length >= 1 ? (
+    //       <Popconfirm title='Sure to delete?' onConfirm={(e) => console.log(e)}>
+    //         <DeleteOutlined size={20} />
+    //       </Popconfirm>
+    //     ) : null,
+    // },
   ];
 
   const [addmember, setAddMember] = useState({
@@ -227,6 +227,7 @@ const Index = () => {
         label: item.name,
         value: item._id,
       }));
+      localStorage.setItem('department', JSON.stringify(options));
 
       return options;
     },
@@ -480,7 +481,7 @@ const Index = () => {
           expandable={{
             expandedRowRender: (record) => (
               <ExpandDiv>
-                <p style={{ margin: 0 }}>
+                {/* <p style={{ margin: 0 }}>
                   {record.address ? `Address: ${record.address}` : ''}
                 </p>
                 <p style={{ margin: 0 }}>
@@ -494,7 +495,7 @@ const Index = () => {
                 </p>
                 <p style={{ margin: 0 }}>
                   {record.position ? `Position: ${record.position}` : ''}
-                </p>
+                </p> */}
                 <p style={{ margin: 0 }}>
                   {record.membershipType
                     ? `Membership Type: ${record.membershipType}`

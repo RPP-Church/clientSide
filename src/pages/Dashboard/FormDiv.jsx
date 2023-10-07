@@ -31,13 +31,13 @@ const FormDiv = ({ formdata, handleFormdata, departmentRes }) => {
           value={formdata.membershipType}
         />
       </div>
-      <div>
+      {/* <div>
         <label>Date of Birth</label>
         <DatePicker
           onChange={(e, d) => handleFormdata(e, d, 'dob')}
           format={'MM-DD'}
         />
-      </div>
+      </div> */}
       <div>
         <Select
           width='100%'
@@ -101,13 +101,13 @@ const FormDiv = ({ formdata, handleFormdata, departmentRes }) => {
           value={formdata.address}
         />
       </div>
-      <div>
+      {/* <div>
         <label>Join Date</label>
         <RangePicker
           placeholder={['Start Date', 'End Date']}
           onChange={(e, d) => handleFormdata(e, d, 'fromstart')}
         />
-      </div>
+      </div> */}
     </Div>
   );
 };
