@@ -1,12 +1,11 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import useAxiosPrivate from '../../services/usePrivate';
-import { Popconfirm, Table } from 'antd';
+import {  Table } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { ErrorHandler } from '../../components/ErrorHandler';
-import { DeleteOutlined } from '@ant-design/icons';
 import Drawer from '../../components/Drawer';
 import Modal from './Modal';
 import FormDiv from './FormDiv';

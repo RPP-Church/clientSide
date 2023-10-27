@@ -226,6 +226,10 @@ const MemberDetails = () => {
                       {item.position ? item.position : 'No position held'}
                     </p>
                     <p>
+                      Department interested in:{' '}
+                      {item.interest ? item.interest : 'No interest'}
+                    </p>
+                    <p>
                       Date Joined: {new Date(item.joinedDate).toDateString()}
                     </p>
                   </div>

@@ -10,6 +10,8 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Department from './pages/Dashboard/Department';
 import MemberDetails from './pages/Dashboard/MemberDetails';
+import AddMember from './pages/Addmembers/AddMember';
+
 function App() {
   const { pathname } = useLocation();
   const token = getToken();
@@ -36,6 +38,8 @@ function App() {
       {show ? (
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/add-member' element={<AddMember />} />
+
           <Route path='/admin' element={<Layout />}>
             <Route element={<AdminIndex />} index />
             <Route element={<AdminLogin />} path='login' />

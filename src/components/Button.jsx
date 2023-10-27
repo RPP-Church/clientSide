@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import propTypes from 'prop-types';
-
+import { LoadingOutlined } from '@ant-design/icons';
 const Btn = styled.button`
   background-color: ${({ background }) =>
     background ? background : '#090808'};
@@ -11,6 +11,7 @@ const Btn = styled.button`
   border-radius: ${({ radius }) => radius};
   width: ${({ width }) => width};
   height: ${({ height }) => height};
+  margin: ${({ margin }) => margin};
   font-size: ${({ size }) => size};
   font-weight: ${({ weight }) => weight};
   cursor: pointer;
@@ -31,6 +32,8 @@ const Button = ({
   onClick,
   weight,
   disable,
+  margin,
+  loading,
 }) => {
   return (
     <Btn
@@ -54,8 +57,9 @@ const Button = ({
       onClick={onClick}
       weight={weight}
       disabled={disable}
+      margin={margin}
     >
-      {text}
+      {loading ? <LoadingOutlined /> : text}
     </Btn>
   );
 };
@@ -78,4 +82,6 @@ Button.propTypes = {
   onClick: propTypes.func,
   weight: propTypes.string,
   disable: propTypes.bool,
+  margin: propTypes.string,
+  loading: propTypes.bool,
 };
