@@ -174,7 +174,7 @@ const AddMember = () => {
       ),
     },
     {
-      title: 'Chruch-Data',
+      title: 'Church-Data',
       child: (
         <Relationship
           handleAddMember={handleAddMember}
