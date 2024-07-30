@@ -41,6 +41,7 @@ const Container = styled.div`
   flex-direction: column;
   height: 100%;
   margin: 2rem;
+  align-items: center;
 
   div {
     margin-bottom: 2rem;
@@ -51,13 +52,24 @@ const Container = styled.div`
     color: #f1efef;
     font-size: 1.2rem;
   }
+
+  form {
+    max-width: 500px;
+    width: 70%;
+  }
+
+  @media screen and (max-width: 60rem) {
+    form {
+      width: 100%;
+    }
+  }
 `;
 const Login = () => {
   const navigate = useNavigate();
   const { setUser } = userState();
   const [loaded, setLoaded] = useState(false);
   const [formdata, setFormdata] = useState({
-    email: '',
+    phone: '',
     password: '',
   });
 
@@ -85,14 +97,14 @@ const Login = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    const { email, password } = formdata;
+    const { password, phone } = formdata;
 
     const data = {
-      email,
       password,
+      phone,
     };
 
-    if (!data.email && !data.password) {
+    if (!data.phone && !data.password) {
       alert('Please enter email and password');
       return;
     }
@@ -105,14 +117,14 @@ const Login = () => {
       <Container>
         <form onSubmit={handleRegister}>
           <div>
-            <label>Email</label>
+            <label>Phone</label>
             <Input
-              placeholder={'Email'}
+              placeholder={'Phone'}
               size={'large'}
               height={'500px'}
               bordered={'1px solid #f1efef'}
               handleChange={(e) =>
-                setFormdata((p) => ({ ...p, email: e.target.value }))
+                setFormdata((p) => ({ ...p, phone: e.target.value }))
               }
             />
           </div>
@@ -138,7 +150,7 @@ const Login = () => {
               color='#090808'
               radius={'30px'}
               width={'100%'}
-              height={'3rem'}
+              height={'3.5rem'}
               hoverBackground='#f1efef'
               hoverColor='#090808'
               size={'1.3rem'}
