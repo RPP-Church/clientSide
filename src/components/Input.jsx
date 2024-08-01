@@ -18,7 +18,8 @@ const Input = ({
   height,
   type,
   width,
-  name
+  name,
+  handleFocus,
 }) => {
   return (
     <Inp
@@ -39,15 +40,15 @@ const Input = ({
       type={type}
       width={width}
       name={name}
-      
+      onFocus={handleFocus}
     />
   );
 };
 
 export default Input;
 
-Input.prototypes = {
-  handleChange: propTypes.any,
+Input.propTypes = {
+  handleChange: propTypes.func,
   handleBlur: propTypes.func,
   placeholder: propTypes.string,
   disabled: propTypes.bool,
@@ -63,5 +64,7 @@ Input.prototypes = {
   onPressEnter: propTypes.func,
   height: propTypes.string,
   type: propTypes.string,
-  name: propTypes.string
+  name: propTypes.string,
+  width: propTypes.string,
+  handleFocus: propTypes.func,
 };

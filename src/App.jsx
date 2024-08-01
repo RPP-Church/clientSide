@@ -20,6 +20,7 @@ function App() {
       ) : (
         <Nav pathname={pathname} user={token?.name} />
       )}
+      
       <AuthContext>
         <Routes>
           <Route path='/' element={<Home />} />

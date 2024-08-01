@@ -52,7 +52,7 @@ const Head = ({ text, back, sub, button, link }) => {
           to={'#'}
           onClick={() => {
             if (link) {
-              navigate('/');
+              navigate('/dashboard');
               return;
             }
             navigate(-1);
@@ -69,7 +69,7 @@ const Head = ({ text, back, sub, button, link }) => {
         ' '
       ) : (
         <div className='logout'>
-          <span onClick={() => navigate('/')}>
+          <span onClick={() => navigate('/dashboard')}>
             Home
             <FaHome />
           </span>

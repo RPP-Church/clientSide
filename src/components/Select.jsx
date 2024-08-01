@@ -9,9 +9,14 @@ const Select = ({
   onSearch,
   name,
   value,
+  mode,
+  status,
+  handleBlur,
+  handleFocus,
 }) => {
   return (
     <Sel
+      status={status}
       width={width}
       options={options}
       placeholder={placeholder}
@@ -20,6 +25,10 @@ const Select = ({
       name={name}
       allowClear
       value={value}
+      size='large'
+      mode={mode}
+      onBlur={handleBlur}
+      onFocus={handleFocus}
     />
   );
 };
@@ -34,4 +43,8 @@ Select.propTypes = {
   onSearch: propTypes.func,
   name: propTypes.string,
   value: propTypes.string,
+  mode: propTypes.string,
+  status: propTypes.string,
+  handleBlur: propTypes.func,
+  handleFocus: propTypes.func,
 };

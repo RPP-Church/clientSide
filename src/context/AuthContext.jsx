@@ -14,7 +14,7 @@ const AuthContext = ({ children }) => {
       const decodedToken = jwtDecode(user.token);
       if (decodedToken?.exp * 1000 < currentDate.getTime()) {
         localStorage.removeItem('user');
-        navigate('/login');
+        navigate('/');
       } else {
         // setIsSignIn(true);
         // dispatch(setToken(user));
@@ -29,7 +29,7 @@ const AuthContext = ({ children }) => {
         navigate('/dashboard');
       }
     } else {
-      navigate('/login');
+      navigate('/');
     }
   }
 
