@@ -42,7 +42,6 @@ const Container = styled.div`
   justify-content: center;
   flex-direction: column;
   height: 100%;
-  padding: 2rem;
   align-items: center;
 
   div {
