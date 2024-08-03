@@ -17,20 +17,10 @@ const AuthContext = ({ children }) => {
         localStorage.removeItem('user');
         navigate('/');
       } else {
-        // setIsSignIn(true);
-        // dispatch(setToken(user));
-        // dispatch(setAppPin(decodedToken?.pin || ''));
-        // dispatch(
-        //   setUser({
-        //     name: decodedToken.name,
-        //     role: decodedToken.role,
-        //     Id: decodedToken.userId,
-        //   })
-        // );
         navigate(pathname ? pathname : '/dashboard');
       }
     } else {
-      navigate('/');
+      navigate(pathname ? pathname : '/');
     }
   }
 

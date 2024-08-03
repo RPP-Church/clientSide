@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   height: 100%;
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
+  background-attachment: scroll;
   padding-top: 2rem;
   height: 100vh;
 
@@ -57,12 +57,12 @@ const Container = styled.div`
   form {
     max-width: 500px;
     width: 70%;
+    padding: 2rem;
   }
 
   @media screen and (max-width: 60rem) {
     form {
       width: 100%;
-      margin-bottom: 20%;
     }
   }
 `;
