@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 const Div = styled.div`
   background-color: #32c86e;
   padding: 1.5rem 2rem;
-  height: clamp(8rem, 2.5vw, 12rem);
+  height: clamp(12rem, 2.5vw, 12rem);
   max-height: 300px;
   border-radius: 8px;
   line-height: 2rem;

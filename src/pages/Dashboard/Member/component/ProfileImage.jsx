@@ -3,6 +3,7 @@ import { Avatar } from 'antd';
 import { CiEdit } from 'react-icons/ci';
 import Button from '../../../../components/Button';
 import propTypes from 'prop-types';
+import { Notification } from '../../../../components/Notification';
 
 const ProfileImage = ({ setState, state, handleUpdate }) => {
   return (
@@ -11,7 +12,7 @@ const ProfileImage = ({ setState, state, handleUpdate }) => {
         <Avatar
           //   style={{ backgroundColor: '#87d068' }}
           icon={<UserOutlined />}
-          size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 120, xxl: 120 }}
+          size={{ xs: 90, sm: 90, md: 100, lg: 110, xl: 120, xxl: 120 }}
         />
       </div>
       <div className='button'>
@@ -28,31 +29,38 @@ const ProfileImage = ({ setState, state, handleUpdate }) => {
         </button>
       </div>
       <div className='updateButtons'>
-        {!state.update && (
-          <div>
-            <Button
-              text={'Cancel'}
-              background={'red'}
-              color={'white'}
-              radius={'3px'}
-              padding={'10px 20px'}
-              onClick={() =>
-                setState((p) => ({
-                  ...p,
-                  update: true,
-                }))
+        <div>
+          <Button
+            text={'Cancel'}
+            background={'red'}
+            color={'white'}
+            radius={'3px'}
+            padding={'10px 20px'}
+            onClick={() =>
+              setState((p) => ({
+                ...p,
+                update: true,
+              }))
+            }
+          />
+          <Button
+            text='Update'
+            background={'#059212'}
+            radius={'3px'}
+            color={'white'}
+            padding={'10px 20px'}
+            onClick={() => {
+              if (state.update) {
+                Notification({
+                  type: 'warning',
+                  message: 'Edit record before updating',
+                });
+                return;
               }
-            />
-            <Button
-              text='Update'
-              background={'#059212'}
-              radius={'3px'}
-              color={'white'}
-              padding={'10px 20px'}
-              onClick={handleUpdate}
-            />
-          </div>
-        )}
+              handleUpdate();
+            }}
+          />
+        </div>
       </div>
     </div>
   );

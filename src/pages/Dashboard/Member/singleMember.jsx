@@ -37,7 +37,7 @@ const Wrapper = styled.div`
     }
 
     .updateButtons {
-      height: 3rem;
+      height: 2.3rem;
 
       div:first-child {
         display: flex;
@@ -96,8 +96,14 @@ const Wrapper = styled.div`
 
     .attendance {
       display: grid;
-      grid-template-columns: auto auto;
       gap: 20px;
+      margin-top: 10px;
+      height: 400px;
+      overflow: auto;
+      max-height: 500px;
+      @media screen and (min-width: 66rem) {
+        grid-template-columns: auto auto;
+      }
     }
   }
 `;

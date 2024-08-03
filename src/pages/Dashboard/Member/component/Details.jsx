@@ -212,6 +212,7 @@ const Details = ({ state, handleInput, data }) => {
             <Card key={item.serviceId}>
               <p>Sevice Name: {item.serviceName}</p>
               <p>Date: {item.date}</p>
+              <p>Time: {item.time || '---'}</p>
               <p>Attendance: {item.attendance}</p>
             </Card>
           ))}
