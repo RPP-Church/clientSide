@@ -17,7 +17,7 @@ function App() {
 
   return (
     <>
-      {pathname?.includes('dashboard') ? (
+      {pathname?.includes('dashboard') || pathname == '/login' ? (
         ''
       ) : (
         <Nav pathname={pathname} user={token?.name} />
