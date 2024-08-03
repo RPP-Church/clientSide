@@ -9,7 +9,8 @@ const Modals = ({
   okText,
   onCancel,
   loading,
-  width
+  width,
+  footer
 }) => {
   return (
     <Mod
@@ -20,6 +21,7 @@ const Modals = ({
       okText={okText}
       confirmLoading={loading}
       width={width}
+      footer={footer}
     >
       {children}
     </Mod>
@@ -35,5 +37,6 @@ Modals.propTypes = {
   okText: propTypes.string,
   onCancel: propTypes.func,
   loading: propTypes.any,
-  width: propTypes.string
+  width: propTypes.string,
+  footer: propTypes.any
 };

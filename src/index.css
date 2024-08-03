@@ -4,15 +4,12 @@
 }
 
 html {
-  font-family: 'Jost', sans-serif;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Oswald', sans-serif;
 }
+
+
 
 .ant-select-single,
 .ant-picker {
   width: 100%;
 }
-
-
-
-

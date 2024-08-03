@@ -45,6 +45,7 @@ const AddMemberModal = ({
       onCancel={() => setState((p) => ({ ...p, open: false }))}
       handleOK={handleSubmit}
       loading={isLoading}
+      okText={'Create'}
     >
       <Content>
         <div>
@@ -306,7 +307,7 @@ const AddMemberModal = ({
                 options={[
                   { key: 1, label: 'Single', value: 'Single' },
                   { key: 2, label: 'Married', value: 'Married' },
-                  { key: 2, label: 'Divorce', value: 'Divorce' },
+                  { key: 3, label: 'Divorce', value: 'Divorce' },
                 ]}
                 placeholder={'Select Status'}
                 value={state.controls.maritalStatus}

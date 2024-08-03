@@ -20,6 +20,7 @@ const Input = ({
   width,
   name,
   handleFocus,
+  style
 }) => {
   return (
     <Inp
@@ -40,7 +41,9 @@ const Input = ({
       type={type}
       width={width}
       name={name}
+      style={style}
       onFocus={handleFocus}
+      
     />
   );
 };
@@ -67,4 +70,5 @@ Input.propTypes = {
   name: propTypes.string,
   width: propTypes.string,
   handleFocus: propTypes.func,
+  style: propTypes.object
 };

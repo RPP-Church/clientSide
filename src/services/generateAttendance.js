@@ -12,7 +12,6 @@ export const GenerateAttendance = () => {
       });
     },
     onSuccess: (data) => {
-      console.log(data);
       var url = window.URL.createObjectURL(
         new Blob([data.data], { type: 'application/vnd.ms-excel' })
       );

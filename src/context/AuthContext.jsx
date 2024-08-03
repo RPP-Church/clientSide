@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { getToken } from '../services/getToken';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const AuthContext = ({ children }) => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   async function checkToken() {
     const user = getToken();
@@ -26,7 +27,7 @@ const AuthContext = ({ children }) => {
         //     Id: decodedToken.userId,
         //   })
         // );
-        navigate('/dashboard');
+        navigate(pathname ? pathname : '/dashboard');
       }
     } else {
       navigate('/');

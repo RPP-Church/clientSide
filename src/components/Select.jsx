@@ -13,6 +13,9 @@ const Select = ({
   status,
   handleBlur,
   handleFocus,
+  style,
+  disabled,
+  defaultValue
 }) => {
   return (
     <Sel
@@ -29,6 +32,9 @@ const Select = ({
       mode={mode}
       onBlur={handleBlur}
       onFocus={handleFocus}
+      style={style}
+      disabled={disabled}
+      defaultValue={defaultValue}
     />
   );
 };
@@ -47,4 +53,7 @@ Select.propTypes = {
   status: propTypes.string,
   handleBlur: propTypes.func,
   handleFocus: propTypes.func,
+  style: propTypes.object,
+  disabled: propTypes.bool,
+  defaultValue: propTypes.any
 };

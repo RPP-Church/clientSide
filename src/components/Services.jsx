@@ -2,20 +2,19 @@ import styled from 'styled-components';
 import { FaPlus } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import { IoPaperPlaneOutline } from 'react-icons/io5';
-import { HiOutlineDevicePhoneMobile } from 'react-icons/hi2';
 import { IoDocumentTextOutline } from 'react-icons/io5';
 // import { IoPrint } from 'react-icons/io5';
 // import { IoQrCodeSharp } from "react-icons/io5";
 import { TbReport } from 'react-icons/tb';
+import { FaChurch } from 'react-icons/fa';
 const Container = styled.div`
   margin-top: clamp(1.6rem, 2.5vw, 2.5rem);
 
   .serviced {
     margin-top: clamp(1.5rem, 2.5vw, 2rem);
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 15px;
     a {
       text-decoration: none !important;
       text-align: center;
@@ -25,17 +24,27 @@ const Container = styled.div`
         color: black;
       }
     }
+    @media screen and (min-width: 66rem) {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
   }
 `;
 
 const Card = styled.div`
-  width: clamp(7rem, 2.5vw, 14rem);
   background-color: #32c86e;
-  height: clamp(7rem, 2.5vw, 14rem);
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 18px;
+  width: clamp(11rem, 2.5vw, 14rem);
+  height: clamp(8rem, 2.5vw, 14rem);
+
+  @media screen and (min-width: 66rem) {
+    width: clamp(7rem, 2.5vw, 14rem);
+    height: clamp(7rem, 2.5vw, 14rem);
+  }
 `;
 const Services = () => {
   return (
@@ -58,7 +67,7 @@ const Services = () => {
         </Link>
         <Link to={'/dashboard/activity'}>
           <Card>
-            <HiOutlineDevicePhoneMobile size={40} color='white' />
+            <FaChurch size={40} color='white' />
           </Card>
           <p>Activity</p>
         </Link>
@@ -66,7 +75,7 @@ const Services = () => {
           <Card>
             <IoDocumentTextOutline size={40} color='white' />
           </Card>
-          <p>Attendance</p>
+          <p>Capture Attendance</p>
         </Link>
         {/* <Link to={'/print'}>
           <Card>

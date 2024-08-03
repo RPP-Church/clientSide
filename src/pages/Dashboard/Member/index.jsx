@@ -1,4 +1,3 @@
-import { Table } from 'antd';
 import Head from '../../../components/Head';
 import { GetMembers } from '../../../services/getMembers';
 import Container from '../../../style/container';
@@ -9,7 +8,11 @@ import { useState } from 'react';
 import AddMemberModal from './component/AddMember';
 import { ErrorStatus } from './Logics/errorStatus';
 import { CreateMember } from '../../../services/createMember';
-import { Pager } from '../../../components/Pagination';
+import { FaUserEdit } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import Splash from '../../../components/animation';
+import SearchBars from './component/SearchBar';
+import TableComponent from './component/TableComponent';
 
 const Wrapper = styled.div`
   .new-post {
@@ -20,11 +23,17 @@ const Wrapper = styled.div`
 `;
 
 const Index = () => {
+  const navigator = useNavigate();
   const [state, setState] = useState({
     open: false,
     query: {
       size: 10,
       page: 1,
+      firstName: '',
+      lastName: '',
+      phone: '',
+      category: '',
+      gender: '',
     },
     focusFirstName: {
       error: false,
@@ -131,15 +140,16 @@ const Index = () => {
     {
       title: 'Action',
       dataIndex: 'action',
-      // render: (_, record) =>
-      //   dataSource.length >= 1 ? (
-      //     <Popconfirm
-      //       title='Sure to delete?'
-      //       onConfirm={() => mutateDelete(record)}
-      //     >
-      //       <DeleteOutlined size={20} />
-      //     </Popconfirm>
-      //   ) : null,
+      render: (_, record) => {
+        return (
+          <span
+            style={{ cursor: 'pointer' }}
+            onClick={() => navigator(`/dashboard/member/${record.key}`)}
+          >
+            <FaUserEdit size={20} />
+          </span>
+        );
+      },
     },
   ];
 
@@ -183,11 +193,35 @@ const Index = () => {
       query: {
         ...p.query,
         page: pageNumber,
+        limit,
       },
     }));
   };
 
-  console.log(data);
+  if (isError) {
+    return (
+      <div>
+        <h2>Error occur when loading page</h2>
+      </div>
+    );
+  }
+
+  if (isFetching) {
+    return <Splash />;
+  }
+
+  // name,
+  //   gender,
+  //   address,
+  //   department,
+  //   fromDate,
+  //   toDate,
+  //   membershipType,
+  //   maritalStatus,
+  //   sort,
+  //   dob,
+  //   phone,
+  //   category,
 
   return (
     <Container>
@@ -211,26 +245,18 @@ const Index = () => {
                 open: true,
               }))
             }
+            disable={isFetching}
           />
         </div>
-        <Table
-          size='small'
-          loading={isFetching}
+        <SearchBars setState={setState} state={state} refetch={refetch} />
+        <TableComponent
+          isFetching={isFetching}
+          Data={Data}
           columns={columns}
-          dataSource={Data}
-          scroll={{ x: true, scrollToFirstRowOnChange: true }}
-          pagination={false}
+          handlePagination={handlePagination}
+          current={data?.current + 1}
+          total={data?.totalElement}
         />
-        <div
-          style={{ display: 'flex', justifyContent: 'end', margin: '20px 0' }}
-        >
-          <Pager
-            onChange={handlePagination}
-            current={data?.current + 1}
-            pageSize={10}
-            total={data?.totalElement}
-          />
-        </div>
       </Wrapper>
     </Container>
   );
