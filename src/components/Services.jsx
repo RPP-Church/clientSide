@@ -38,7 +38,7 @@ const Card = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 18px;
-  width: clamp(11rem, 2.5vw, 14rem);
+  width: 93%;
   height: clamp(8rem, 2.5vw, 14rem);
 
   @media screen and (min-width: 66rem) {
