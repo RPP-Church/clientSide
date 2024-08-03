@@ -8,6 +8,8 @@ import { ErrorHandler } from '../../components/ErrorHandler';
 import { login } from '../../services/login';
 import { userState } from '../../state/userState';
 import { useNavigate } from 'react-router-dom';
+import Splash from '../../components/animation';
+import { Notification } from '../../components/Notification';
 
 const Wrapper = styled.div`
   background: ${({ loaded, src }) =>
@@ -40,7 +42,7 @@ const Container = styled.div`
   justify-content: center;
   flex-direction: column;
   height: 100%;
-  margin: 2rem;
+  padding: 2rem;
   align-items: center;
 
   div {
@@ -61,6 +63,7 @@ const Container = styled.div`
   @media screen and (max-width: 60rem) {
     form {
       width: 100%;
+      margin-bottom: 20%;
     }
   }
 `;
@@ -91,7 +94,10 @@ const Login = () => {
     },
     onError: (error) => {
       const message = ErrorHandler(error);
-      alert(message.data.msg);
+      Notification({
+        type: 'error',
+        message: message.data.mesage || message.data.msg,
+      });
     },
   });
 
@@ -105,13 +111,16 @@ const Login = () => {
     };
 
     if (!data.phone && !data.password) {
-      alert('Please enter email and password');
+      Notification({ type: 'info', message: 'Phone or password not correct' });
       return;
     }
 
     mutate(data);
   };
 
+  if (isLoading) {
+    return <Splash />;
+  }
   return (
     <Wrapper loaded={loaded.toString()} src={img.src}>
       <Container>
