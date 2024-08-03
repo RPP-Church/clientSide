@@ -101,8 +101,14 @@ const Wrapper = styled.div`
       height: 400px;
       overflow: auto;
       max-height: 500px;
-      @media screen and (min-width: 66rem) {
+      .ant-card {
+        height: 150px !important;
+      }
+      @media screen and (min-width: 36rem) {
         grid-template-columns: auto auto;
+        height: unset;
+        overflow: auto;
+        max-height: unset;
       }
     }
   }
