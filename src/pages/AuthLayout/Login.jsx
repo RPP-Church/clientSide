@@ -43,7 +43,7 @@ const Container = styled.div`
   flex-direction: column;
   height: 100%;
   align-items: center;
-
+  padding: 0 2rem;
   div {
     margin-bottom: 2rem;
   }
@@ -57,7 +57,6 @@ const Container = styled.div`
   form {
     max-width: 500px;
     width: 70%;
-    padding: 2rem;
   }
 
   @media screen and (max-width: 60rem) {
