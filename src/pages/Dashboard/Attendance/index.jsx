@@ -134,13 +134,14 @@ const Index = () => {
                 style={{ cursor: 'pointer' }}
                 onClick={() => {
                   const today = new Date();
-                  const options = {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric',
-                  };
-                  const formatter = new Intl.DateTimeFormat('en-GB', options);
-                  const formattedDate = formatter.format(today);
+                  // const options = {
+                  //   day: '2-digit',
+                  //   month: '2-digit',
+                  //   year: 'numeric',
+                  // };
+                  // const formatter = new Intl.DateTimeFormat('en-GB', options);
+                  // const formattedDate = formatter.format(today);
+                  console.log(today.toISOString(), 'formattedDate');
                   setState((p) => ({
                     ...p,
                     controls: {
@@ -152,7 +153,7 @@ const Index = () => {
                     searchParams.set('memberId', record.key);
                     return searchParams;
                   });
-                  mutateActivity(formattedDate);
+                  mutateActivity(today.toISOString());
                 }}
               >
                 {(isLoading && record.key === state.controls.Id) ||
