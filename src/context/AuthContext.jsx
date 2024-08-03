@@ -15,7 +15,7 @@ const AuthContext = ({ children }) => {
       const decodedToken = jwtDecode(user.token);
       if (decodedToken?.exp * 1000 < currentDate.getTime()) {
         localStorage.removeItem('user');
-        navigate('/');
+        navigate('/login');
       } else {
         // setIsSignIn(true);
         // dispatch(setToken(user));
@@ -30,7 +30,7 @@ const AuthContext = ({ children }) => {
         navigate(pathname ? pathname : '/dashboard');
       }
     } else {
-      navigate('/');
+      navigate(pathname === '/login' ? pathname : '/');
     }
   }
 
