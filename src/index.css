@@ -7,9 +7,13 @@ html {
   font-family: 'Oswald', sans-serif;
 }
 
-
-
 .ant-select-single,
 .ant-picker {
   width: 100%;
+}
+
+@media screen and (max-width: 66rem) {
+  .ant-modal {
+    width: 100% !important;
+  }
 }
