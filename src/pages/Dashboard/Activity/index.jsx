@@ -1,7 +1,7 @@
 import Head from '../../../components/Head';
 import { FetchAllActivities } from '../../../services/fetchActivity';
 import Container from '../../../style/container';
-import Splash from '../../../components/animation';
+import { FetchErrorAnimation, Splash } from '../../../components/animation';
 import TableData from './component/TableData';
 import { Table } from '../../../components/Table';
 import Button from '../../../components/Button';
@@ -67,7 +67,6 @@ const Index = () => {
     mutate(data);
   };
 
-
   const columns = [
     {
       title: 'ID',
@@ -117,11 +116,7 @@ const Index = () => {
   }
 
   if (isError) {
-    return (
-      <div>
-        <h2>Error occured when fetching activities</h2>
-      </div>
-    );
+    return <FetchErrorAnimation refetch={refetch} />;
   }
 
   return (

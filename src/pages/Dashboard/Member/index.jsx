@@ -10,7 +10,7 @@ import { ErrorStatus } from './Logics/errorStatus';
 import { CreateMember } from '../../../services/createMember';
 import { FaUserEdit } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import Splash from '../../../components/animation';
+import { FetchErrorAnimation, Splash } from '../../../components/animation';
 import SearchBars from './component/SearchBar';
 import TableComponent from './component/TableComponent';
 
@@ -199,11 +199,7 @@ const Index = () => {
   };
 
   if (isError) {
-    return (
-      <div>
-        <h2>Error occur when loading page</h2>
-      </div>
-    );
+    return <FetchErrorAnimation refetch={refetch} />;
   }
 
   if (isFetching) {

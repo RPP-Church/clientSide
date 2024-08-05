@@ -1,6 +1,6 @@
 import Head from '../../../components/Head';
 import Container from '../../../style/container';
-import Splash from '../../../components/animation';
+import { FetchErrorAnimation, Splash } from '../../../components/animation';
 import Button from '../../../components/Button';
 import styled from 'styled-components';
 import { useState } from 'react';
@@ -71,7 +71,7 @@ const Index = () => {
   //! END
 
   //! GET MEMBER"S ALSO QUERY MEMBER
-  const { data, refetch, isFetching } = GetMembers(state.query);
+  const { data, refetch, isFetching, isError } = GetMembers(state.query);
   const Data = TableData({ data });
   //! END
 
@@ -141,7 +141,6 @@ const Index = () => {
                   // };
                   // const formatter = new Intl.DateTimeFormat('en-GB', options);
                   // const formattedDate = formatter.format(today);
-                  console.log(today.toISOString(), 'formattedDate');
                   setState((p) => ({
                     ...p,
                     controls: {
@@ -182,6 +181,10 @@ const Index = () => {
 
   if (loadCapture) {
     return <Splash />;
+  }
+
+  if (isError) {
+    return <FetchErrorAnimation refetch={refetch} />;
   }
 
   return (

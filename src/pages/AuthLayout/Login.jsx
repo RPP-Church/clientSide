@@ -8,7 +8,7 @@ import { ErrorHandler } from '../../components/ErrorHandler';
 import { login } from '../../services/login';
 import { userState } from '../../state/userState';
 import { useNavigate } from 'react-router-dom';
-import Splash from '../../components/animation';
+import {Splash} from '../../components/animation';
 import { Notification } from '../../components/Notification';
 
 const Wrapper = styled.div`

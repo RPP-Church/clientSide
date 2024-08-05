@@ -12,7 +12,7 @@ const ProfileImage = ({ setState, state, handleUpdate }) => {
         <Avatar
           //   style={{ backgroundColor: '#87d068' }}
           icon={<UserOutlined />}
-          size={{ xs: 90, sm: 90, md: 100, lg: 110, xl: 120, xxl: 120 }}
+          size={{ xs: 90, sm: 90, md: 100, lg: 110, xl: 200, xxl: 200 }}
         />
       </div>
       <div className='button'>

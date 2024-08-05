@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import Head from '../../../components/Head';
 import Container from '../../../style/container';
 import { GetSingleMember } from '../../../services/getMembers';
-import Splash from '../../../components/animation';
+import { FetchErrorAnimation, Splash } from '../../../components/animation';
 import styled from 'styled-components';
 import { useState } from 'react';
 import { FetchDepartments } from '../../../services/fetchDepartments';
@@ -106,9 +106,9 @@ const Wrapper = styled.div`
       }
       @media screen and (min-width: 36rem) {
         grid-template-columns: auto auto;
-        height: unset;
+        /* height: unset;
         overflow: auto;
-        max-height: unset;
+        max-height: unset; */
       }
     }
   }
@@ -186,12 +186,9 @@ const SingleMember = () => {
   }
 
   if (isError) {
-    return (
-      <div>
-        <h2>Error fetching member</h2>
-      </div>
-    );
+    return <FetchErrorAnimation refetch={refetch} />;
   }
+
   return (
     <Container>
       <Head text={'RPP Church Portal'} />

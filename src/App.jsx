@@ -11,6 +11,7 @@ import AuthContext from './context/AuthContext';
 import MemberDetails from './pages/Dashboard/Member/singleMember';
 import Activities from './pages/Dashboard/Activity';
 import Attendance from './pages/Dashboard/Attendance/index';
+import { ErrorAnimation } from './components/animation';
 function App() {
   const { pathname } = useLocation();
   const token = getToken();
@@ -35,9 +36,9 @@ function App() {
             <Route element={<Department />} path='/dashboard/department' />
             <Route element={<Activities />} path='/dashboard/activity' />
             <Route element={<Attendance />} path='/dashboard/attendance' />
-            <Route element={<h2>Not found</h2>} path='*' />
+            <Route element={<ErrorAnimation />} path='*' />
           </Route>
-          <Route element={<h2>Not found</h2>} path='*' />
+          <Route element={<ErrorAnimation />} path='*' />
         </Routes>
       </AuthContext>
     </>
