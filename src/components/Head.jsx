@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 import { IoIosArrowBack } from 'react-icons/io';
-import { Link, useNavigate } from 'react-router-dom';
-import { AiOutlineLogout } from 'react-icons/ai';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
-
+import { IoMdSettings } from 'react-icons/io';
+import { IoLogOut } from 'react-icons/io5';
 const Header = styled.div`
   margin: 2rem 0;
   display: flex;
@@ -40,10 +40,18 @@ const Header = styled.div`
 `;
 const Head = ({ text, back, sub, button, link }) => {
   const navigate = useNavigate();
-
+  const { pathname } = useLocation();
   const handleLogout = () => {
     localStorage.removeItem('user');
     window.location.reload();
+  };
+
+  const handleNavigate = () => {
+    if (pathname === '/dashboard/settings') {
+      handleLogout();
+    } else {
+      navigate('/dashboard/settings');
+    }
   };
   return (
     <Header>
@@ -73,9 +81,13 @@ const Head = ({ text, back, sub, button, link }) => {
             Home
             <FaHome />
           </span>
-          <span onClick={handleLogout}>
-            Logout
-            <AiOutlineLogout />
+          <span onClick={() => handleNavigate()}>
+            {pathname === '/dashboard/settings' ? 'Logout' : 'Settings'}
+            {pathname === '/dashboard/settings' ? (
+              <IoLogOut />
+            ) : (
+              <IoMdSettings />
+            )}
           </span>
         </div>
       )}

@@ -16,9 +16,12 @@ import {
 } from '../../../services/fetchActivity';
 import CustomNotification from '../../../components/CustomNotification';
 import { Spin } from 'antd';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { CaptureAttendance } from '../../../services/captureAttendance';
 import Tips from '../../../components/Tips';
+import AddServiceModal from '../Activity/component/AddActivity';
+import { CreateActivities } from '../../../services/createActivity';
+
 const Wrapper = styled.div`
   .new-post {
     display: flex;
@@ -30,7 +33,7 @@ const Wrapper = styled.div`
 const Index = () => {
   const { contextHolder, openNotification } = CustomNotification();
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const navigator = useNavigate();
   const [state, setState] = useState({
     open: false,
     query: {
@@ -74,6 +77,25 @@ const Index = () => {
   const { data, refetch, isFetching, isError } = GetMembers(state.query);
   const Data = TableData({ data });
   //! END
+
+  //! CREATE ACTIVITY
+  const { mutate: createMutatate, isLoading: loadingCreate } = CreateActivities(
+    {
+      refetch,
+      close: () => setState((p) => ({ ...p, open: false })),
+      reset: () => setState((p) => ({ ...p, controls: { serviceName: '' } })),
+    }
+  );
+
+  const handleInput = (e, d, n) => {
+    setState((p) => ({
+      ...p,
+      controls: {
+        ...p.controls,
+        [n]: e,
+      },
+    }));
+  };
 
   const columns = [
     {
@@ -179,6 +201,15 @@ const Index = () => {
     }));
   };
 
+  const handleCreateService = () => {
+    const data = {
+      serviceName: state.controls.serviceName,
+      date: state.controls.date,
+    };
+
+    createMutatate(data);
+  };
+
   if (loadCapture) {
     return <Splash />;
   }
@@ -190,13 +221,13 @@ const Index = () => {
   return (
     <Container>
       {contextHolder}
-      {/* <AddServiceModal
+      <AddServiceModal
         state={state}
         setState={setState}
         handleInput={handleInput}
         handleSubmit={handleCreateService}
-        isLoading={isLoading}
-      /> */}
+        isLoading={loadingCreate}
+      />
       <Head text={'RPP Church Portal'} />
       <Wrapper>
         <div className='new-post'>
