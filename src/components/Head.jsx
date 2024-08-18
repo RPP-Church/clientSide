@@ -70,7 +70,7 @@ const Head = ({ text, back, sub, button, link }) => {
         </Link>
       )}
       <div>
-        <h2>{text}</h2>
+        <h2>{'Resurrection Power Parish Portal'}</h2>
         {sub && <p>{sub}</p>}
       </div>
       {button ? (

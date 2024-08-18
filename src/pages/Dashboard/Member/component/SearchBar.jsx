@@ -38,6 +38,7 @@ const SearchBars = ({ setState, state, refetch }) => {
               query: {
                 ...p.query,
                 firstName: e.target.value,
+                page: 1,
               },
             }))
           }
@@ -58,6 +59,7 @@ const SearchBars = ({ setState, state, refetch }) => {
               query: {
                 ...p.query,
                 lastName: e.target.value,
+                page: 1,
               },
             }))
           }
@@ -76,6 +78,7 @@ const SearchBars = ({ setState, state, refetch }) => {
               query: {
                 ...p.query,
                 phone: e.target.value,
+                page: 1,
               },
             }))
           }
@@ -91,6 +94,7 @@ const SearchBars = ({ setState, state, refetch }) => {
               query: {
                 ...p.query,
                 category: e,
+                page: 1,
               },
             }))
           }
@@ -120,6 +124,7 @@ const SearchBars = ({ setState, state, refetch }) => {
               query: {
                 ...p.query,
                 gender: e,
+                page: 1,
               },
             }))
           }

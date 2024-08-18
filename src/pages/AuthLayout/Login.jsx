@@ -8,8 +8,9 @@ import { ErrorHandler } from '../../components/ErrorHandler';
 import { login } from '../../services/login';
 import { userState } from '../../state/userState';
 import { useNavigate } from 'react-router-dom';
-import {Splash} from '../../components/animation';
+import { Splash } from '../../components/animation';
 import { Notification } from '../../components/Notification';
+import { Checkbox } from 'antd';
 
 const Wrapper = styled.div`
   background: ${({ loaded, src }) =>
@@ -72,6 +73,7 @@ const Login = () => {
   const [formdata, setFormdata] = useState({
     phone: '',
     password: '',
+    show: false,
   });
 
   const img = new Image();
@@ -136,17 +138,28 @@ const Login = () => {
             />
           </div>
           <div>
-            <label>Password</label>
-            <Input
-              placeholder={'Password'}
-              size={'large'}
-              height={'500px'}
-              bordered={'1px solid #f1efef'}
-              handleChange={(e) =>
-                setFormdata((p) => ({ ...p, password: e.target.value }))
+            <div>
+              <label>Password</label>
+
+              <Input
+                placeholder={'Password'}
+                size={'large'}
+                height={'500px'}
+                bordered={'1px solid #f1efef'}
+                handleChange={(e) =>
+                  setFormdata((p) => ({ ...p, password: e.target.value }))
+                }
+                type={formdata.show ? 'tex' : 'password'}
+              />
+            </div>
+            <Checkbox
+              value={formdata.show}
+              onChange={(e) =>
+                setFormdata((p) => ({ ...p, show: e.target.checked }))
               }
-              type={'password'}
-            />
+            >
+              <p>Show Password</p>
+            </Checkbox>
           </div>
           <div>
             <Button

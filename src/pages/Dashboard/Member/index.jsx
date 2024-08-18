@@ -245,6 +245,9 @@ const Index = () => {
           />
         </div>
         <SearchBars setState={setState} state={state} refetch={refetch} />
+        <div style={{ margin: '10px 0' }}>
+          <h3>Total Result : {data?.totalElement ? data?.totalElement : ''}</h3>
+        </div>
         <TableComponent
           isFetching={isFetching}
           Data={Data}
