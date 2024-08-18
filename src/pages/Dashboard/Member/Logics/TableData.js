@@ -25,7 +25,7 @@ const TableData = ({ data }) => {
 
           return {
             key: item._id,
-            sn: index + 1,
+            sn: (data?.current + 1) * 10 + index + 1 - 10,
             title: item.title || '---',
             firstname: item?.firstName,
             lastname: item.lastName,
