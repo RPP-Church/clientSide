@@ -59,3 +59,33 @@ export const GetSingleMember = ({ id, setState }) => {
 
   return { data, isLoading, refetch, isFetching, error, isError };
 };
+
+export const GetMemberMutat = (query) => {
+  const axios = useAxiosPrivate();
+  const params = `${query.firstName ? `&firstName=${query.firstName}` : ''}${
+    query.lastName ? `&lastName=${query.lastName}` : ''
+  }${query.phone ? `&phone=${query.phone}` : ''}${
+    query.gender ? `&gender=${query.gender}` : ''
+  }${query.category ? `&category=${query.category}` : ''}`;
+
+  const [values] = Debounce(params, 2000);
+  const { data, isLoading, refetch, isFetching, error, isError } = useQuery({
+    queryKey: ['getMemberDepartment' + values],
+    queryFn: async () => {
+      const { data } = await axios.get(`/member?page=1${params}`);
+      const option =
+        data?.data?.length > 0
+          ? data?.data.map((c) => ({
+              label: `${c.firstName} ${c.lastName}`,
+              key: c._id,
+              value: `${c.firstName} ${c.lastName}`,
+            }))
+          : [];
+      return option;
+    },
+    retry: false,
+    enabled: values ? true : false,
+  });
+
+  return { data, isLoading, refetch, isFetching, error, isError };
+};

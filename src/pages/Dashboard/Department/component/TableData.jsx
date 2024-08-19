@@ -8,7 +8,7 @@ const TableData = ({ data }) => {
             key: item._id,
             sn: index + 1,
             name: item.name,
-            hod: item?.headOfDepartment,
+            hod: item?.headOfDepartment?.name,
             phone: item.headOfDepartmentPhone || '---',
             ministerInCharge: item.ministerInCharge || '---',
           };

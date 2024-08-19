@@ -15,7 +15,8 @@ const Select = ({
   handleFocus,
   style,
   disabled,
-  defaultValue
+  defaultValue,
+  loading,
 }) => {
   return (
     <Sel
@@ -35,6 +36,8 @@ const Select = ({
       style={style}
       disabled={disabled}
       defaultValue={defaultValue}
+      showSearch
+      loading={loading}
     />
   );
 };
@@ -55,5 +58,6 @@ Select.propTypes = {
   handleFocus: propTypes.func,
   style: propTypes.object,
   disabled: propTypes.bool,
-  defaultValue: propTypes.any
+  defaultValue: propTypes.any,
+  loading: propTypes.bool,
 };

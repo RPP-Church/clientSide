@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import Input from '../../../../components/Input';
 import Modals from '../../../../components/Modal';
 import propTypes from 'prop-types';
+import Select from '../../../../components/Select';
+import { GetMemberMutat } from '../../../../services/getMembers';
 
 const ContainerInput = styled.div`
   display: block;
@@ -35,6 +37,17 @@ const AddDepartmentModal = ({
   handleSubmit,
   isLoading,
 }) => {
+  const { isError, isFetching, data } = GetMemberMutat(state.query);
+
+  const searchMember = (data) => {
+    setState((p) => ({
+      ...p,
+      query: {
+        ...p.query,
+        firstName: data,
+      },
+    }));
+  };
   return (
     <Modals
       open={state.open}
@@ -60,14 +73,24 @@ const AddDepartmentModal = ({
           </div>
           <div className='child'>
             <label>Head of Department</label>
-            <Input
+            <Select
               name='headOfDepartment'
               placeholder={'Head of department'}
               size={'large'}
-              value={state.controls.headOfDepartment}
+              value={
+                state.controls.headOfDepartment.name || 'Search by First Name'
+              }
               handleChange={(e, d) => {
-                handleInput(e.target.value, d, 'headOfDepartment');
+                const value = {
+                  name: e,
+                  userId: d.key,
+                };
+                handleInput(e, value, 'headOfDepartment');
               }}
+              onSearch={(e) => searchMember(e)}
+              options={data?.length > 0 ? data : []}
+              loading={isFetching}
+              status={isError ? 'error' : ''}
             />
           </div>
           <div className='child'>
@@ -84,14 +107,18 @@ const AddDepartmentModal = ({
           </div>
           <div className='child'>
             <label>Minister In Charge</label>
-            <Input
+            <Select
               name='ministerInCharge'
               placeholder={'Minister in charge'}
               size={'large'}
-              value={state.controls.ministerInCharge}
+              value={
+                state.controls.ministerInCharge.name || 'Search by first name'
+              }
               handleChange={(e, d) => {
                 handleInput(e.target.value, d, 'ministerInCharge');
               }}
+              onSearch={(e) => searchMember(e)}
+              options={data?.length > 0 ? data : []}
             />
           </div>
         </ContainerInput>

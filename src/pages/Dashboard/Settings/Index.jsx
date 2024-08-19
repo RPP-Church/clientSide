@@ -83,7 +83,6 @@ const Index = () => {
   const { refetch, isError, isFetching } = FetchAdmin(userId, setState);
   const { mutate, isLoading } = UpdateAdmin(userId, refetch, setState);
 
-  console.log(userId, 'userId')
   const handleSumbit = () => {
     if (state.update) {
       Notification({ type: 'warning', message: 'Update record before saving' });

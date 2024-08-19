@@ -49,12 +49,19 @@ const Index = () => {
       page: 1,
       serviceName: '',
       date: '',
+      firstName: '',
     },
     controls: {
       name: '',
-      headOfDepartment: '',
+      headOfDepartment: {
+        name: '',
+        userId: '',
+      },
       headOfDepartmentPhone: '',
-      ministerInCharge: '',
+      ministerInCharge: {
+        name: '',
+        userId: '',
+      },
     },
   });
   const { data, isError, isFetching, refetch } = FetchDepartments();
@@ -78,20 +85,27 @@ const Index = () => {
   });
   const DATA = TableData({ data });
 
+
   const handleInput = (e, d, n) => {
     setState((p) => ({
       ...p,
       controls: {
         ...p.controls,
-        [n]: e,
+        [n]: n === 'headOfDepartment' ? d : e,
       },
     }));
   };
 
   const handleSubmit = () => {
     const data = {
-      ...state.controls,
+      name: state.controls.name,
+      headOfDepartment: state.controls.headOfDepartment,
+      headOfDepartmentPhone: state.controls.headOfDepartmentPhone,
     };
+
+    if (state.controls.ministerInCharge.name) {
+      data.ministerInCharge = state.controls.ministerInCharge;
+    }
 
     mutate(data);
   };

@@ -85,7 +85,6 @@ const UpdatePassword = ({ state, setState, userId }) => {
       password: state.controls.password,
     };
 
-    console.log(data);
     mutate(data);
   };
   return (
