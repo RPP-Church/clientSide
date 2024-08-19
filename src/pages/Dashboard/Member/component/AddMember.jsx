@@ -343,6 +343,7 @@ const AddMemberModal = ({
               options={[
                 { key: 1, label: 'Existing Member', value: 'Existing Member' },
                 { key: 2, label: 'New Member', value: 'New Member' },
+                { key: 2, label: 'Visitor', value: 'Visitor' },
               ]}
               placeholder={'Select Status'}
               value={state.controls.membershipType}
