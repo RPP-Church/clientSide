@@ -19,11 +19,21 @@ const Details = ({ state, handleInput, data }) => {
           </div>
           <div className='child'>
             <label>TITLE</label>
-            <Input
+            <Select
+              options={[
+                { key: 1, label: 'Mr', value: 'Mr' },
+                { key: 2, label: 'Mrs', value: 'Mrs' },
+                { key: 3, value: 'Miss', label: 'Miss' },
+                { key: 4, value: 'Dcn', label: 'Dcn' },
+                { key: 5, value: 'Pastor', label: 'Pastor' },
+                { key: 6, value: 'Asst. Pastor', label: 'Asst. Pastor' },
+                { key: 7, value: 'Elder', label: 'Elder' },
+              ]}
               value={state.controls.title}
               size={'large'}
-              disabled
               style={{ color: 'black' }}
+              handleChange={(e, d) => handleInput(e.target.value, d, 'title')}
+              disabled={state.update}
             />
           </div>
         </div>
@@ -161,8 +171,10 @@ const Details = ({ state, handleInput, data }) => {
             <Input
               value={state.controls.dateOfBirth}
               size={'large'}
-              disabled
+              disabled={state.update}
               style={{ color: 'black' }}
+              handleChange={(e, d) => handleInput(e.target.value, d, 'dateOfBirth')}
+
             />
           </div>
         </div>

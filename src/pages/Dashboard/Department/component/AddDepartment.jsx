@@ -86,6 +86,13 @@ const AddDepartmentModal = ({
                   userId: d.key,
                 };
                 handleInput(e, value, 'headOfDepartment');
+                setState((p) => ({
+                  ...p,
+                  controls: {
+                    ...p.controls,
+                    headOfDepartmentPhone: d.phone,
+                  },
+                }));
               }}
               onSearch={(e) => searchMember(e)}
               options={data?.length > 0 ? data : []}

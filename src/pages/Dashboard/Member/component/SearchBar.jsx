@@ -20,9 +20,11 @@ const SearchBars = ({ setState, state, refetch }) => {
         phone: '',
         category: '',
         gender: '',
+        membershipType: '',
       },
     }));
   };
+
   return (
     <SearchBar>
       <div>
@@ -106,6 +108,29 @@ const SearchBars = ({ setState, state, refetch }) => {
           placeholder={'Select Category'}
           name='category'
           value={state.query.category || 'Select Category'}
+        />
+      </div>
+      <div>
+        <label>Type</label>
+        <Select
+          handleChange={(e) =>
+            setState((p) => ({
+              ...p,
+              query: {
+                ...p.query,
+                membershipType: e,
+                page: 1,
+              },
+            }))
+          }
+          options={[
+            { key: 1, label: 'New Members', value: 'New Member' },
+            { key: 2, label: 'Existing Members', value: 'Existing Member' },
+            { key: 3, value: 'Visitor', label: 'Visitor' },
+          ]}
+          placeholder={'Select Type'}
+          name='membershipType'
+          value={state.query.membershipType || 'Select Type'}
         />
       </div>
       <div>

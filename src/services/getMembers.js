@@ -9,7 +9,7 @@ export const GetMembers = (query) => {
     query.phone ? `&phone=${query.phone}` : ''
   }${query.gender ? `&gender=${query.gender}` : ''}${
     query.category ? `&category=${query.category}` : ''
-  }`;
+  }${query.membershipType ? `&membershipType=${query.membershipType}` : ''}`;
 
   const [values] = Debounce(params, 1500);
 
@@ -79,6 +79,7 @@ export const GetMemberMutat = (query) => {
               label: `${c.firstName} ${c.lastName}`,
               key: c._id,
               value: `${c.firstName} ${c.lastName}`,
+              phone: c.phone,
             }))
           : [];
       return option;

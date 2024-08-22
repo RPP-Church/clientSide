@@ -34,6 +34,7 @@ const Index = () => {
       phone: '',
       category: '',
       gender: '',
+      membershipType: ''
     },
     focusFirstName: {
       error: false,
@@ -73,6 +74,8 @@ const Index = () => {
     },
   });
 
+
+  console.log(state)
   //! FETCH MEMEBERS
   const { data, isError, isFetching, refetch } = GetMembers(state.query);
 
