@@ -147,7 +147,7 @@ const SingleMember = () => {
       membershipType: state.controls.membershipType,
       email: state.controls.email || '',
       title: state.controls.title,
-      dateOfBirth: state.controls.dateOfBirth
+      dateOfBirth: state.controls.dateOfBirth,
     };
 
     mutate({ data, id });

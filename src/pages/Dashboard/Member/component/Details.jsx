@@ -32,7 +32,8 @@ const Details = ({ state, handleInput, data }) => {
               value={state.controls.title}
               size={'large'}
               style={{ color: 'black' }}
-              handleChange={(e, d) => handleInput(e.target.value, d, 'title')}
+              handleChange={(e, d, name) => handleInput(e, d, name)}
+              name={'title'}
               disabled={state.update}
             />
           </div>
@@ -173,8 +174,9 @@ const Details = ({ state, handleInput, data }) => {
               size={'large'}
               disabled={state.update}
               style={{ color: 'black' }}
-              handleChange={(e, d) => handleInput(e.target.value, d, 'dateOfBirth')}
-
+              handleChange={(e, d) =>
+                handleInput(e.target.value, d, 'dateOfBirth')
+              }
             />
           </div>
         </div>
