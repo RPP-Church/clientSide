@@ -3,9 +3,11 @@ import BackgroundPicture from '../../assets/diana-vargas-ZySVEbGBNxA-unsplash.jp
 import { useState } from 'react';
 import Button from '../../components/Button';
 import { useNavigate } from 'react-router-dom';
+import { getToken } from '../../services/getToken';
+import { checkDecodeToken } from '../../context/checkToken';
 
 const Wrapper = styled.div`
-  background: ${({loaded, src}) =>
+  background: ${({ loaded, src }) =>
     loaded === 'true' ? `url(${src})` : '#333333d3'};
   height: 100%;
   background-size: cover;
@@ -41,7 +43,9 @@ const Container = styled.div`
 
 const Index = () => {
   const navigate = useNavigate();
+
   const [loaded, setLoaded] = useState(false);
+  const user = getToken();
   const img = new Image();
   img.src = BackgroundPicture;
   img.onload = () => {
@@ -49,7 +53,9 @@ const Index = () => {
   };
 
   const Navigate = () => {
-    navigate('/login');
+    const link = checkDecodeToken({ user, pathname: '/login' });
+
+    navigate(link);
   };
   return (
     <Wrapper loaded={loaded.toString()} src={img.src}>

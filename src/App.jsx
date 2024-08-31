@@ -32,7 +32,6 @@ function App() {
           <Route path='/dashboard' element={<Layout />}>
             <Route element={<DashboardIndex />} index />
             <Route element={<Member />} path='/dashboard/member' />
-            <Route element={<DashboardIndex />} index />
             <Route element={<MemberDetails />} path='/dashboard/member/:id' />
             <Route element={<Department />} path='/dashboard/department' />
             <Route element={<Activities />} path='/dashboard/activity' />
