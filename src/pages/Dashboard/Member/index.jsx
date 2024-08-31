@@ -4,7 +4,6 @@ import Container from '../../../style/container';
 import Button from '../../../components/Button';
 import styled from 'styled-components';
 import TableData from './Logics/TableData';
-import { useState } from 'react';
 import AddMemberModal from './component/AddMember';
 import { ErrorStatus } from './Logics/errorStatus';
 import { CreateMember } from '../../../services/createMember';
@@ -13,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { FetchErrorAnimation, Splash } from '../../../components/animation';
 import SearchBars from './component/SearchBar';
 import TableComponent from './component/TableComponent';
+import { MemberState } from './Logics/memberstate';
 
 const Wrapper = styled.div`
   .new-post {
@@ -24,56 +24,7 @@ const Wrapper = styled.div`
 
 const Index = () => {
   const navigator = useNavigate();
-  const [state, setState] = useState({
-    open: false,
-    query: {
-      size: 10,
-      page: 1,
-      firstName: '',
-      lastName: '',
-      phone: '',
-      category: '',
-      gender: '',
-      membershipType: ''
-    },
-    focusFirstName: {
-      error: false,
-      focus: false,
-    },
-    focusLastName: {
-      error: false,
-      focus: false,
-    },
-    focusCategory: {
-      error: false,
-      focus: false,
-    },
-    focusGender: {
-      error: false,
-      focus: false,
-    },
-    focusMember: {
-      error: false,
-      focus: false,
-    },
-    controls: {
-      category: '',
-      firstName: '',
-      lastName: '',
-      gender: '',
-      address: '',
-      phone: '',
-      email: '',
-      spouseName: '',
-      maritalStatus: '',
-      membershipType: '',
-      dateOfBirth: '',
-      departments: [],
-      joinedDate: '',
-      title: '',
-    },
-  });
-
+  const { state, setState } = MemberState();
 
   //! FETCH MEMEBERS
   const { data, isError, isFetching, refetch } = GetMembers(state.query);

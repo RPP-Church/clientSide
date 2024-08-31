@@ -21,12 +21,17 @@ import { CaptureAttendance } from '../../../services/captureAttendance';
 import Tips from '../../../components/Tips';
 import AddServiceModal from '../Activity/component/AddActivity';
 import { CreateActivities } from '../../../services/createActivity';
+import AddMemberModal from '../Member/component/AddMember';
+import { MemberState } from '../Member/Logics/memberstate';
+import { ErrorStatus } from '../Member/Logics/errorStatus';
+import { CreateMember } from '../../../services/createMember';
 
 const Wrapper = styled.div`
   .new-post {
     display: flex;
     justify-content: end;
     margin: 2rem 0;
+    gap: 20px;
   }
 `;
 
@@ -50,6 +55,7 @@ const Index = () => {
       Id: '',
     },
   });
+  const { state: mState, setState: mSetState } = MemberState();
 
   const MemberId = searchParams.get('memberId');
 
@@ -86,6 +92,33 @@ const Index = () => {
       reset: () => setState((p) => ({ ...p, controls: { serviceName: '' } })),
     }
   );
+
+  //! Submit New Member
+  const { mutate: memberMutate, isLoading: mLoading } = CreateMember({
+    refetch,
+    close: () => mSetState((p) => ({ ...p, open: false })),
+    reset: () => {
+      mSetState((p) => ({
+        ...p,
+        controls: {
+          category: '',
+          firstName: '',
+          lastName: '',
+          gender: '',
+          address: '',
+          phone: '',
+          email: '',
+          spouseName: '',
+          maritalStatus: '',
+          membershipType: '',
+          dateOfBirth: '',
+          departments: [],
+          joinedDate: '',
+          title: '',
+        },
+      }));
+    },
+  });
 
   const handleInput = (e, d, n) => {
     setState((p) => ({
@@ -210,6 +243,40 @@ const Index = () => {
     createMutatate(data);
   };
 
+  const handleMInput = (e, d, n) => {
+    if (n === 'departments') {
+      mSetState((p) => ({
+        ...p,
+        controls: {
+          ...p.controls,
+          [n]: d,
+        },
+      }));
+    } else {
+      mSetState((p) => ({
+        ...p,
+        controls: {
+          ...p.controls,
+          [n]: e,
+        },
+      }));
+    }
+  };
+
+  const handleSubmit = () => {
+    const message = ErrorStatus(mState, mSetState);
+    if (
+      message.category ||
+      message.firstName ||
+      message.lastName ||
+      message.gender ||
+      message.membershipType
+    ) {
+      return;
+    }
+    memberMutate(mState.controls);
+  };
+
   if (loadCapture) {
     return <Splash />;
   }
@@ -228,9 +295,28 @@ const Index = () => {
         handleSubmit={handleCreateService}
         isLoading={loadingCreate}
       />
+      <AddMemberModal
+        state={mState}
+        setState={mSetState}
+        handleInput={handleMInput}
+        handleSubmit={handleSubmit}
+        isLoading={mLoading}
+      />
       <Head text={'RPP Church Portal'} />
       <Wrapper>
         <div className='new-post'>
+          <Button
+            text='New Member'
+            color={'white'}
+            radius={'4px'}
+            // disable={isFetching}
+            onClick={() =>
+              mSetState((p) => ({
+                ...p,
+                open: true,
+              }))
+            }
+          />
           <Button
             text='New Service'
             color={'white'}
