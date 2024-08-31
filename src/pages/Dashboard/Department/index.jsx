@@ -85,7 +85,6 @@ const Index = () => {
   });
   const DATA = TableData({ data });
 
-
   const handleInput = (e, d, n) => {
     setState((p) => ({
       ...p,
@@ -99,10 +98,18 @@ const Index = () => {
   const handleSubmit = () => {
     const data = {
       name: state.controls.name,
-      headOfDepartment: state.controls.headOfDepartment,
-      headOfDepartmentPhone: state.controls.headOfDepartmentPhone,
     };
 
+    if (state.controls.headOfDepartmentPhone) {
+      data.headOfDepartmentPhone = state.controls.headOfDepartmentPhone;
+    }
+
+    if (
+      state.controls.headOfDepartment?.name &&
+      state.controls.headOfDepartment?.userId
+    ) {
+      data.headOfDepartment = state.controls.headOfDepartment;
+    }
     if (state.controls.ministerInCharge.name) {
       data.ministerInCharge = state.controls.ministerInCharge;
     }
