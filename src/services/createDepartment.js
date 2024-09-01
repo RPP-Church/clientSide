@@ -27,3 +27,28 @@ export const CreateDepartment = ({ refetch, close, reset }) => {
 
   return { mutate, isLoading, data };
 };
+
+export const UpdateDepartment = ({ refetch, close, reset }) => {
+  const axios = useAxiosPrivate();
+
+  const { mutate, isLoading, data } = useMutation({
+    mutationFn: async ({ form, Id }) => {
+      return await axios.put(`/department/${Id}`, form);
+    },
+    onSuccess: (data) => {
+      reset();
+      Notification({ type: 'success', message: data.data?.mesage });
+      refetch();
+      close();
+    },
+    onError: (error) => {
+      const message = ErrorHandler(error);
+      Notification({
+        type: 'error',
+        message: message.data.mesage || message.data.msg,
+      });
+    },
+  });
+
+  return { mutate, isLoading, data };
+};

@@ -9,8 +9,10 @@ const TableData = ({ data }) => {
             sn: index + 1,
             name: item.name,
             hod: item?.headOfDepartment?.name,
+            userId: item?.headOfDepartment?.userId,
             phone: item.headOfDepartmentPhone || '---',
-            ministerInCharge: item.ministerInCharge || '---',
+            ministerInCharge: item?.ministerInCharge?.name || '---',
+            ministerId: item?.ministerInCharge?.userId || '---',
           };
         })
       : [];

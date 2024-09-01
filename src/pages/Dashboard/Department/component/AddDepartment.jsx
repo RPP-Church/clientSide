@@ -122,7 +122,11 @@ const AddDepartmentModal = ({
                 state.controls.ministerInCharge.name || 'Search by first name'
               }
               handleChange={(e, d) => {
-                handleInput(e.target.value, d, 'ministerInCharge');
+                const value = {
+                  name: e,
+                  userId: d.key,
+                };
+                handleInput(e, value, 'ministerInCharge');
               }}
               onSearch={(e) => searchMember(e)}
               options={data?.length > 0 ? data : []}
