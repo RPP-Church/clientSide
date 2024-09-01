@@ -4,7 +4,7 @@ import { Debounce } from '../hook/useDebounce';
 export const GetMembers = (query) => {
   const axios = useAxiosPrivate();
   const params = `${`?page=${query.page || 1}`}${
-    query.firstName ? `&firstName=${query.firstName}` : ''
+    query.name ? `&name=${query.name}` : ''
   }${query.lastName ? `&lastName=${query.lastName}` : ''}${
     query.phone ? `&phone=${query.phone}` : ''
   }${query.gender ? `&gender=${query.gender}` : ''}${

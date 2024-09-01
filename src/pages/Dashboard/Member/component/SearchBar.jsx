@@ -15,7 +15,7 @@ const SearchBars = ({ setState, state, refetch }) => {
       query: {
         size: 10,
         page: 1,
-        firstName: '',
+        name: '',
         lastName: '',
         phone: '',
         category: '',
@@ -28,7 +28,7 @@ const SearchBars = ({ setState, state, refetch }) => {
   return (
     <SearchBar>
       <div>
-        <label>FIRST NAME</label>
+        <label> NAME</label>
         <Input.Search
           type='text'
           name='firstName'
@@ -39,15 +39,15 @@ const SearchBars = ({ setState, state, refetch }) => {
               ...p,
               query: {
                 ...p.query,
-                firstName: e.target.value,
+                name: e.target.value,
                 page: 1,
               },
             }))
           }
-          value={state.query.firstName}
+          value={state.query.name}
         />
       </div>
-      <div>
+      {/* <div>
         <label>LAST NAME</label>
         <Input.Search
           value={state.query.lastName}
@@ -66,7 +66,7 @@ const SearchBars = ({ setState, state, refetch }) => {
             }))
           }
         />
-      </div>
+      </div> */}
       <div>
         <label>PHONE</label>
         <Input.Search

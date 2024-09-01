@@ -6,7 +6,7 @@ export const MemberState = () => {
     query: {
       size: 10,
       page: 1,
-      firstName: '',
+      name: '',
       lastName: '',
       phone: '',
       category: '',

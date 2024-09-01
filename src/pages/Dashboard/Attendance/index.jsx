@@ -44,7 +44,7 @@ const Index = () => {
     query: {
       size: 10,
       page: 1,
-      firstName: '',
+      name: '',
       lastName: '',
       phone: '',
       date: '',
