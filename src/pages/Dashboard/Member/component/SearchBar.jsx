@@ -32,7 +32,7 @@ const SearchBars = ({ setState, state, refetch }) => {
         <Input.Search
           type='text'
           name='firstName'
-          placeholder='Search by FirstName'
+          placeholder='Search by any name'
           size='large'
           onChange={(e) =>
             setState((p) => ({
