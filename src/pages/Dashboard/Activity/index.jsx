@@ -36,7 +36,7 @@ const Index = () => {
     },
     activityId: '',
   });
-  const { data, isError, isFetching, refetch } = FetchAllActivities(
+  const { data, isError, isFetching, refetch, error } = FetchAllActivities(
     state.query
   );
   const { mutate, isLoading } = CreateActivities({
@@ -116,7 +116,7 @@ const Index = () => {
   }
 
   if (isError) {
-    return <FetchErrorAnimation refetch={refetch} />;
+    return <FetchErrorAnimation refetch={refetch} error={error} />;
   }
 
   return (

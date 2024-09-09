@@ -24,7 +24,7 @@ export const GenerateAttendance = () => {
     },
     onError: (error) => {
       const message = ErrorHandler(error);
-      alert(message.data.msg);
+      alert(message?.error || message.data.msg);
     },
   });
 

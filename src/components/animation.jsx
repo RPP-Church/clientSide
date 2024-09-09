@@ -5,6 +5,7 @@ import ErrorAnimations from '../assets/notFound.json';
 import Error from '../assets/Error.json';
 import Button from './Button';
 import { Link, useNavigate } from 'react-router-dom';
+import { ErrorHandler } from './ErrorHandler';
 const Container = styled.div`
   position: absolute;
   z-index: 99999999;
@@ -79,11 +80,13 @@ export const ErrorAnimation = () => {
   );
 };
 
-export const FetchErrorAnimation = ({ refetch }) => {
+export const FetchErrorAnimation = ({ refetch, error }) => {
+  const message = ErrorHandler(error)?.error || ErrorHandler(error)?.message;
   const navigate = useNavigate();
+console.log(message)
   return (
     <Container width={'200px'}>
-      <div style={{marginBottom: '2em'}}>
+      <div style={{ marginBottom: '2em' }}>
         <Link
           to='#'
           onClick={() => (navigate(-1) ? navigate(-1) : navigate('/dashboard'))}
@@ -96,7 +99,7 @@ export const FetchErrorAnimation = ({ refetch }) => {
       <div className='firstChild'>
         <h3 className='font-Bold text-5xl text-red-500 '>Oops!</h3>
         <p className='font-Medium text-[16px] leading-6 text-center text-gray-500'>
-          Something went wrong.{'\n'}Don't worry, let try again.
+          {message}
         </p>
       </div>
       <div className='secondChild'>

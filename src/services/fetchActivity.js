@@ -78,7 +78,11 @@ export const FetchAllActivityByDate = (
       });
     },
     onError: (error) => {
-      const message = ErrorHandler(error);
+      const message =
+        ErrorHandler(error)?.error ||
+        ErrorHandler(error)?.message ||
+        ErrorHandler(error);
+
       openNotification({
         description: message || 'Service not found',
         type: 'error',
