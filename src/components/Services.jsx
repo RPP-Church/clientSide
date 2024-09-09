@@ -7,6 +7,7 @@ import { IoDocumentTextOutline } from 'react-icons/io5';
 // import { IoQrCodeSharp } from "react-icons/io5";
 import { TbReport } from 'react-icons/tb';
 import { FaChurch } from 'react-icons/fa';
+import { MdOutlineSecurity } from "react-icons/md";
 const Container = styled.div`
   margin-top: clamp(1.6rem, 2.5vw, 2.5rem);
 
@@ -89,12 +90,18 @@ const Services = () => {
           </Card>
           <p>Generate Code</p>
         </Link> */}
-        <Link to={'/dashboard/report'}>
+         <Link to={'/dashboard/permission'}>
+          <Card>
+            <MdOutlineSecurity size={40} color='white' />
+          </Card>
+          <p>Permission</p>
+        </Link>
+        {/* <Link to={'/dashboard/report'}>
           <Card>
             <TbReport size={40} color='white' />
           </Card>
           <p>Generate Report</p>
-        </Link>
+        </Link> */}
       </div>
     </Container>
   );

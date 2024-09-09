@@ -12,6 +12,7 @@ import MemberDetails from './pages/Dashboard/Member/singleMember';
 import Activities from './pages/Dashboard/Activity';
 import Attendance from './pages/Dashboard/Attendance/index';
 import Settings from './pages/Dashboard/Settings/Index';
+import Permission from './pages/Dashboard/Permission/index';
 import { ErrorAnimation } from './components/animation';
 function App() {
   const { pathname } = useLocation();
@@ -37,6 +38,7 @@ function App() {
             <Route element={<Activities />} path='/dashboard/activity' />
             <Route element={<Attendance />} path='/dashboard/attendance' />
             <Route element={<Settings />} path='/dashboard/settings' />
+            <Route element={<Permission />} path='/dashboard/permission' />
             <Route element={<ErrorAnimation />} path='*' />
           </Route>
           <Route element={<ErrorAnimation />} path='*' />

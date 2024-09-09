@@ -96,7 +96,7 @@ const Login = () => {
       const message = ErrorHandler(error);
       Notification({
         type: 'error',
-        message: message.data.mesage || message.data.msg,
+        message: message?.msg || message.data.mesage || message.data.msg,
       });
     },
   });
@@ -124,7 +124,12 @@ const Login = () => {
   return (
     <Wrapper loaded={loaded.toString()} src={img.src}>
       <Container>
-        <form onSubmit={handleRegister}>
+        <form
+          onSubmit={handleRegister}
+          autoSave={'true'}
+          autoComplete={'true'}
+          autoFocus={true}
+        >
           <div>
             <label>Phone</label>
             <Input

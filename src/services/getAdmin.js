@@ -9,7 +9,7 @@ export const FetchAdmin = (userId, state) => {
   const { data, isFetching, refetch, isError, error } = useQuery({
     queryKey: ['getAdmin' + userId],
     queryFn: async () => {
-      const { data } = await axios.get(`/auth/single/${userId}`);
+      const { data } = await axios.get(`/member/details/${userId}`);
 
       state((p) => ({
         ...p,
@@ -53,7 +53,7 @@ export const UpdateAdmin = (userId, refetch, setState) => {
       const message = ErrorHandler(error);
       Notification({
         type: 'error',
-        message: message.data.mesage || message.data.msg,
+        message: message.error || message.data.mesage || message.data.msg,
       });
     },
   });
@@ -76,7 +76,7 @@ export const UpdateAdminPassword = (userId, close) => {
       const message = ErrorHandler(error);
       Notification({
         type: 'error',
-        message: message.data.mesage || message.data.msg,
+        message: message.error || message.data.mesage || message.data.msg,
       });
     },
   });
