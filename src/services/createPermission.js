@@ -30,6 +30,7 @@ export const CreatePermission = () => {
       Notification({
         type: 'error',
         message:
+          message.error ||
           message?.msg ||
           message?.error ||
           message.data.mesage ||
@@ -61,11 +62,11 @@ export const DeletePermission = () => {
       Notification({
         type: 'error',
         message:
-          message ||
           message?.msg ||
           message?.error ||
           message.data.mesage ||
-          message.data.msg,
+          message.data.msg ||
+          message,
       });
     },
   });
@@ -82,7 +83,7 @@ export const AddPermissionToUser = () => {
       return { data, onClose, refetch };
     },
     onSuccess: ({ data, onClose, refetch }) => {
-      Notification({ type: 'success', message: data.data?.mesage });
+      Notification({ type: 'success', message: data?.message });
       refetch();
       onClose();
     },
@@ -91,6 +92,7 @@ export const AddPermissionToUser = () => {
       Notification({
         type: 'error',
         message:
+          message.error ||
           message?.msg ||
           message?.error ||
           message.data.mesage ||

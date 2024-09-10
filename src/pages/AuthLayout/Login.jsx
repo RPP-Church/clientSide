@@ -96,7 +96,7 @@ const Login = () => {
       const message = ErrorHandler(error);
       Notification({
         type: 'error',
-        message: message?.msg || message.data.mesage || message.data.msg,
+        message: message.error || message?.msg || message.data.mesage || message.data.msg,
       });
     },
   });

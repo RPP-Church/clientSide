@@ -113,7 +113,7 @@ export const AutoCreateActivity = (MemberId, captureMutate) => {
       const message = ErrorHandler(error);
       Notification({
         type: 'error',
-        message: message.data.mesage || message.data.msg || message.data,
+        message: message.error || message.data.mesage || message.data.msg || message.data,
       });
     },
   });

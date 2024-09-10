@@ -17,3 +17,9 @@ html {
     width: 100% !important;
   }
 }
+
+.ant-picker-header-view .ant-picker-year-btn,
+.ant-picker-header-super-next-btn,
+.ant-picker-header-super-prev-btn {
+  display: none !important;
+}

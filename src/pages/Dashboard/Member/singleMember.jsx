@@ -21,7 +21,7 @@ const Wrapper = styled.div`
   .ant-select {
     width: 100% !important;
   }
-
+ 
   .profileImage {
     display: flex;
     flex-direction: column;
@@ -56,6 +56,10 @@ const Wrapper = styled.div`
         font-size: clamp(0.8em, 20vh, 1em);
         cursor: pointer;
       }
+    }
+
+    .calendar {
+      display: none;
     }
   }
 
@@ -116,6 +120,7 @@ const SingleMember = () => {
       })),
   });
 
+  console.log(state)
   const handleInput = (e, d, n) => {
     if (n === 'departments') {
       setState((p) => ({

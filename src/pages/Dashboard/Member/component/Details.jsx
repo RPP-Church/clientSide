@@ -2,8 +2,14 @@ import { Card } from 'antd';
 import Input from '../../../../components/Input';
 import Select from '../../../../components/Select';
 import propTypes from 'prop-types';
+import { DatePicker } from 'antd';
+import dayjs from 'dayjs';
 
 const Details = ({ state, handleInput, data }) => {
+  // function disabledYear(current) {
+  //   let customYear = '11-25';
+  //   return current && current > moment(customYear, 'MM-DD');
+  // }
   return (
     <div className='profileContent'>
       <div className='inputWrapper'>
@@ -167,9 +173,21 @@ const Details = ({ state, handleInput, data }) => {
               }
             />
           </div>
-          <div className='child'>
+          <div className='child calendar'>
             <label>DOB</label>
-            <Input
+            <DatePicker
+              format='MM/DD'
+              size='large'
+              placeholder='Select date of birth'
+              value={
+                state.controls.dateOfBirth
+                  ? dayjs(state.controls.dateOfBirth)
+                  : ''
+              }
+              onChange={(e, d) => handleInput(d, d, 'dateOfBirth')}
+              disabled={state.update}
+            />
+            {/* <Input
               value={state.controls.dateOfBirth}
               size={'large'}
               disabled={state.update}
@@ -177,7 +195,7 @@ const Details = ({ state, handleInput, data }) => {
               handleChange={(e, d) =>
                 handleInput(e.target.value, d, 'dateOfBirth')
               }
-            />
+            /> */}
           </div>
         </div>
         <div className='inputContainer'>

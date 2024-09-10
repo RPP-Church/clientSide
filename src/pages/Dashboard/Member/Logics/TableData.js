@@ -18,9 +18,9 @@ const TableData = ({ data }) => {
   const Data = useMemo(() => {
     return data?.data?.length > 0
       ? data?.data?.map((item, index) => {
-          const dates = item?.dateOfBirth?.split('-');
+          const dates = item?.dateOfBirth?.split('/');
           const month =
-            dates && Number(dates[0]) + 1 ? MONTHS[Number(dates[0]) + 1] : '';
+            dates && Number(dates[0]) ? MONTHS[Number(dates[0]) - 1] : '';
           const day = dates && dates[1] ? dates[1] : '';
 
           return {

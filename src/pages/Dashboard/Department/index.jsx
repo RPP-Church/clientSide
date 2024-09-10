@@ -105,7 +105,7 @@ const Index = () => {
       },
     },
   ];
-  const { data, isError, isFetching, refetch } = FetchDepartments();
+  const { data, isError, isFetching, refetch, error } = FetchDepartments();
   const { mutate, isLoading } = CreateDepartment({
     refetch,
     close: () =>
@@ -187,7 +187,7 @@ const Index = () => {
   }
 
   if (isError) {
-    return <FetchErrorAnimation refetch={refetch} />;
+    return <FetchErrorAnimation refetch={refetch} error={error} />;
   }
 
   return (

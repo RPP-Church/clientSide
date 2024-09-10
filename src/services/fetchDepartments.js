@@ -10,19 +10,20 @@ export const FetchDepartments = () => {
     queryKey: ['getAllDepartment'],
     queryFn: async () => {
       const { data } = await axios.get(`/department`);
-      if (data?.data?.length > 0) {
-        localStorage.setItem('departments', JSON.stringify(data.data));
-      }
-      return data;
+      // if (data?.data?.length > 0) {
+      //   localStorage.setItem('departments', JSON.stringify(data.data));
+      // }
+      return data?.data
     },
-    enabled: dpt?.length > 0 ? false : true,
+    // enabled: dpt?.length > 0 ? false : true,
   });
 
   return {
-    data: dpt?.length > 0 ? dpt : data,
+    // data: dpt?.length > 0 ? dpt : data,
     isFetching,
     refetch,
     isError,
     error,
+    data,
   };
 };
