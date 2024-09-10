@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { ErrorHandler } from '../components/ErrorHandler';
 import useAxiosPrivate from './usePrivate';
+import { Notification } from '../components/Notification';
 
 export const GenerateAttendance = () => {
   const axios = useAxiosPrivate();
@@ -24,7 +25,16 @@ export const GenerateAttendance = () => {
     },
     onError: (error) => {
       const message = ErrorHandler(error);
-      alert(message?.error || message.data.msg);
+      Notification({
+        type: 'error',
+        message:
+          error?.response?.status === 403
+            ? 'Access Denied'
+            : message?.msg ||
+              message?.error ||
+              message.data.mesage ||
+              message.data.msg,
+      });
     },
   });
 
