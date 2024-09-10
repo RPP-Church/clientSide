@@ -196,6 +196,9 @@ const Index = () => {
                   // };
                   // const formatter = new Intl.DateTimeFormat('en-GB', options);
                   // const formattedDate = formatter.format(today);
+                  const time = new Date()?.toLocaleTimeString();
+
+                  console.log(time, 'time');
                   setState((p) => ({
                     ...p,
                     controls: {
@@ -207,7 +210,7 @@ const Index = () => {
                     searchParams.set('memberId', record.key);
                     return searchParams;
                   });
-                  mutateActivity(today.toISOString());
+                   mutateActivity(today.toISOString(),time);
                 }}
               >
                 {(isLoading && record.key === state.controls.Id) ||

@@ -60,6 +60,7 @@ export const FetchAllActivityByDate = (
           const form = {
             activityId: data?.data?.data[0]?._id,
             memberId: MemberId,
+            time: new Date()?.toLocaleTimeString(),
           };
           captureMutate(form);
         }
@@ -106,6 +107,7 @@ export const AutoCreateActivity = (MemberId, captureMutate) => {
       const form = {
         activityId: data?.data?.data?._id,
         memberId: MemberId,
+        time: new Date()?.toLocaleTimeString(),
       };
       captureMutate(form);
     },
@@ -113,7 +115,11 @@ export const AutoCreateActivity = (MemberId, captureMutate) => {
       const message = ErrorHandler(error);
       Notification({
         type: 'error',
-        message: message.error || message.data.mesage || message.data.msg || message.data,
+        message:
+          message.error ||
+          message.data.mesage ||
+          message.data.msg ||
+          message.data,
       });
     },
   });
