@@ -58,11 +58,39 @@ export const DeletePermission = () => {
     },
     onError: (error) => {
       const message = ErrorHandler(error);
-      console.log(message, 'message');
       Notification({
         type: 'error',
         message:
           message ||
+          message?.msg ||
+          message?.error ||
+          message.data.mesage ||
+          message.data.msg,
+      });
+    },
+  });
+
+  return { mutate, isLoading, data };
+};
+
+export const AddPermissionToUser = () => {
+  const axios = useAxiosPrivate();
+
+  const { mutate, isLoading, data } = useMutation({
+    mutationFn: async ({ formData, onClose, Id, refetch }) => {
+      const { data } = await axios.put(`/member/permission/${Id}`, formData);
+      return { data, onClose, refetch };
+    },
+    onSuccess: ({ data, onClose, refetch }) => {
+      Notification({ type: 'success', message: data.data?.mesage });
+      refetch();
+      onClose();
+    },
+    onError: (error) => {
+      const message = ErrorHandler(error);
+      Notification({
+        type: 'error',
+        message:
           message?.msg ||
           message?.error ||
           message.data.mesage ||

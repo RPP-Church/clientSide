@@ -13,9 +13,11 @@ import AddNewRole from './component/AddNewRole';
 import { useState } from 'react';
 import Tags from '../../../components/Tags';
 import {
+  AddPermissionToUser,
   CreatePermission,
   DeletePermission,
 } from '../../../services/createPermission';
+import AddPermission from './component/AddPermission';
 const TableContainer = styled.div`
   .new-post {
     display: flex;
@@ -51,6 +53,10 @@ const TableContainer = styled.div`
 const Index = () => {
   const [state, setState] = useState({
     open: false,
+    openPermission: false,
+    query: {
+      name: '',
+    },
     controls: {
       name: '',
       role: '',
@@ -58,9 +64,20 @@ const Index = () => {
     },
     edit: false,
   });
+  //! THIS FETCH ALL ROLES
   const { data, isError, isFetching, error, refetch } = GetAllRoless();
+  //! END OF FETCH ALL ROLES
+
+  //! THIS CREATE NEW ROLE
   const { mutate, isLoading } = CreatePermission();
+  //! END OF CREATE NEW ROLE
+
+  //! DELETE A PERMISSION/UPDATE FROM AVAILABLE ROLE
   const { mutate: deleteM } = DeletePermission();
+  //! END OF DELETE PERMISSION/UPDATE
+
+  //! ADD PERMISSION TO A MEMEBER
+  const { mutate: permitMutate, isLoading: loading } = AddPermissionToUser();
 
   const DATA = TableData({ data });
 
@@ -158,7 +175,23 @@ const Index = () => {
                 <IoMdAdd size={15} color='white' />
               </Tips>
             </span>
-            <span className='btn'>
+            <span
+              className='btn '
+              onClick={() =>
+                setState((p) => ({
+                  ...p,
+                  open: false,
+                  openPermission: true,
+                  controls: {
+                    ...p.controls,
+                    name: record.name,
+                    permissions: record.roles,
+                    id: record.key,
+                  },
+                  edit: false,
+                }))
+              }
+            >
               <Tips title={'Assign user permission'}>
                 <FaUserGear size={15} color='white' />
               </Tips>
@@ -178,6 +211,12 @@ const Index = () => {
   }
   return (
     <Container>
+      <AddPermission
+        state={state}
+        setState={setState}
+        mutate={permitMutate}
+        isLoading={loading}
+      />
       <AddNewRole
         state={state}
         setState={setState}

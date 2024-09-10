@@ -59,10 +59,21 @@ const AddNewRole = ({
     <Modals
       open={state.open}
       width={'40%'}
-      onCancel={() => setState((p) => ({ ...p, open: false }))}
+      onCancel={() =>
+        setState((p) => ({
+          ...p,
+          open: false,
+          controls: {
+            name: '',
+            role: '',
+            permissions: '',
+            edit: false,
+          },
+        }))
+      }
       handleOK={() => handleSubmit()}
       loading={isLoading}
-      okText={'Create service'}
+      okText={state.edit ? 'Update' : 'Create'}
     >
       <Content>
         <ContainerInput>
