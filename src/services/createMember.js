@@ -20,7 +20,12 @@ export const CreateMember = ({ refetch, close, reset }) => {
       const message = ErrorHandler(error);
       Notification({
         type: 'error',
-        message: message?.error || message.data.mesage || message.data.msg,
+        message:
+          message?.error ||
+          message?.mesage ||
+          message?.msg ||
+          message.data.mesage ||
+          message.data.msg,
       });
     },
   });
