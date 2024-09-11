@@ -107,7 +107,7 @@ export const AutoCreateActivity = (MemberId, captureMutate) => {
       const form = {
         activityId: data?.data?.data?._id,
         memberId: MemberId,
-        time: new Date()?.toLocaleTimeString(),
+        time: new Date()?.toLocaleTimeString()
       };
       captureMutate(form);
     },

@@ -36,6 +36,7 @@ const AddDepartmentModal = ({
   handleInput,
   handleSubmit,
   isLoading,
+  handleReset,
 }) => {
   const { isError, isFetching, data } = GetMemberMutat(state.query);
 
@@ -52,7 +53,7 @@ const AddDepartmentModal = ({
     <Modals
       open={state.open}
       width={'40%'}
-      onCancel={() => setState((p) => ({ ...p, open: false }))}
+      onCancel={() => handleReset()}
       handleOK={handleSubmit}
       loading={isLoading}
       okText={'Create'}
@@ -146,4 +147,5 @@ AddDepartmentModal.propTypes = {
   handleInput: propTypes.func,
   handleSubmit: propTypes.func,
   isLoading: propTypes.bool,
+  handleReset: propTypes.func,
 };

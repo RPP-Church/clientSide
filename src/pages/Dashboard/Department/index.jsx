@@ -11,9 +11,12 @@ import { FetchDepartments } from '../../../services/fetchDepartments';
 import AddDepartmentModal from './component/AddDepartment';
 import {
   CreateDepartment,
+  DeleteDepartment,
   UpdateDepartment,
 } from '../../../services/createDepartment';
 import { EditFilled } from '@ant-design/icons';
+import { AiFillDelete } from 'react-icons/ai';
+import { Spin } from 'antd';
 
 const Wrapper = styled.div`
   .new-post {
@@ -48,6 +51,43 @@ const Index = () => {
     deptId: '',
   });
 
+  const { data, isError, isFetching, refetch, error } = FetchDepartments();
+  const { mutate, isLoading } = CreateDepartment({
+    refetch,
+    reset: () => handleReset(),
+  });
+
+  const { mutate: updateMutate, isLoading: loading } = UpdateDepartment({
+    refetch,
+    reset: () => handleReset(),
+  });
+
+  const { mutate: deleteMutate, isLoading: dLoading } = DeleteDepartment({
+    refetch,
+  });
+
+  function handleReset() {
+    setState((p) => ({
+      ...p,
+      open: false,
+      method: 'post',
+      controls: {
+        ...p.controls,
+        name: '',
+        headOfDepartment: {
+          name: '',
+          userId: '',
+        },
+        headOfDepartmentPhone: '',
+        ministerInCharge: {
+          name: '',
+          userId: '',
+        },
+      },
+      deptId: '',
+    }));
+  }
+
   const columns = [
     {
       title: 'ID',
@@ -74,76 +114,61 @@ const Index = () => {
       dataIndex: 'action',
       render: (_, record) => {
         return (
-          <span
-            style={{ cursor: 'pointer' }}
-            onClick={() => {
-              console.log(record);
-              setState((p) => ({
-                ...p,
-                open: true,
-                method: 'PUT',
-                controls: {
-                  ...p.controls,
-                  name: record?.name,
-                  headOfDepartment: {
-                    name: record?.hod || '',
-                    userId: record?.userId || '',
-                  },
-                  headOfDepartmentPhone: record?.phone || '',
-                  ministerInCharge: {
-                    name: record?.ministerInCharge || '',
-                    userId: record?.ministerId || '',
-                  },
-                },
-                deptId: record.key,
-              }));
+          <div
+            style={{
+              display: 'flex',
+              gap: '10px',
+              justifyContent: 'flex-start',
             }}
           >
-            <EditFilled size={20} />
-          </span>
+            <span
+              style={{ cursor: 'pointer' }}
+              onClick={() => {
+                setState((p) => ({
+                  ...p,
+                  open: true,
+                  method: 'PUT',
+                  controls: {
+                    ...p.controls,
+                    name: record?.name,
+                    headOfDepartment: {
+                      name: record?.hod || '',
+                      userId: record?.userId || '',
+                    },
+                    headOfDepartmentPhone: record?.phone || '',
+                    ministerInCharge: {
+                      name: record?.ministerInCharge || '',
+                      userId: record?.ministerId || '',
+                    },
+                  },
+                  deptId: record.key,
+                }));
+              }}
+            >
+              <EditFilled size={20} />
+            </span>
+            <span
+              style={{ cursor: 'pointer' }}
+              onClick={() => {
+                setState((p) => ({
+                  ...p,
+                  deptId: record.key,
+                }));
+                deleteDepartment(record.key);
+              }}
+            >
+              {dLoading && state.deptId === record.key ? (
+                <Spin size='default' />
+              ) : (
+                <AiFillDelete size={20} />
+              )}
+            </span>
+          </div>
         );
       },
     },
   ];
-  const { data, isError, isFetching, refetch, error } = FetchDepartments();
-  const { mutate, isLoading } = CreateDepartment({
-    refetch,
-    close: () =>
-      setState((p) => ({
-        ...p,
-        open: false,
-      })),
-    reset: () =>
-      setState((p) => ({
-        ...p,
-        controls: {
-          name: '',
-          headOfDepartment: '',
-          headOfDepartmentPhone: '',
-          ministerInCharge: '',
-        },
-      })),
-  });
 
-  const { mutate: updateMutate, isLoading: loading } = UpdateDepartment({
-    refetch,
-    close: () =>
-      setState((p) => ({
-        ...p,
-        open: false,
-      })),
-    reset: () =>
-      setState((p) => ({
-        ...p,
-        method: 'post',
-        controls: {
-          name: '',
-          headOfDepartment: '',
-          headOfDepartmentPhone: '',
-          ministerInCharge: '',
-        },
-      })),
-  });
   const DATA = TableData({ data });
 
   const handleInput = (e, d, n) => {
@@ -182,6 +207,10 @@ const Index = () => {
     }
   };
 
+  function deleteDepartment(id) {
+    deleteMutate(id);
+  }
+
   if (isFetching || isLoading) {
     return <Splash />;
   }
@@ -197,7 +226,8 @@ const Index = () => {
         setState={setState}
         handleInput={handleInput}
         handleSubmit={handleSubmit}
-        isLoading={isLoading}
+        isLoading={isLoading || loading || dLoading}
+        handleReset={handleReset}
       />
       <Head text={'RPP Church Portal'} />
       <Wrapper>
