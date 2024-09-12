@@ -34,6 +34,7 @@ export const GetSingleMember = ({ id, setState }) => {
     queryKey: ['getSingleMember' + id],
     queryFn: async () => {
       const { data } = await axios.get(`/member/${id}`);
+      console.log(data?.data);
 
       const department =
         data?.data?._id && data.data?.departments?.length > 0
@@ -49,6 +50,7 @@ export const GetSingleMember = ({ id, setState }) => {
         ...p,
         controls: {
           ...data?.data,
+          image: data?.data?.profilePicture,
           departments: department,
         },
       }));

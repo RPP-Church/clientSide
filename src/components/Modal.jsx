@@ -1,5 +1,6 @@
 import { Modal as Mod } from 'antd';
 import propTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 
 const Modals = ({
   open,
@@ -10,8 +11,13 @@ const Modals = ({
   onCancel,
   loading,
   width,
-  footer
+  footer,
+  rootClassName,
+  id,
+  closeIcon
 }) => {
+  const { pathname } = useLocation();
+
   return (
     <Mod
       title={title}
@@ -22,6 +28,11 @@ const Modals = ({
       confirmLoading={loading}
       width={width}
       footer={footer}
+      rootClassName={
+        id && pathname === `/dashboard/member/${id}` && rootClassName
+      }
+      style={{ backgroundColor: 'unset' }}
+      closeIcon={closeIcon}
     >
       {children}
     </Mod>
@@ -38,5 +49,8 @@ Modals.propTypes = {
   onCancel: propTypes.func,
   loading: propTypes.any,
   width: propTypes.string,
-  footer: propTypes.any
+  footer: propTypes.any,
+  id: propTypes.string,
+  rootClassName: propTypes.string,
+  closeIcon: propTypes.object
 };

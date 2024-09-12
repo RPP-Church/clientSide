@@ -10,6 +10,7 @@ import { UpdateMember } from '../../../services/updateMember';
 import ProfileImage from './component/ProfileImage';
 import Details from './component/Details';
 import { Profile } from '../../../style/profile';
+import { UploadImageMember } from '../../../services/uploadImage';
 
 const Wrapper = styled.div`
   display: grid;
@@ -21,7 +22,7 @@ const Wrapper = styled.div`
   .ant-select {
     width: 100% !important;
   }
- 
+
   .profileImage {
     display: flex;
     flex-direction: column;
@@ -92,7 +93,9 @@ const SingleMember = () => {
   const { data } = FetchDepartments();
   const [state, setState] = useState({
     update: true,
+    openWebcam: false,
     controls: {
+      image: '',
       category: '',
       firstName: '',
       lastName: '',
@@ -119,8 +122,11 @@ const SingleMember = () => {
         update: true,
       })),
   });
+  const { mutate: uploadMutate } = UploadImageMember({
+    refetch,
+    reset: handleReset,
+  });
 
-  console.log(state)
   const handleInput = (e, d, n) => {
     if (n === 'departments') {
       setState((p) => ({
@@ -158,6 +164,40 @@ const SingleMember = () => {
     mutate({ data, id });
   };
 
+  const handleUpdateImage = () => {
+    const data = {
+      image: state.controls.image,
+      memberId: id,
+    };
+
+    uploadMutate(data);
+  };
+
+  function handleReset() {
+    setState({
+      update: true,
+      openWebcam: false,
+      touchImage: false,
+      controls: {
+        image: '',
+        category: '',
+        firstName: '',
+        lastName: '',
+        gender: '',
+        address: '',
+        phone: '',
+        email: '',
+        spouseName: '',
+        maritalStatus: '',
+        membershipType: '',
+        dateOfBirth: '',
+        departments: [],
+        joinedDate: '',
+        title: '',
+        attendance: [],
+      },
+    });
+  }
   if (isFetching || isLoading) {
     return <Splash />;
   }
@@ -174,6 +214,8 @@ const SingleMember = () => {
           state={state}
           setState={setState}
           handleUpdate={handleUpdate}
+          id={id}
+          handleUpdateImage={handleUpdateImage}
         />
         <Details state={state} data={data} handleInput={handleInput} />
       </Wrapper>

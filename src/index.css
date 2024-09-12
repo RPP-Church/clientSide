@@ -23,3 +23,9 @@ html {
 .ant-picker-header-super-prev-btn {
   display: none !important;
 }
+
+.memberCamera .ant-modal-content {
+  background-color: unset;
+  box-shadow: unset !important;
+  padding: 0;
+}

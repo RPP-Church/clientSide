@@ -15,10 +15,12 @@ const Btn = styled.button`
   font-size: ${({ size }) => size};
   font-weight: ${({ weight }) => weight};
   cursor: pointer;
+  box-shadow: ${({ shadow }) => shadow};
 `;
 
 const Button = ({
   color,
+  shadow,
   size,
   width,
   height,
@@ -34,6 +36,7 @@ const Button = ({
   disable,
   margin,
   loading,
+  Icon,
 }) => {
   return (
     <Btn
@@ -58,8 +61,9 @@ const Button = ({
       weight={weight}
       disabled={disable}
       margin={margin}
+      shadow={shadow}
     >
-      {loading ? <LoadingOutlined /> : text}
+      {loading ? <LoadingOutlined /> : Icon ? Icon : text}
     </Btn>
   );
 };
@@ -67,6 +71,7 @@ const Button = ({
 export default Button;
 
 Button.propTypes = {
+  Icon: propTypes.object,
   Button: propTypes.any,
   color: propTypes.string,
   size: propTypes.string,
@@ -84,4 +89,5 @@ Button.propTypes = {
   disable: propTypes.bool,
   margin: propTypes.string,
   loading: propTypes.bool,
+  shadow: propTypes.string
 };

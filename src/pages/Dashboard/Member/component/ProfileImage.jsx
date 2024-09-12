@@ -1,18 +1,35 @@
-import { UserOutlined } from '@ant-design/icons';
-import { Avatar } from 'antd';
 import { CiEdit } from 'react-icons/ci';
 import Button from '../../../../components/Button';
 import propTypes from 'prop-types';
 import { Notification } from '../../../../components/Notification';
+import UploadImage from '../../../../components/camera/upload';
+import Camera from '../../../../components/camera';
 
-const ProfileImage = ({ setState, state, handleUpdate }) => {
+const ProfileImage = ({
+  setState,
+  state,
+  handleUpdate,
+  id,
+  handleUpdateImage,
+}) => {
+  const handleClick = () => {
+    setState((p) => ({ ...p, openWebcam: true }));
+  };
   return (
     <div className='profileImage'>
+      <Camera
+        open={state?.openWebcam}
+        onCancel={() => setState((p) => ({ ...p, openWebcam: true }))}
+        setState={setState}
+        id={id}
+      />
       <div>
-        <Avatar
-          //   style={{ backgroundColor: '#87d068' }}
-          icon={<UserOutlined />}
-          size={{ xs: 90, sm: 90, md: 100, lg: 110, xl: 200, xxl: 200 }}
+        <UploadImage
+          onClick={handleClick}
+          image={state.controls?.image}
+          setState={setState}
+          onUpload={handleUpdateImage}
+          touched={state.touchImage}
         />
       </div>
       <div className='button'>
@@ -72,4 +89,6 @@ ProfileImage.propTypes = {
   state: propTypes.object,
   setState: propTypes.func,
   handleUpdate: propTypes.func,
+  id: propTypes.string,
+  handleUpdateImage: propTypes.func,
 };
