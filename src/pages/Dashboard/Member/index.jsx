@@ -13,6 +13,7 @@ import { FetchErrorAnimation, Splash } from '../../../components/animation';
 import SearchBars from './component/SearchBar';
 import TableComponent from './component/TableComponent';
 import { MemberState } from './Logics/memberstate';
+import Image from './component/Image';
 
 const Wrapper = styled.div`
   .new-post {
@@ -61,6 +62,13 @@ const Index = () => {
     {
       title: 'ID',
       dataIndex: 'sn',
+    },
+    {
+      title: 'Image',
+      dataIndex: 'image',
+      render: (_, record) => {
+        return <Image src={record?.image} />;
+      },
     },
     {
       title: 'Title',

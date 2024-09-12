@@ -28,6 +28,7 @@ const TableData = ({ data }) => {
             sn: (data?.current + 1) * 10 + index + 1 - 10,
             title: item.title || '---',
             firstname: item?.firstName,
+            image: item?.profilePicture,
             lastname: item.lastName,
             phone: item.phone || '---',
             gender: item.gender,

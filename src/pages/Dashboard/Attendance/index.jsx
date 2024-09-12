@@ -25,6 +25,7 @@ import AddMemberModal from '../Member/component/AddMember';
 import { MemberState } from '../Member/Logics/memberstate';
 import { ErrorStatus } from '../Member/Logics/errorStatus';
 import { CreateMember } from '../../../services/createMember';
+import Image from '../Member/component/Image';
 
 const Wrapper = styled.div`
   .new-post {
@@ -136,6 +137,13 @@ const Index = () => {
       dataIndex: 'sn',
     },
     {
+      title: 'Image',
+      dataIndex: 'image',
+      render: (_, record) => {
+        return <Image src={record?.image} />;
+      },
+    },
+    {
       title: 'Title',
       dataIndex: 'title',
     },
@@ -210,7 +218,7 @@ const Index = () => {
                     searchParams.set('memberId', record.key);
                     return searchParams;
                   });
-                   mutateActivity(today.toISOString(),time);
+                  mutateActivity(today.toISOString(), time);
                 }}
               >
                 {(isLoading && record.key === state.controls.Id) ||
