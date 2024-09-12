@@ -1,34 +1,43 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 import Modals from '../Modal';
 import Button from '../Button';
 import { IoCameraSharp, IoCloseCircle } from 'react-icons/io5';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
+import { MdCameraswitch } from 'react-icons/md';
+import Tips from '../Tips';
 
 const Container = styled.div`
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .classname .ant-modal-content {
     background-color: transparent !important;
   }
 
   @media screen and (max-width: 40rem) {
-    button:first-child {
+    button {
+      width: 2.5em;
+      height: 2.5em;
+    }
+
+    button {
       display: flex;
       justify-content: center;
       align-items: center;
     }
-    button:last-child {
-      width: 4em;
-      height: 4em;
-    }
     svg {
-      height: 25px;
+      height: 18px;
     }
   }
 `;
 
 const Camera = ({ open, onCancel, id, setState }) => {
   const webcamRef = useRef(null);
+  const [mode, setModel] = useState('user');
 
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -44,7 +53,7 @@ const Camera = ({ open, onCancel, id, setState }) => {
   }, [webcamRef, setState]);
 
   const videoConstraints = {
-    facingMode: 'user',
+    facingMode: { exact: mode },
   };
   return (
     <Modals
@@ -97,21 +106,42 @@ const Camera = ({ open, onCancel, id, setState }) => {
             bottom: '4%',
             left: '50%',
             transform: 'translateX(-50%)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '20px',
           }}
         >
-          <Button
-            onClick={capture}
-            background={'white'}
-            color={'black'}
-            radius={'50%'}
-            width={'6.5em'}
-            height={'5em'}
-            padding={'15px'}
-            size={'1em'}
-            weight={'500'}
-            Icon={<IoCameraSharp size={30} />}
-            shadow={'rgb(38, 57, 77) 0px 20px 30px -10px;'}
-          />
+          <Tips title={'Switch camera'}>
+            <Button
+              onClick={() => setModel(mode === 'user' ? 'environment' : 'user')}
+              background={'white'}
+              color={'black'}
+              radius={'50%'}
+              width={'4em'}
+              height={'3em'}
+              padding={'0'}
+              size={'1em'}
+              weight={'500'}
+              Icon={<MdCameraswitch size={25} />}
+              shadow={'rgb(38, 57, 77) 0px 20px 30px -10px;'}
+            />
+          </Tips>
+          <Tips title={'Capture'}>
+            <Button
+              onClick={capture}
+              background={'white'}
+              color={'black'}
+              radius={'50%'}
+              width={'4em'}
+              height={'3em'}
+              padding={'0'}
+              size={'1em'}
+              weight={'500'}
+              Icon={<IoCameraSharp size={25} />}
+              shadow={'rgb(38, 57, 77) 0px 20px 30px -10px;'}
+            />
+          </Tips>
         </div>
       </Container>
     </Modals>

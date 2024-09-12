@@ -14,6 +14,8 @@ import SearchBars from './component/SearchBar';
 import TableComponent from './component/TableComponent';
 import { MemberState } from './Logics/memberstate';
 import Image from './component/Image';
+import QueryParameter from './component/queryParameter';
+import { useLocalStorage } from '../../../hook/useLocalStorage';
 
 const Wrapper = styled.div`
   .new-post {
@@ -26,9 +28,13 @@ const Wrapper = styled.div`
 const Index = () => {
   const navigator = useNavigate();
   const { state, setState } = MemberState();
+  const { handleSearchParams } = QueryParameter();
+  const [memberParams, setMemberParams] = useLocalStorage('memberParams', {});
 
   //! FETCH MEMEBERS
-  const { data, isError, isFetching, refetch } = GetMembers(state.query);
+  const { data, isError, isFetching, refetch } = GetMembers(
+    memberParams?.query
+  );
 
   //! Submit New Member
   const { mutate, isLoading } = CreateMember({
@@ -149,7 +155,7 @@ const Index = () => {
   };
 
   const handlePagination = (pageNumber, limit) => {
-    setState((p) => ({
+    setMemberParams((p) => ({
       ...p,
       query: {
         ...p.query,
@@ -157,6 +163,8 @@ const Index = () => {
         limit,
       },
     }));
+
+    handleSearchParams('page', pageNumber);
   };
 
   if (isError) {
@@ -205,7 +213,14 @@ const Index = () => {
             disable={isFetching}
           />
         </div>
-        <SearchBars setState={setState} state={state} refetch={refetch} />
+        <SearchBars
+          setState={setState}
+          state={state}
+          refetch={refetch}
+          setMemberParams={setMemberParams}
+          handleSearchParams={handleSearchParams}
+          memberParams={memberParams}
+        />
         <div style={{ margin: '10px 0' }}>
           <h3>Total Result : {data?.totalElement ? data?.totalElement : ''}</h3>
         </div>

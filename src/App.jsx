@@ -41,7 +41,6 @@ function App() {
             <Route element={<Settings />} path='/dashboard/settings' />
             <Route element={<Permission />} path='/dashboard/permission' />
             <Route element={<Users />} path='/dashboard/users' />
-            <Route element={<ErrorAnimation />} path='*' />
           </Route>
           <Route element={<ErrorAnimation />} path='*' />
         </Routes>

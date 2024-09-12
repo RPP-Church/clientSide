@@ -4,7 +4,6 @@ import { FetchErrorAnimation, Splash } from '../../../components/animation';
 import Button from '../../../components/Button';
 import styled from 'styled-components';
 import { useState } from 'react';
-import SearchBars from './component/SearchBar';
 import { GetMembers } from '../../../services/getMembers';
 import TableComponent from '../Member/component/TableComponent';
 import TableData from '../Member/Logics/TableData';
@@ -16,7 +15,7 @@ import {
 } from '../../../services/fetchActivity';
 import CustomNotification from '../../../components/CustomNotification';
 import { Spin } from 'antd';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { CaptureAttendance } from '../../../services/captureAttendance';
 import Tips from '../../../components/Tips';
 import AddServiceModal from '../Activity/component/AddActivity';
@@ -26,6 +25,11 @@ import { MemberState } from '../Member/Logics/memberstate';
 import { ErrorStatus } from '../Member/Logics/errorStatus';
 import { CreateMember } from '../../../services/createMember';
 import Image from '../Member/component/Image';
+import { useLocalStorage } from '../../../hook/useLocalStorage';
+import SearchBars from '../Member/component/SearchBar';
+import QueryParameter from '../Member/component/queryParameter';
+import { IoCameraSharp } from 'react-icons/io5';
+import Camera from '../../../components/camera';
 
 const Wrapper = styled.div`
   .new-post {
@@ -38,10 +42,12 @@ const Wrapper = styled.div`
 
 const Index = () => {
   const { contextHolder, openNotification } = CustomNotification();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { searchParams, handleSearchParams } = QueryParameter();
+
   const navigator = useNavigate();
   const [state, setState] = useState({
     open: false,
+    openWebcam: false,
     query: {
       size: 10,
       page: 1,
@@ -57,6 +63,10 @@ const Index = () => {
     },
   });
   const { state: mState, setState: mSetState } = MemberState();
+  const [memberParams, setMemberParams] = useLocalStorage(
+    'AttendanceParams',
+    {}
+  );
 
   const MemberId = searchParams.get('memberId');
 
@@ -81,7 +91,9 @@ const Index = () => {
   //! END
 
   //! GET MEMBER"S ALSO QUERY MEMBER
-  const { data, refetch, isFetching, isError } = GetMembers(state.query);
+  const { data, refetch, isFetching, isError } = GetMembers(
+    memberParams?.query
+  );
   const Data = TableData({ data });
   //! END
 
@@ -120,6 +132,8 @@ const Index = () => {
       }));
     },
   });
+
+  console.log(state)
 
   const handleInput = (e, d, n) => {
     setState((p) => ({
@@ -205,8 +219,6 @@ const Index = () => {
                   // const formatter = new Intl.DateTimeFormat('en-GB', options);
                   // const formattedDate = formatter.format(today);
                   const time = new Date()?.toLocaleTimeString();
-
-                  console.log(time, 'time');
                   setState((p) => ({
                     ...p,
                     controls: {
@@ -214,10 +226,8 @@ const Index = () => {
                       Id: record.key,
                     },
                   }));
-                  setSearchParams((searchParams) => {
-                    searchParams.set('memberId', record.key);
-                    return searchParams;
-                  });
+
+                  handleSearchParams('memberId', record.key);
                   mutateActivity(today.toISOString(), time);
                 }}
               >
@@ -229,13 +239,26 @@ const Index = () => {
                 )}
               </span>
             </Tips>
+            <Tips title={'Take picture'}>
+              <span
+                onClick={() =>
+                  setState((p) => ({
+                    ...p,
+                    openWebcam: true,
+                  }))
+                }
+              >
+                {' '}
+                <IoCameraSharp size={20} />
+              </span>
+            </Tips>
           </div>
         );
       },
     },
   ];
   const handlePagination = (pageNumber, limit) => {
-    setState((p) => ({
+    setMemberParams((p) => ({
       ...p,
       query: {
         ...p.query,
@@ -243,6 +266,8 @@ const Index = () => {
         limit,
       },
     }));
+
+    handleSearchParams('page', pageNumber);
   };
 
   const handleCreateService = () => {
@@ -299,6 +324,11 @@ const Index = () => {
   return (
     <Container>
       {contextHolder}
+      <Camera
+        open={state?.openWebcam}
+        onCancel={() => setState((p) => ({ ...p, openWebcam: true }))}
+        setState={setState}
+      />
       <AddServiceModal
         state={state}
         setState={setState}
@@ -345,7 +375,14 @@ const Index = () => {
             }
           />
         </div>
-        <SearchBars state={state} setState={setState} refetch={refetch} />
+        <SearchBars
+          state={state}
+          setState={setState}
+          refetch={refetch}
+          setMemberParams={setMemberParams}
+          memberParams={memberParams}
+          handleSearchParams={handleSearchParams}
+        />
         <TableComponent
           isFetching={isFetching}
           Data={Data}

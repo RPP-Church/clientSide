@@ -4,13 +4,20 @@ import Select from '../../../../components/Select';
 import Button from '../../../../components/Button';
 import propTypes from 'prop-types';
 import { SearchBAR } from '../../../../style/container';
+import { useLocation } from 'react-router-dom';
 
 const SearchBar = styled.div`
   ${SearchBAR}
 `;
-const SearchBars = ({ setState, state, refetch }) => {
+const SearchBars = ({
+  refetch,
+  setMemberParams,
+  handleSearchParams,
+  memberParams,
+}) => {
+  const { pathname } = useLocation();
   const handleReset = () => {
-    setState((p) => ({
+    setMemberParams((p) => ({
       ...p,
       query: {
         size: 10,
@@ -34,39 +41,21 @@ const SearchBars = ({ setState, state, refetch }) => {
           name='firstName'
           placeholder='Search by any name'
           size='large'
-          onChange={(e) =>
-            setState((p) => ({
+          onChange={(e) => {
+            setMemberParams((p) => ({
               ...p,
               query: {
                 ...p.query,
                 name: e.target.value,
                 page: 1,
               },
-            }))
-          }
-          value={state.query.name}
+            }));
+            handleSearchParams('name', e.target.value);
+          }}
+          value={memberParams?.query?.name}
         />
       </div>
-      {/* <div>
-        <label>LAST NAME</label>
-        <Input.Search
-          value={state.query.lastName}
-          type='text'
-          name='lastName'
-          placeholder='Search by LastName'
-          size='large'
-          onChange={(e) =>
-            setState((p) => ({
-              ...p,
-              query: {
-                ...p.query,
-                lastName: e.target.value,
-                page: 1,
-              },
-            }))
-          }
-        />
-      </div> */}
+
       <div>
         <label>PHONE</label>
         <Input.Search
@@ -74,87 +63,99 @@ const SearchBars = ({ setState, state, refetch }) => {
           name='phone'
           placeholder='Search by Phone'
           size='large'
-          onChange={(e) =>
-            setState((p) => ({
+          onChange={(e) => {
+            setMemberParams((p) => ({
               ...p,
               query: {
                 ...p.query,
                 phone: e.target.value,
                 page: 1,
               },
-            }))
-          }
-          value={state.query.phone}
+            }));
+            handleSearchParams('phone', e.target.value);
+          }}
+          value={memberParams?.query?.phone}
         />
       </div>
-      <div>
-        <label>CATEGORY</label>
-        <Select
-          handleChange={(e) =>
-            setState((p) => ({
-              ...p,
-              query: {
-                ...p.query,
-                category: e,
-                page: 1,
-              },
-            }))
-          }
-          options={[
-            { key: 1, label: 'Adult', value: 'Adult' },
-            { key: 2, label: 'Teen', value: 'Teen' },
-            { key: 3, value: 'Children', label: 'Child' },
-          ]}
-          placeholder={'Select Category'}
-          name='category'
-          value={state.query.category || 'Select Category'}
-        />
-      </div>
-      <div>
-        <label>Type</label>
-        <Select
-          handleChange={(e) =>
-            setState((p) => ({
-              ...p,
-              query: {
-                ...p.query,
-                membershipType: e,
-                page: 1,
-              },
-            }))
-          }
-          options={[
-            { key: 1, label: 'New Members', value: 'New Member' },
-            { key: 2, label: 'Existing Members', value: 'Existing Member' },
-            { key: 3, value: 'Visitor', label: 'Visitor' },
-          ]}
-          placeholder={'Select Type'}
-          name='membershipType'
-          value={state.query.membershipType || 'Select Type'}
-        />
-      </div>
-      <div>
-        <label>GENDER</label>
-        <Select
-          value={state.query.gender || 'Select Gender'}
-          options={[
-            { key: 1, label: 'Male', value: 'Male' },
-            { key: 2, label: 'Female', value: 'Female' },
-          ]}
-          placeholder={'Select Gender'}
-          name='gender'
-          handleChange={(e) =>
-            setState((p) => ({
-              ...p,
-              query: {
-                ...p.query,
-                gender: e,
-                page: 1,
-              },
-            }))
-          }
-        />
-      </div>
+      {!pathname?.includes('attendance') && (
+        <div>
+          <label>CATEGORY</label>
+          <Select
+            handleChange={(e) => {
+              setMemberParams((p) => ({
+                ...p,
+                query: {
+                  ...p.query,
+                  category: e,
+                  page: 1,
+                },
+              }));
+              handleSearchParams('category', e.target.value);
+            }}
+            value={memberParams?.query?.category}
+            options={[
+              { key: 1, label: 'Adult', value: 'Adult' },
+              { key: 2, label: 'Teen', value: 'Teen' },
+              { key: 3, value: 'Children', label: 'Child' },
+            ]}
+            placeholder={'Select Category'}
+            name='category'
+          />
+        </div>
+      )}
+
+      {!pathname?.includes('attendance') && (
+        <div>
+          <label>Type</label>
+          <Select
+            handleChange={(e) => {
+              setMemberParams((p) => ({
+                ...p,
+                query: {
+                  ...p.query,
+                  membershipType: e,
+                  page: 1,
+                },
+              }));
+              handleSearchParams('membershipType', e.target.value);
+            }}
+            value={memberParams?.query?.membershipType || 'Select Type'}
+            options={[
+              { key: 1, label: 'New Members', value: 'New Member' },
+              { key: 2, label: 'Existing Members', value: 'Existing Member' },
+              { key: 3, value: 'Visitor', label: 'Visitor' },
+            ]}
+            placeholder={'Select Type'}
+            name='membershipType'
+          />
+        </div>
+      )}
+      {!pathname?.includes('attendance') && (
+        <div>
+          <label>GENDER</label>
+          <Select
+            options={[
+              { key: 1, label: 'Male', value: 'Male' },
+              { key: 2, label: 'Female', value: 'Female' },
+            ]}
+            placeholder={'Select Gender'}
+            name='gender'
+            handleChange={(e) => {
+              setMemberParams((p) => ({
+                ...p,
+                gender: {
+                  ...p.query,
+                  membershipType: e,
+                  page: 1,
+                },
+              }));
+              handleSearchParams('gender', e.target.value);
+            }}
+            value={memberParams?.query?.gender || 'Select Gender'}
+          />
+        </div>
+      )}
+
       <div className='buttons'>
         <Button
           text={'Search'}
@@ -183,4 +184,7 @@ SearchBars.propTypes = {
   setState: propTypes.func,
   state: propTypes.object,
   refetch: propTypes.func,
+  memberParams: propTypes.object,
+  setMemberParams: propTypes.func,
+  handleSearchParams: propTypes.func,
 };
