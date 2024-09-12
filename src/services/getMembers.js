@@ -65,7 +65,7 @@ export const GetSingleMember = ({ id, setState }) => {
 
 export const GetMemberMutat = (query) => {
   const axios = useAxiosPrivate();
-  const params = `${query.firstName ? `&firstName=${query.firstName}` : ''}${
+  const params = `${query.name ? `&name=${query.name}` : ''}${
     query.lastName ? `&lastName=${query.lastName}` : ''
   }${query.phone ? `&phone=${query.phone}` : ''}${
     query.gender ? `&gender=${query.gender}` : ''

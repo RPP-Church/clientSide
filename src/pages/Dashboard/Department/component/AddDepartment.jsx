@@ -45,7 +45,7 @@ const AddDepartmentModal = ({
       ...p,
       query: {
         ...p.query,
-        firstName: data,
+        name: data,
       },
     }));
   };
