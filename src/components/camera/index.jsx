@@ -58,7 +58,7 @@ const Camera = ({ open, onCancel, setState }) => {
   }, [webcamRef, setState]);
 
   const videoConstraints = {
-    facingMode: { exact: mode },
+    facingMode: { exact: mode.mode },
   };
   return (
     <Modals
