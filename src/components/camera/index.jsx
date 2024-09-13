@@ -7,6 +7,8 @@ import styled from 'styled-components';
 import propTypes from 'prop-types';
 import { MdCameraswitch } from 'react-icons/md';
 import Tips from '../Tips';
+import { PiDeviceMobileCameraFill } from 'react-icons/pi';
+import { BsWebcamFill } from 'react-icons/bs';
 
 const Container = styled.div`
   button {
@@ -37,7 +39,10 @@ const Container = styled.div`
 
 const Camera = ({ open, onCancel, setState }) => {
   const webcamRef = useRef(null);
-  const [mode, setModel] = useState('user');
+  const [mode, setModel] = useState({
+    type: 'webcam',
+    mode: 'user',
+  });
 
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -72,13 +77,16 @@ const Camera = ({ open, onCancel, setState }) => {
           ref={webcamRef}
           screenshotFormat='image/jpeg'
           width={'100%'}
-          videoConstraints={videoConstraints}
+          videoConstraints={mode.type === 'webcam' ? {} : videoConstraints}
         />
         <div
           style={{
             position: 'absolute',
             top: 10,
             right: 10,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '25px',
           }}
         >
           <Button
@@ -99,6 +107,32 @@ const Camera = ({ open, onCancel, setState }) => {
             shadow={'rgb(38, 57, 77) 0px 20px 30px -10px;'}
             Icon={<IoCloseCircle size={20} />}
           />
+          <Tips title={'Switch camera type'}>
+            <Button
+              onClick={() =>
+                setModel((p) => ({
+                  ...p,
+                  type: p.type === 'webcam' ? 'phone' : 'webcam',
+                }))
+              }
+              background={'white'}
+              color={'black'}
+              radius={'50%'}
+              width={'2em'}
+              height={'2em'}
+              padding={'3px'}
+              size={'1em'}
+              weight={'500'}
+              Icon={
+                mode.type === 'webcam' ? (
+                  <PiDeviceMobileCameraFill size={22} />
+                ) : (
+                  <BsWebcamFill size={22} />
+                )
+              }
+              shadow={'rgb(38, 57, 77) 0px 20px 30px -10px;'}
+            />
+          </Tips>
         </div>
         <div
           style={{
@@ -112,21 +146,28 @@ const Camera = ({ open, onCancel, setState }) => {
             gap: '20px',
           }}
         >
-          <Tips title={'Switch camera'}>
-            <Button
-              onClick={() => setModel(mode === 'user' ? 'environment' : 'user')}
-              background={'white'}
-              color={'black'}
-              radius={'50%'}
-              width={'4em'}
-              height={'3em'}
-              padding={'0'}
-              size={'1em'}
-              weight={'500'}
-              Icon={<MdCameraswitch size={25} />}
-              shadow={'rgb(38, 57, 77) 0px 20px 30px -10px;'}
-            />
-          </Tips>
+          {mode.type !== 'webcam' && (
+            <Tips title={'Switch camera'}>
+              <Button
+                onClick={() =>
+                  setModel((p) => ({
+                    ...p,
+                    mode: p.mode === 'user' ? 'environment' : 'user',
+                  }))
+                }
+                background={'white'}
+                color={'black'}
+                radius={'50%'}
+                width={'4em'}
+                height={'3em'}
+                padding={'0'}
+                size={'1em'}
+                weight={'500'}
+                Icon={<MdCameraswitch size={25} />}
+                shadow={'rgb(38, 57, 77) 0px 20px 30px -10px;'}
+              />
+            </Tips>
+          )}
           <Tips title={'Capture'}>
             <Button
               onClick={capture}

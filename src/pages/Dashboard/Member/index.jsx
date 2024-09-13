@@ -7,15 +7,15 @@ import TableData from './Logics/TableData';
 import AddMemberModal from './component/AddMember';
 import { ErrorStatus } from './Logics/errorStatus';
 import { CreateMember } from '../../../services/createMember';
-import { FaUserEdit } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { FetchErrorAnimation, Splash } from '../../../components/animation';
 import SearchBars from './component/SearchBar';
 import TableComponent from './component/TableComponent';
 import { MemberState } from './Logics/memberstate';
-import Image from './component/Image';
 import QueryParameter from './component/queryParameter';
 import { useLocalStorage } from '../../../hook/useLocalStorage';
+import Columns from './component/Column';
+import { FaUserEdit } from 'react-icons/fa';
 
 const Wrapper = styled.div`
   .new-post {
@@ -64,62 +64,18 @@ const Index = () => {
   });
   //! END
   const Data = TableData({ data });
-  const columns = [
-    {
-      title: 'ID',
-      dataIndex: 'sn',
-    },
-    {
-      title: 'Image',
-      dataIndex: 'image',
-      render: (_, record) => {
-        return <Image src={record?.image} />;
-      },
-    },
-    {
-      title: 'Title',
-      dataIndex: 'title',
-    },
-    {
-      title: 'FirstName',
-      dataIndex: 'firstname',
-    },
-    {
-      title: 'LastName',
-      dataIndex: 'lastname',
-    },
-    {
-      title: 'Phone',
-      dataIndex: 'phone',
-    },
-    {
-      title: 'Gender',
-      dataIndex: 'gender',
-    },
-    {
-      title: 'Category',
-      dataIndex: 'category',
-    },
-    {
-      title: 'DOB(MM/DD)',
-      dataIndex: 'dob',
-    },
-    {
-      title: 'Action',
-      dataIndex: 'action',
-      render: (_, record) => {
-        return (
-          <span
-            style={{ cursor: 'pointer' }}
-            onClick={() => navigator(`/dashboard/member/${record.key}`)}
-          >
-            <FaUserEdit size={20} />
-          </span>
-        );
-      },
-    },
-  ];
 
+  const Action = (record) => {
+    return (
+      <span
+        style={{ cursor: 'pointer' }}
+        onClick={() => navigator(`/dashboard/member/${record?.record.key}`)}
+      >
+        <FaUserEdit size={20} />
+      </span>
+    );
+  };
+  const columns = Columns(Action);
   const handleInput = (e, d, n) => {
     if (n === 'departments') {
       setState((p) => ({

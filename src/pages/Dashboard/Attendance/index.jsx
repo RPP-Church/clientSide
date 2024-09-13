@@ -30,6 +30,7 @@ import SearchBars from '../Member/component/SearchBar';
 import QueryParameter from '../Member/component/queryParameter';
 import { IoCameraSharp } from 'react-icons/io5';
 import Camera from '../../../components/camera';
+import Columns from '../Member/component/Column';
 
 const Wrapper = styled.div`
   .new-post {
@@ -133,7 +134,6 @@ const Index = () => {
     },
   });
 
-
   const handleInput = (e, d, n) => {
     setState((p) => ({
       ...p,
@@ -144,118 +144,75 @@ const Index = () => {
     }));
   };
 
-  const columns = [
-    {
-      title: 'ID',
-      dataIndex: 'sn',
-    },
-    {
-      title: 'Image',
-      dataIndex: 'image',
-      render: (_, record) => {
-        return <Image src={record?.image} />;
-      },
-    },
-    {
-      title: 'Title',
-      dataIndex: 'title',
-    },
-    {
-      title: 'FirstName',
-      dataIndex: 'firstname',
-    },
-    {
-      title: 'LastName',
-      dataIndex: 'lastname',
-    },
-    {
-      title: 'Phone',
-      dataIndex: 'phone',
-    },
-    {
-      title: 'Gender',
-      dataIndex: 'gender',
-    },
-    {
-      title: 'Category',
-      dataIndex: 'category',
-    },
-    {
-      title: 'DOB(MM/DD)',
-      dataIndex: 'dob',
-    },
-    {
-      title: 'Action',
-      dataIndex: 'action',
-      render: (_, record) => {
-        return (
-          <div
-            style={{
-              display: 'flex',
-              gap: '10px',
-              alignItems: 'initial',
-              justifyContent: 'center',
+  const Action = (record) => {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          gap: '10px',
+          alignItems: 'initial',
+          justifyContent: 'center',
+        }}
+      >
+        <Tips title='View profile'>
+          <span
+            style={{ cursor: 'pointer' }}
+            onClick={() => navigator(`/dashboard/member/${record?.record.key}`)}
+          >
+            <UserOutlined size={22} />
+          </span>
+        </Tips>
+        <Tips title='Capture attendance' color='red'>
+          <span
+            style={{ cursor: 'pointer' }}
+            onClick={() => {
+              const today = new Date();
+              // const options = {
+              //   day: '2-digit',
+              //   month: '2-digit',
+              //   year: 'numeric',
+              // };
+              // const formatter = new Intl.DateTimeFormat('en-GB', options);
+              // const formattedDate = formatter.format(today);
+              const time = new Date()?.toLocaleTimeString();
+              setState((p) => ({
+                ...p,
+                controls: {
+                  ...p.controls,
+                  Id: record.record.key,
+                },
+              }));
+
+              handleSearchParams('memberId', record.record.key);
+              mutateActivity(today.toISOString(), time);
             }}
           >
-            <Tips title='View profile'>
-              <span
-                style={{ cursor: 'pointer' }}
-                onClick={() => navigator(`/dashboard/member/${record.key}`)}
-              >
-                <UserOutlined size={22} />
-              </span>
-            </Tips>
-            <Tips title='Capture attendance' color='red'>
-              <span
-                style={{ cursor: 'pointer' }}
-                onClick={() => {
-                  const today = new Date();
-                  // const options = {
-                  //   day: '2-digit',
-                  //   month: '2-digit',
-                  //   year: 'numeric',
-                  // };
-                  // const formatter = new Intl.DateTimeFormat('en-GB', options);
-                  // const formattedDate = formatter.format(today);
-                  const time = new Date()?.toLocaleTimeString();
-                  setState((p) => ({
-                    ...p,
-                    controls: {
-                      ...p.controls,
-                      Id: record.key,
-                    },
-                  }));
+            {(isLoading && record?.record.key === state.controls.Id) ||
+            (state.controls.Id === record?.record.key && AutoLoad) ? (
+              <Spin />
+            ) : (
+              <TbCaptureFilled size={20} />
+            )}
+          </span>
+        </Tips>
+        <Tips title={'Take picture'}>
+          <span
+            onClick={() =>
+              setState((p) => ({
+                ...p,
+                openWebcam: true,
+              }))
+            }
+          >
+            {' '}
+            <IoCameraSharp size={20} />
+          </span>
+        </Tips>
+      </div>
+    );
+  };
 
-                  handleSearchParams('memberId', record.key);
-                  mutateActivity(today.toISOString(), time);
-                }}
-              >
-                {(isLoading && record.key === state.controls.Id) ||
-                (state.controls.Id === record.key && AutoLoad) ? (
-                  <Spin />
-                ) : (
-                  <TbCaptureFilled size={20} />
-                )}
-              </span>
-            </Tips>
-            <Tips title={'Take picture'}>
-              <span
-                onClick={() =>
-                  setState((p) => ({
-                    ...p,
-                    openWebcam: true,
-                  }))
-                }
-              >
-                {' '}
-                <IoCameraSharp size={20} />
-              </span>
-            </Tips>
-          </div>
-        );
-      },
-    },
-  ];
+  const columns = Columns(Action);
   const handlePagination = (pageNumber, limit) => {
     setMemberParams((p) => ({
       ...p,
