@@ -224,6 +224,7 @@ const Details = ({ state, handleInput, data }) => {
               }
               style={{ color: 'black' }}
               handleChange={(e, d, name) => handleInput(e, d, name)}
+              
             />
           </div>
           <div className='child'>

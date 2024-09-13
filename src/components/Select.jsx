@@ -38,6 +38,7 @@ const Select = ({
       defaultValue={defaultValue}
       showSearch
       loading={loading}
+      maxTagCount={'responsive'}
     />
   );
 };
