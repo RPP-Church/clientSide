@@ -96,7 +96,11 @@ const Login = () => {
       const message = ErrorHandler(error);
       Notification({
         type: 'error',
-        message: message.error || message?.msg || message.data.mesage || message.data.msg,
+        message:
+          message.error ||
+          message?.msg ||
+          message.data.mesage ||
+          message.data.msg,
       });
     },
   });
@@ -140,6 +144,7 @@ const Login = () => {
               handleChange={(e) =>
                 setFormdata((p) => ({ ...p, phone: e.target.value }))
               }
+              value={formdata.phone}
             />
           </div>
           <div>
@@ -155,6 +160,7 @@ const Login = () => {
                   setFormdata((p) => ({ ...p, password: e.target.value }))
                 }
                 type={formdata.show ? 'tex' : 'password'}
+                value={formdata.password}
               />
             </div>
             <Checkbox
