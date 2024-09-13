@@ -133,7 +133,6 @@ const Index = () => {
     },
   });
 
-  console.log(state)
 
   const handleInput = (e, d, n) => {
     setState((p) => ({

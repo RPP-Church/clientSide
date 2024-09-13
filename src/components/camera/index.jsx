@@ -35,7 +35,7 @@ const Container = styled.div`
   }
 `;
 
-const Camera = ({ open, onCancel, id, setState }) => {
+const Camera = ({ open, onCancel, setState }) => {
   const webcamRef = useRef(null);
   const [mode, setModel] = useState('user');
 
@@ -63,7 +63,7 @@ const Camera = ({ open, onCancel, id, setState }) => {
       okText={'c'}
       footer={() => null}
       rootClassName='memberCamera'
-      id={id}
+      addClass={true}
       closeIcon={null}
     >
       <Container style={{ position: 'relative' }}>

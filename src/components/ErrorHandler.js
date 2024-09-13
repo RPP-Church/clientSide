@@ -1,13 +1,18 @@
 export const ErrorHandler = (error) => {
-    if (error?.response) {
-      if (error?.response?.data && error?.response?.data?.message) {
-        return error.response.data.message;
-      } else {
-        return error.response?.data || error.response;
-      }
-    } else if (error?.request) {
-      return 'No response from server';
+  let message;
+  if (error?.response) {
+    if (error?.response?.data && error?.response?.data?.message) {
+      message = error.response.data.message
+        ? error.response.data.message
+        : error.response.data;
     } else {
-      return error?.message;
+      message = error.response?.data ? error.response?.data : error.response;
     }
-  };
+  } else if (error?.request) {
+    message = 'No response from server';
+  } else {
+    message = error?.message;
+  }
+
+  return message;
+};

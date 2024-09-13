@@ -49,11 +49,19 @@ export const UpdateAdmin = (userId, refetch, setState) => {
       }));
       refetch();
     },
-    onError: (error) => {
-      const message = ErrorHandler(error);
+    onError: async (error) => {
+      const message = await ErrorHandler(error);
       Notification({
         type: 'error',
-        message: message.error || message.data.mesage || message.data.msg,
+        message: message.error
+          ? message.error
+          : message.msg
+          ? message.msg
+          : message.data.mesage
+          ? message.data.mesage
+          : message.data.msg
+          ? message.data.msg
+          : message.message,
       });
     },
   });
@@ -76,7 +84,15 @@ export const UpdateAdminPassword = (userId, close) => {
       const message = ErrorHandler(error);
       Notification({
         type: 'error',
-        message: message.error || message.data.mesage || message.data.msg,
+        message: message.error
+          ? message.error
+          : message.msg
+          ? message.msg
+          : message.data.mesage
+          ? message.data.mesage
+          : message.data.msg
+          ? message.data.msg
+          : message.message,
       });
     },
   });

@@ -1,11 +1,11 @@
 import { FaAsterisk } from 'react-icons/fa';
 import styled from 'styled-components';
 import Modals from '../../../components/Modal';
-import Input from '../../../components/Input';
 import propTypes from 'prop-types';
 import { ErrorStatus } from './ErrorState';
 import { UpdateAdminPassword } from '../../../services/getAdmin';
 import { Notification } from '../../../components/Notification';
+import PasswordInput from '../../../components/PasswordInput';
 
 const ContainerInput = styled.div`
   display: flex;
@@ -104,19 +104,9 @@ const UpdatePassword = ({ state, setState, userId }) => {
         </div>
         <ContainerInput>
           <div className='child'>
-            <label>
-              OLD PASSWORD
-              <span>
-                <FaAsterisk size={8} color='red' />
-              </span>
-            </label>
-            <Input
-              type={'password'}
-              status={state.focusOldPassword.error ? 'error' : ''}
-              name='oldPassword'
-              placeholder={''}
-              size={'large'}
-              value={state.controls.oldPassword}
+            <PasswordInput
+              isRequired={true}
+              title={'OLD PASSWORD'}
               handleChange={(e, d) => {
                 setState((p) => ({
                   ...p,
@@ -128,26 +118,31 @@ const UpdatePassword = ({ state, setState, userId }) => {
 
                 handleInput(e.target.value, d, 'oldPassword');
               }}
+              value={state.controls.oldPassword}
+              handleCheck={(e) =>
+                setState((p) => ({
+                  ...p,
+                  controls: {
+                    ...p.controls,
+                    show: e.target.checked,
+                  },
+                }))
+              }
+              status={state.focusOldPassword.error ? 'error' : ''}
+              show={state.controls.show}
             />
           </div>
           <div className='child'>
-            <label>
-              NEW PASSWORD
-              <span>
-                <FaAsterisk size={8} color='red' />
-              </span>
-            </label>
-            <Input
+            <PasswordInput
+              isRequired
+              show={state.controls.show}
               name='password'
               status={
                 state.focusPassword.error && state.focusPassword.focus
                   ? 'error'
                   : ''
               }
-              type={'password'}
-              placeholder={''}
-              size={'large'}
-              value={state.controls.password}
+              title={'NEW PASSWORD'}
               handleChange={(e, d) => {
                 setState((p) => ({
                   ...p,
@@ -159,6 +154,16 @@ const UpdatePassword = ({ state, setState, userId }) => {
 
                 handleInput(e.target.value, d, 'password');
               }}
+              value={state.controls.password}
+              handleCheck={(e) =>
+                setState((p) => ({
+                  ...p,
+                  controls: {
+                    ...p.controls,
+                    show: e.target.checked,
+                  },
+                }))
+              }
               handleFocus={() =>
                 setState((p) => ({
                   ...p,
@@ -180,23 +185,15 @@ const UpdatePassword = ({ state, setState, userId }) => {
             />
           </div>
           <div className='child'>
-            <label>
-              CONFIRM NEW PASSWORD
-              <span>
-                <FaAsterisk size={8} color='red' />
-              </span>
-            </label>
-            <Input
-              type={'password'}
+            <PasswordInput
+              isRequired
               name='cPassword'
               status={
                 state.focusCPassword.error && state.focusCPassword.focus
                   ? 'error'
                   : ''
               }
-              placeholder={''}
-              size={'large'}
-              value={state.controls.cPassword}
+              title={'CONFIRM NEW PASSWORD'}
               handleChange={(e, d) => {
                 setState((p) => ({
                   ...p,
@@ -209,6 +206,16 @@ const UpdatePassword = ({ state, setState, userId }) => {
 
                 handleInput(e.target.value, d, 'cPassword');
               }}
+              value={state.controls.cPassword}
+              handleCheck={(e) =>
+                setState((p) => ({
+                  ...p,
+                  controls: {
+                    ...p.controls,
+                    show: e.target.checked,
+                  },
+                }))
+              }
               handleFocus={() =>
                 setState((p) => ({
                   ...p,
@@ -227,6 +234,8 @@ const UpdatePassword = ({ state, setState, userId }) => {
                   },
                 }))
               }
+              show={state.controls.show}
+              showCheckBox
             />
           </div>
         </ContainerInput>

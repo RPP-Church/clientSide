@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { Splash } from '../../components/animation';
 import { Notification } from '../../components/Notification';
 import { Checkbox } from 'antd';
+import PasswordInput from '../../components/PasswordInput';
 
 const Wrapper = styled.div`
   background: ${({ loaded, src }) =>
@@ -147,31 +148,18 @@ const Login = () => {
               value={formdata.phone}
             />
           </div>
-          <div>
-            <div>
-              <label>Password</label>
+          <PasswordInput
+            show={formdata.show}
+            handleChange={(e) =>
+              setFormdata((p) => ({ ...p, password: e.target.value }))
+            }
+            value={formdata.password}
+            title={'Password'}
+            handleCheck={(e) =>
+              setFormdata((p) => ({ ...p, show: e.target.checked }))
+            }
+          />
 
-              <Input
-                placeholder={'Password'}
-                size={'large'}
-                height={'500px'}
-                bordered={'1px solid #f1efef'}
-                handleChange={(e) =>
-                  setFormdata((p) => ({ ...p, password: e.target.value }))
-                }
-                type={formdata.show ? 'tex' : 'password'}
-                value={formdata.password}
-              />
-            </div>
-            <Checkbox
-              value={formdata.show}
-              onChange={(e) =>
-                setFormdata((p) => ({ ...p, show: e.target.checked }))
-              }
-            >
-              <p>Show Password</p>
-            </Checkbox>
-          </div>
           <div>
             <Button
               text={isLoading ? 'Loading' : 'Login'}

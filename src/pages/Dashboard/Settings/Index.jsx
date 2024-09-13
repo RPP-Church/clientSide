@@ -56,6 +56,7 @@ const Index = () => {
   const [state, setState] = useState({
     update: true,
     open: false,
+    show: false,
     controls: {
       firstName: '',
       lastName: '',
