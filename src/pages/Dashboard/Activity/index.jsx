@@ -12,7 +12,13 @@ import AddServiceModal from './component/AddActivity';
 import { CreateActivities } from '../../../services/createActivity';
 import { IoMdDownload } from 'react-icons/io';
 import Tips from '../../../components/Tips';
-import { GenerateAttendance } from '../../../services/generateAttendance';
+import {
+  GenerateAttendance,
+  GetAttendance,
+} from '../../../services/generateAttendance';
+import { IoStatsChart } from 'react-icons/io5';
+import { Spin } from 'antd';
+import CustomNotification from '../../../components/CustomNotification';
 const Wrapper = styled.div`
   .new-post {
     display: flex;
@@ -21,7 +27,11 @@ const Wrapper = styled.div`
   }
 `;
 
+const Span = () => {};
+
 const Index = () => {
+  const { contextHolder, openNotification } = CustomNotification();
+
   const [state, setState] = useState({
     open: false,
     query: {
@@ -58,6 +68,11 @@ const Index = () => {
     }));
   };
 
+  const { mutate: reportMutate, isLoading: loading } = GetAttendance(
+    openNotification,
+    Span
+  );
+
   const handleCreateService = () => {
     const data = {
       serviceName: state.controls.serviceName,
@@ -93,19 +108,41 @@ const Index = () => {
       dataIndex: 'action',
       render: (_, record) => {
         return (
-          <Tips title={'Download report'} color={'green'}>
-            <span
-              style={{ cursor: 'pointer' }}
-              onClick={() => {
-                const data = {
-                  activityId: record.key,
-                };
-                DownloadMutate(data);
-              }}
-            >
-              <IoMdDownload size={20} />
-            </span>
-          </Tips>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <Tips title={'Download report'} color={'green'}>
+              <span
+                style={{ cursor: 'pointer' }}
+                onClick={() => {
+                  const data = {
+                    activityId: record.key,
+                  };
+                  DownloadMutate(data);
+                }}
+              >
+                <IoMdDownload size={14} />
+              </span>
+            </Tips>
+            <Tips title={'See report'} color={'blue'}>
+              <span
+                style={{ cursor: 'pointer' }}
+                onClick={() => {
+                  {
+                    setState((p) => ({
+                      ...p,
+                      activityId: record.key,
+                    }));
+                    reportMutate({ Id: record.key, type: 'Present' });
+                  }
+                }}
+              >
+                {loading && state.activityId === record.key ? (
+                  <Spin size='default' />
+                ) : (
+                  <IoStatsChart size={14} />
+                )}
+              </span>
+            </Tips>
+          </div>
         );
       },
     },
@@ -121,6 +158,8 @@ const Index = () => {
 
   return (
     <Container>
+      {contextHolder}
+
       <AddServiceModal
         state={state}
         setState={setState}

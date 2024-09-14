@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import TableData from './Logics/TableData';
 import AddMemberModal from './component/AddMember';
 import { ErrorStatus } from './Logics/errorStatus';
-import { CreateMember } from '../../../services/createMember';
+import { CreateMember, DeleteMember } from '../../../services/createMember';
 import { useNavigate } from 'react-router-dom';
 import { FetchErrorAnimation, Splash } from '../../../components/animation';
 import SearchBars from './component/SearchBar';
@@ -16,6 +16,8 @@ import QueryParameter from './component/queryParameter';
 import { useLocalStorage } from '../../../hook/useLocalStorage';
 import Columns from './component/Column';
 import { FaUserEdit } from 'react-icons/fa';
+import { AiFillDelete } from 'react-icons/ai';
+import { Spin } from 'antd';
 
 const Wrapper = styled.div`
   .new-post {
@@ -39,40 +41,66 @@ const Index = () => {
   //! Submit New Member
   const { mutate, isLoading } = CreateMember({
     refetch,
-    close: () => setState((p) => ({ ...p, open: false })),
-    reset: () => {
-      setState((p) => ({
-        ...p,
-        controls: {
-          category: '',
-          firstName: '',
-          lastName: '',
-          gender: '',
-          address: '',
-          phone: '',
-          email: '',
-          spouseName: '',
-          maritalStatus: '',
-          membershipType: '',
-          dateOfBirth: '',
-          departments: [],
-          joinedDate: '',
-          title: '',
-        },
-      }));
-    },
+    reset: handleReset,
   });
   //! END
+
+  //! DELETE A MEMBER
+  const { mutate: deleteMutate, isLoading: loading } = DeleteMember({
+    refetch,
+    reset: handleReset,
+  });
   const Data = TableData({ data });
 
+  function handleReset() {
+    setState((p) => ({
+      ...p,
+      open: false,
+      memberId: '',
+      controls: {
+        category: '',
+        firstName: '',
+        lastName: '',
+        gender: '',
+        address: '',
+        phone: '',
+        email: '',
+        spouseName: '',
+        maritalStatus: '',
+        membershipType: '',
+        dateOfBirth: '',
+        departments: [],
+        joinedDate: '',
+        title: '',
+      },
+    }));
+  }
   const Action = (record) => {
     return (
-      <span
-        style={{ cursor: 'pointer' }}
-        onClick={() => navigator(`/dashboard/member/${record?.record.key}`)}
-      >
-        <FaUserEdit size={20} />
-      </span>
+      <div style={{ display: 'flex', gap: '12px' }}>
+        <span
+          style={{ cursor: 'pointer' }}
+          onClick={() => navigator(`/dashboard/member/${record?.record.key}`)}
+        >
+          <FaUserEdit size={14} />
+        </span>{' '}
+        <span
+          style={{ cursor: 'pointer' }}
+          onClick={() => {
+            setState((p) => ({
+              ...p,
+              memberId: record.record.key,
+            }));
+            deleteMutate(record?.record.key);
+          }}
+        >
+          {state.memberId === record.record.key && loading ? (
+            <Spin size='default' />
+          ) : (
+            <AiFillDelete size={14} />
+          )}
+        </span>
+      </div>
     );
   };
   const columns = Columns(Action);

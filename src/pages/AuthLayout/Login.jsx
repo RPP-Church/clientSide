@@ -158,6 +158,7 @@ const Login = () => {
             handleCheck={(e) =>
               setFormdata((p) => ({ ...p, show: e.target.checked }))
             }
+            showCheckBox
           />
 
           <div>

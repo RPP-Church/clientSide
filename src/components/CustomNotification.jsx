@@ -5,16 +5,25 @@ const close = (api) => {
 };
 const CustomNotification = () => {
   const [api, contextHolder] = notification.useNotification();
-  const openNotification = ({ title, description, type, handler }) => {
+  const openNotification = ({
+    title,
+    description,
+    type,
+    handler,
+    show,
+    cancel,
+  }) => {
     const key = `open${Date.now()}`;
     const btn = (
       <Space>
         <Button type='link' size='small' onClick={() => api.destroy()}>
-          Cancel
+          {cancel ? cancel : 'Cancel'}
         </Button>
-        <Button type='primary' size='small' onClick={() => handler()}>
-          Capture
-        </Button>
+        {!show && (
+          <Button type='primary' size='small' onClick={() => handler()}>
+            Capture
+          </Button>
+        )}
       </Space>
     );
     api.open({

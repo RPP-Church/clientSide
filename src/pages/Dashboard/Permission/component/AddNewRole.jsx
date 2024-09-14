@@ -93,6 +93,7 @@ const AddNewRole = ({
                   },
                 }))
               }
+              disabled
             />
           </div>
           <div className='child'>
