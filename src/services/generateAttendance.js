@@ -1,7 +1,8 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { ErrorHandler } from '../components/ErrorHandler';
 import useAxiosPrivate from './usePrivate';
 import { Notification } from '../components/Notification';
+import { Debounce } from '../hook/useDebounce';
 
 export const GenerateAttendance = () => {
   const axios = useAxiosPrivate();
@@ -77,4 +78,24 @@ export const GetAttendance = (openNotification) => {
   });
 
   return { mutate, isLoading };
+};
+
+export const GetSingleActivity = (id, query) => {
+  const axios = useAxiosPrivate();
+
+  const params = `${`?page=${query?.page || 1}`}${
+    query?.type ? `&type=${query.type}` : ''
+  }`;
+  const [values] = Debounce(params, 1500);
+
+  const { data, isLoading, refetch, isFetching, error, isError } = useQuery({
+    queryKey: ['getSingleActivity' + values],
+    queryFn: async () => {
+      const { data } = await axios.get(`/attendance/list/${id}${params}`);
+      return data;
+    },
+    enabled: id && values?.length > 2 ? true : false,
+  });
+
+  return { data, isLoading, refetch, isFetching, error, isError };
 };

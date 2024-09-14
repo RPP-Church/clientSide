@@ -19,6 +19,9 @@ import {
 import { IoStatsChart } from 'react-icons/io5';
 import { Spin } from 'antd';
 import CustomNotification from '../../../components/CustomNotification';
+import { TbListDetails } from 'react-icons/tb';
+import { useNavigate } from 'react-router-dom';
+
 const Wrapper = styled.div`
   .new-post {
     display: flex;
@@ -31,6 +34,7 @@ const Span = () => {};
 
 const Index = () => {
   const { contextHolder, openNotification } = CustomNotification();
+  const navigator = useNavigate();
 
   const [state, setState] = useState({
     open: false,
@@ -140,6 +144,18 @@ const Index = () => {
                 ) : (
                   <IoStatsChart size={14} />
                 )}
+              </span>
+            </Tips>
+            <Tips title={'View report'} color={'orange'}>
+              <span
+                style={{ cursor: 'pointer' }}
+                onClick={() => {
+                  {
+                    navigator(`/dashboard/activity/${record.key}`);
+                  }
+                }}
+              >
+                <TbListDetails size={14} />
               </span>
             </Tips>
           </div>

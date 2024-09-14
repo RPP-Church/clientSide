@@ -24,7 +24,6 @@ import AddMemberModal from '../Member/component/AddMember';
 import { MemberState } from '../Member/Logics/memberstate';
 import { ErrorStatus } from '../Member/Logics/errorStatus';
 import { CreateMember } from '../../../services/createMember';
-import Image from '../Member/component/Image';
 import { useLocalStorage } from '../../../hook/useLocalStorage';
 import SearchBars from '../Member/component/SearchBar';
 import QueryParameter from '../Member/component/queryParameter';

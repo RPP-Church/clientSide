@@ -113,7 +113,10 @@ const SingleMember = () => {
       attendance: [],
     },
   });
-  const { isError, isFetching, refetch } = GetSingleMember({ id, setState });
+  const { isError, isFetching, refetch, error } = GetSingleMember({
+    id,
+    setState,
+  });
   const { mutate, isLoading } = UpdateMember({
     refetch,
     close: () =>
@@ -203,7 +206,7 @@ const SingleMember = () => {
   }
 
   if (isError) {
-    return <FetchErrorAnimation refetch={refetch} />;
+    return <FetchErrorAnimation refetch={refetch} error={error} />;
   }
 
   return (
