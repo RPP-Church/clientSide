@@ -162,6 +162,8 @@ const SingleMember = () => {
       email: state.controls.email || '',
       title: state.controls.title,
       dateOfBirth: state.controls.dateOfBirth,
+      gender: state.controls.gender,
+      category: state.controls.category,
     };
 
     mutate({ data, id });

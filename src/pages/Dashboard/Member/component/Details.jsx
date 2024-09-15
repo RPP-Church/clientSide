@@ -19,7 +19,7 @@ const Details = ({ state, handleInput, data }) => {
             <Input
               value={state.controls.category}
               size={'large'}
-              disabled
+              disabled={state.update}
               style={{ color: 'black' }}
             />
           </div>
@@ -73,10 +73,14 @@ const Details = ({ state, handleInput, data }) => {
         <div className='inputContainer'>
           <div className='child'>
             <label>GENDER</label>
-            <Input
+            <Select
+              options={[
+                { key: 1, label: 'Male', value: 'Male' },
+                { key: 2, label: 'Female', value: 'Female' },
+              ]}
               value={state.controls.gender}
               size={'large'}
-              disabled
+              disabled={state.update}
               style={{ color: 'black' }}
             />
           </div>
@@ -129,9 +133,9 @@ const Details = ({ state, handleInput, data }) => {
               placeholder={'Select Status'}
               defaultValue={state.controls.maritalStatus}
               name='maritalStatus'
-              disabled={
-                state.controls.category === 'Children' ? true : state.update
-              }
+              // disabled={
+              //   state.controls.category === 'Children' ? true : state.update
+              // }
               style={{ color: 'black' }}
               handleChange={(e, d, name) => handleInput(e, d, name)}
             />
@@ -161,11 +165,7 @@ const Details = ({ state, handleInput, data }) => {
               placeholder={'Select Status'}
               value={state.controls.membershipType}
               size={'large'}
-              disabled={
-                state.controls.membershipType === 'Existing Member'
-                  ? true
-                  : state.update
-              }
+              disabled={state.update}
               style={{ color: 'black' }}
               name='membershipType'
               handleChange={(e, d, name) =>
@@ -224,7 +224,6 @@ const Details = ({ state, handleInput, data }) => {
               }
               style={{ color: 'black' }}
               handleChange={(e, d, name) => handleInput(e, d, name)}
-              
             />
           </div>
           <div className='child'>
