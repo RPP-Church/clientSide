@@ -150,6 +150,7 @@ const SingleMember = () => {
     }
   };
 
+  console.log(state);
   const handleUpdate = () => {
     const data = {
       firstName: state.controls.firstName,
@@ -166,6 +167,7 @@ const SingleMember = () => {
       category: state.controls.category,
     };
 
+    console.log(data);
     mutate({ data, id });
   };
 

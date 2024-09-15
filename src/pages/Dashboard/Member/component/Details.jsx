@@ -16,11 +16,18 @@ const Details = ({ state, handleInput, data }) => {
         <div className='inputContainer'>
           <div className='child'>
             <label>CATEGORY</label>
-            <Input
+            <Select
               value={state.controls.category}
               size={'large'}
               disabled={state.update}
               style={{ color: 'black' }}
+              handleChange={(e, d, name) => handleInput(e, d, name)}
+              name='category'
+              options={[
+                { key: 1, label: 'Adult', value: 'Adult' },
+                { key: 2, label: 'Teen', value: 'Teen' },
+                { key: 3, value: 'Children', label: 'Child' },
+              ]}
             />
           </div>
           <div className='child'>
@@ -82,6 +89,8 @@ const Details = ({ state, handleInput, data }) => {
               size={'large'}
               disabled={state.update}
               style={{ color: 'black' }}
+              handleChange={(e, d, name) => handleInput(e, d, name)}
+              name={'gender'}
             />
           </div>
           <div className='child'>
@@ -168,9 +177,7 @@ const Details = ({ state, handleInput, data }) => {
               disabled={state.update}
               style={{ color: 'black' }}
               name='membershipType'
-              handleChange={(e, d, name) =>
-                handleInput(e.target.value, d, name)
-              }
+              handleChange={(e, d, name) => handleInput(e, d, name)}
             />
           </div>
           <div className='child calendar'>
