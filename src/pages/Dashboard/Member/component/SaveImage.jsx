@@ -19,7 +19,9 @@ const SaveImage = ({
       okText={'c'}
       footer={() => (
         <div>
-          <span onClick={() => close()}>Close</span>
+          <span onClick={() => close()} style={{ cursor: 'pointer' }}>
+            Close
+          </span>
         </div>
       )}
       //   rootClassName='memberCamera'
@@ -62,14 +64,16 @@ const SaveImage = ({
           radius={'3px'}
           padding={'10px 20px'}
           onClick={() => handleUpdateImage('gallery')}
+          disable={uploading}
         />
         <Button
-          text={'Upload to Cloud'}
+          text={uploading ? 'Loading...' : 'Upload to Cloud'}
           background={'blue'}
           color={'white'}
           radius={'3px'}
           padding={'10px 20px'}
           onClick={() => handleUpdateImage('cloud')}
+          disable={uploading}
         />
       </div>
     </Modals>

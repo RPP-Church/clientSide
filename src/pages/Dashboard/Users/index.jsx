@@ -46,7 +46,6 @@ const Index = () => {
   }
 
   const handleRemove = (userId, permId) => {
-    console.log(userId, permId);
     removePermission({ userId, permId });
   };
 

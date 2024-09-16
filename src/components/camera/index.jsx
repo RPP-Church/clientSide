@@ -53,6 +53,7 @@ const Camera = ({ open, onCancel, setState }) => {
       controls: {
         ...p.controls,
         image: imageSrc,
+        selectedimage: imageSrc,
       },
     }));
   }, [webcamRef, setState]);

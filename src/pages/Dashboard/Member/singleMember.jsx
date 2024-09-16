@@ -11,6 +11,7 @@ import ProfileImage from './component/ProfileImage';
 import Details from './component/Details';
 import { Profile } from '../../../style/profile';
 import { UploadImageMember } from '../../../services/uploadImage';
+import { covertBase } from '../../../hook/covertImage';
 
 const Wrapper = styled.div`
   display: grid;
@@ -127,7 +128,7 @@ const SingleMember = () => {
         update: true,
       })),
   });
-  const { mutate: uploadMutate, isLoading:uploading } = UploadImageMember({
+  const { mutate: uploadMutate, isLoading: uploading } = UploadImageMember({
     refetch,
     reset: handleReset,
   });
@@ -152,7 +153,6 @@ const SingleMember = () => {
     }
   };
 
-  console.log(state);
   const handleUpdate = () => {
     const data = {
       firstName: state.controls.firstName,
@@ -169,11 +169,10 @@ const SingleMember = () => {
       category: state.controls.category,
     };
 
-    console.log(data);
     mutate({ data, id });
   };
 
-  const handleUpdateImage = (type) => {
+  const handleUpdateImage = async (type) => {
     if (type === 'gallery') {
       var a = document.createElement('a'); //Create <a>
       a.href = state.controls.image; //Image Base64 Goes here
@@ -182,8 +181,9 @@ const SingleMember = () => {
       return;
     }
 
+    const image = await covertBase(state.controls.image);
     const data = {
-      image: state.controls.image,
+      image: image,
       memberId: id,
     };
 

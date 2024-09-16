@@ -87,7 +87,8 @@ const ProfileImage = ({
       memberName: e.target.value,
     }));
   };
-  const checkImage = state.controls?.image;
+  const checkImage = state.controls?.selectedimage;
+
   return (
     <div className='profileImage'>
       {checkImage && state.openSave && (
@@ -130,7 +131,7 @@ const ProfileImage = ({
                   ...p,
                   controls: {
                     ...p.controls,
-                    image: '',
+                    selectedimage: '',
                   },
                 }))
               }
@@ -141,9 +142,11 @@ const ProfileImage = ({
             </span>
           )}
 
-          {checkImage && (
+          {(checkImage || state.controls?.profilePicture) && (
             <img
-              src={state.controls?.image}
+              src={
+                state.controls?.selectedimage || state.controls?.profilePicture
+              }
               alt='image'
               style={{ objectFit: 'cover', borderRadius: '100px' }}
             />
@@ -165,9 +168,9 @@ const ProfileImage = ({
                       ...p,
                       controls: {
                         ...p.controls,
-                        image,
+                        image: e.target.files[0],
+                        selectedimage: image,
                       },
-                      selectedimage: image,
                     }));
                   }}
                   accept='image/png, image/jpeg'
@@ -189,7 +192,8 @@ const ProfileImage = ({
                   setState((p) => ({
                     ...p,
                     openSave: true,
-                    memberName: p.controls.firstName + p.controls.lastName,
+                    memberName:
+                      p.controls.firstName + '_' + p.controls.lastName,
                   }))
                 }
               >
@@ -264,5 +268,5 @@ ProfileImage.propTypes = {
   handleUpdate: propTypes.func,
   id: propTypes.string,
   handleUpdateImage: propTypes.func,
-  uploading: propTypes.bool
+  uploading: propTypes.bool,
 };

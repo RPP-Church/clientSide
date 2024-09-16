@@ -18,7 +18,6 @@ export const RegisterUser = ({ refetch, reset }) => {
     onError: (error) => {
       const message = ErrorHandler(error);
 
-      console.log(message);
       Notification({
         type: 'error',
         message:
@@ -48,7 +47,6 @@ export const RemooveP = ({ refetch, reset }) => {
     onError: (error) => {
       const message = ErrorHandler(error);
 
-      console.log(message);
       Notification({
         type: 'error',
         message:

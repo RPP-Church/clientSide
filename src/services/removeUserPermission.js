@@ -18,7 +18,6 @@ export const RemoovePermission = ({ refetch, reset }) => {
     onError: (error) => {
       const message = ErrorHandler(error);
 
-      console.log(message);
       Notification({
         type: 'error',
         message:

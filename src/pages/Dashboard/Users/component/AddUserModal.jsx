@@ -48,7 +48,6 @@ const AddUserModal = ({ state, handleReset, setState, mutate, isLoading }) => {
     mutate(data);
   };
 
-  console.log(state);
   return (
     <Modals
       open={state.open}
@@ -76,7 +75,6 @@ const AddUserModal = ({ state, handleReset, setState, mutate, isLoading }) => {
                   : []
               }
               onSelect={(e, d) => {
-                console.log(e);
                 setState((p) => ({
                   ...p,
                   controls: {

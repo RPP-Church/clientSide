@@ -142,9 +142,9 @@ const Details = ({ state, handleInput, data }) => {
               placeholder={'Select Status'}
               defaultValue={state.controls.maritalStatus}
               name='maritalStatus'
-              // disabled={
-              //   state.controls.category === 'Children' ? true : state.update
-              // }
+              disabled={
+                state.controls.category === 'Children' ? true : state.update
+              }
               style={{ color: 'black' }}
               handleChange={(e, d, name) => handleInput(e, d, name)}
             />

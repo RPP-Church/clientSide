@@ -157,10 +157,13 @@ const AddPermission = ({ state, setState, mutate, isLoading }) => {
     if (data.memberId && data.permission?.length > 0 && data.id) {
       mutate({ formData: data, onClose, Id: data.id, refetch });
     } else {
-      Notification({
-        type: 'warning',
-        message: 'Select a user and roles before saving',
-      });
+      mutate({ formData: data, onClose, Id: data.id, refetch });
+
+      console.log(data)
+      // Notification({
+      //   type: 'warning',
+      //   message: 'Select a user and roles before saving',
+      // });
     }
   };
 
