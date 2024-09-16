@@ -94,6 +94,7 @@ const SingleMember = () => {
   const [state, setState] = useState({
     update: true,
     openWebcam: false,
+    openSave: false,
     controls: {
       image: '',
       category: '',
@@ -112,6 +113,7 @@ const SingleMember = () => {
       title: '',
       attendance: [],
     },
+    memberName: '',
   });
   const { isError, isFetching, refetch, error } = GetSingleMember({
     id,
@@ -125,7 +127,7 @@ const SingleMember = () => {
         update: true,
       })),
   });
-  const { mutate: uploadMutate } = UploadImageMember({
+  const { mutate: uploadMutate, isLoading:uploading } = UploadImageMember({
     refetch,
     reset: handleReset,
   });
@@ -171,7 +173,15 @@ const SingleMember = () => {
     mutate({ data, id });
   };
 
-  const handleUpdateImage = () => {
+  const handleUpdateImage = (type) => {
+    if (type === 'gallery') {
+      var a = document.createElement('a'); //Create <a>
+      a.href = state.controls.image; //Image Base64 Goes here
+      a.download = `${state.memberName}.png`; //File name Here
+      a.click();
+      return;
+    }
+
     const data = {
       image: state.controls.image,
       memberId: id,
@@ -223,6 +233,7 @@ const SingleMember = () => {
           handleUpdate={handleUpdate}
           id={id}
           handleUpdateImage={handleUpdateImage}
+          uploading={uploading}
         />
         <Details state={state} data={data} handleInput={handleInput} />
       </Wrapper>
