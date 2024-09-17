@@ -92,7 +92,7 @@ const SearchBars = ({
               }));
               handleSearchParams('category', e.target.value);
             }}
-            value={memberParams?.query?.category}
+            value={memberParams?.query?.category || 'Select Category'}
             options={[
               { key: 1, label: 'Adult', value: 'Adult' },
               { key: 2, label: 'Teen', value: 'Teen' },
@@ -143,9 +143,9 @@ const SearchBars = ({
             handleChange={(e) => {
               setMemberParams((p) => ({
                 ...p,
-                gender: {
+                query: {
                   ...p.query,
-                  membershipType: e,
+                  gender: e,
                   page: 1,
                 },
               }));

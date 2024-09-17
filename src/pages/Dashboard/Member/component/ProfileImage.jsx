@@ -88,6 +88,7 @@ const ProfileImage = ({
     }));
   };
   const checkImage = state.controls?.selectedimage;
+  console.log(state);
 
   return (
     <div className='profileImage'>
@@ -163,6 +164,7 @@ const ProfileImage = ({
                   hidden
                   id='select'
                   onChange={(e) => {
+                    console.log(e, 'e')
                     const image = URL.createObjectURL(e.target.files[0]);
                     setState((p) => ({
                       ...p,
