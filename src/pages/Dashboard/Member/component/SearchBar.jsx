@@ -5,6 +5,7 @@ import Button from '../../../../components/Button';
 import propTypes from 'prop-types';
 import { SearchBAR } from '../../../../style/container';
 import { useLocation } from 'react-router-dom';
+import { FetchDepartments } from '../../../../services/fetchDepartments';
 
 const SearchBar = styled.div`
   ${SearchBAR}
@@ -16,6 +17,8 @@ const SearchBars = ({
   memberParams,
 }) => {
   const { pathname } = useLocation();
+  const { data } = FetchDepartments();
+
   const handleReset = () => {
     setMemberParams((p) => ({
       ...p,
@@ -155,6 +158,37 @@ const SearchBars = ({
           />
         </div>
       )}
+      <div className='child'>
+        <label>Department</label>
+        <Select
+          // mode={'tags'}
+          options={
+            data?.length > 0
+              ? data.map((item) => ({
+                  key: item._id,
+                  label: item.name,
+                  value: item.name,
+                  deptId: item._id,
+                  name: item.name,
+                }))
+              : []
+          }
+          placeholder={'Select Department'}
+          value={memberParams?.query?.department || 'Select Department'}
+          name='departments'
+          handleChange={(e) =>
+            setMemberParams((p) => ({
+              ...p,
+              query: {
+                ...p.query,
+                department: e,
+                page: 1,
+              },
+            }))
+          }
+          width={'100%'}
+        />
+      </div>
 
       <div className='buttons'>
         <Button

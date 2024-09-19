@@ -10,7 +10,9 @@ export const GetMembers = (query) => {
     query?.phone ? `&phone=${query.phone}` : ''
   }${query?.gender ? `&gender=${query.gender}` : ''}${
     query?.category ? `&category=${query.category}` : ''
-  }${query?.membershipType ? `&membershipType=${query.membershipType}` : ''}`;
+  }${query?.membershipType ? `&membershipType=${query.membershipType}` : ''}${
+    query?.department ? `&department=${query.department}` : ''
+  }`;
 
   const [values] = Debounce(params, 1500);
 
