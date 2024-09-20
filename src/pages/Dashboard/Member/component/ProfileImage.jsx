@@ -88,7 +88,6 @@ const ProfileImage = ({
     }));
   };
   const checkImage = state.controls?.selectedimage;
-  console.log(state);
 
   return (
     <div className='profileImage'>

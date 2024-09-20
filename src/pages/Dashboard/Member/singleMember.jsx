@@ -182,6 +182,7 @@ const SingleMember = () => {
     }
 
     const image = await covertBase(state.controls.image);
+
     const data = {
       image: image,
       memberId: id,
