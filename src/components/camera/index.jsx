@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 import Modals from '../Modal';
 import Button from '../Button';
@@ -39,7 +39,6 @@ const Container = styled.div`
 
 const Camera = ({ open, onCancel, setState }) => {
   const webcamRef = useRef(null);
-  const [device, setDevice] = useState({});
   const [mode, setModel] = useState({
     type: 'webcam',
     mode: 'user',
@@ -59,22 +58,8 @@ const Camera = ({ open, onCancel, setState }) => {
     }));
   }, [webcamRef, setState]);
 
-  const handleDevices = useCallback(
-    (mediaDevices) =>
-      setDevice(mediaDevices.filter(({ kind }) => kind === 'videoinput')),
-    [setDevice]
-  );
-
-
-  useEffect(() => {
-    navigator.mediaDevices.enumerateDevices().then(handleDevices);
-  }, [handleDevices]);
-
   const videoConstraints = {
-    width: 1280,
-    height: 3500,
     facingMode: { exact: mode.mode },
-    deviceId: device.deviceId,
   };
   return (
     <Modals
@@ -89,16 +74,11 @@ const Camera = ({ open, onCancel, setState }) => {
     >
       <Container style={{ position: 'relative' }}>
         <Webcam
-          mirrored={true}
           audio={false}
           ref={webcamRef}
           screenshotFormat='image/jpeg'
           width={'100%'}
-          videoConstraints={
-            mode.type === 'webcam'
-              ? { deviceId: device.deviceId }
-              : videoConstraints
-          }
+          videoConstraints={mode.type === 'webcam' ? {} : videoConstraints}
         />
         <div
           style={{
