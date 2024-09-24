@@ -7,16 +7,19 @@ import { Notification } from '../components/Notification';
 export const FetchAllActivities = (query) => {
   const axios = useAxiosPrivate();
 
+  console.log(query);
   const params = `${`?page=${query.page || 1}`}${
     query.serviceName ? `&serviceName=${query.serviceName}` : ''
-  }${query.date ? `&date=${query.date}` : ''}`;
+  }${query.startDate ? `&startDate=${query.startDate}` : ''}${
+    query.endDate ? `&endDate=${query.endDate}` : ''
+  }`;
 
   const [values] = Debounce(params, 1500);
 
   const { data, isFetching, refetch, isError, error } = useQuery({
     queryKey: ['getAllActivities' + values],
     queryFn: async () => {
-      const { data } = await axios.get(`/activities`);
+      const { data } = await axios.get(`/activities${params}`);
 
       return data;
     },

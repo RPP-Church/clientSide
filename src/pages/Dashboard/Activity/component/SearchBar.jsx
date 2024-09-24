@@ -3,9 +3,51 @@ import styled from 'styled-components';
 import Button from '../../../../components/Button';
 import propTypes from 'prop-types';
 import { SearchBAR } from '../../../../style/container';
+import { DatePicker } from 'antd';
 
 const SearchBar = styled.div`
   ${SearchBAR}
+
+ 
+
+  label {
+    display: block;
+  }
+`;
+
+const StyleWrapperDatePicker = styled.div`
+  .ant-picker-panel {
+    &:last-child {
+      width: 0;
+      .ant-picker-header {
+        position: absolute;
+        right: 0;
+        .ant-picker-header-prev-btn,
+        .ant-picker-header-view {
+          visibility: hidden;
+        }
+      }
+
+      .ant-picker-body {
+        display: none;
+      }
+
+      @media (min-width: 768px) {
+        width: 280px !important;
+        .ant-picker-header {
+          position: relative;
+          .ant-picker-header-prev-btn,
+          .ant-picker-header-view {
+            visibility: initial;
+          }
+        }
+
+        .ant-picker-body {
+          display: block;
+        }
+      }
+    }
+  }
 `;
 const SearchBars = ({ setState, state, refetch }) => {
   const handleReset = () => {
@@ -22,6 +64,7 @@ const SearchBars = ({ setState, state, refetch }) => {
       },
     }));
   };
+
   return (
     <SearchBar>
       <div>
@@ -45,21 +88,24 @@ const SearchBars = ({ setState, state, refetch }) => {
       </div>
       <div>
         <label>DATE</label>
-        <Input.Search
-          //   value={state.query.lastName}
-          type='text'
-          name='lastName'
-          placeholder='Search by LastName'
-          size='large'
-          //   onChange={(e) =>
-          //     setState((p) => ({
-          //       ...p,
-          //       query: {
-          //         ...p.query,
-          //         lastName: e.target.value,
-          //       },
-          //     }))
-          //   }
+        <RangeDatePicker
+          style={{
+            width: '100%',
+            height: '45px',
+            outline: 'none !important',
+          }}
+          onChange={(e, d) => {
+            if (d?.length > 1) {
+              setState((p) => ({
+                ...p,
+                query: {
+                  ...p.query,
+                  startDate: d[0],
+                  endDate: d[1],
+                },
+              }));
+            }
+          }}
         />
       </div>
 
@@ -91,4 +137,18 @@ SearchBars.propTypes = {
   setState: propTypes.func,
   state: propTypes.object,
   refetch: propTypes.func,
+};
+
+const RangeDatePicker = (props) => {
+  const panelRender = (panelNode) => (
+    <StyleWrapperDatePicker>{panelNode}</StyleWrapperDatePicker>
+  );
+
+  return (
+    <DatePicker.RangePicker
+      panelRender={panelRender}
+      {...props}
+      format={'MM/DD/YYYY'}
+    />
+  );
 };

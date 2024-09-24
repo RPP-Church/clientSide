@@ -11,9 +11,28 @@ import { useLocalStorage } from '../../../hook/useLocalStorage';
 import Tips from '../../../components/Tips';
 import { FaListCheck, FaPhoneFlip } from 'react-icons/fa6';
 import { FaList } from 'react-icons/fa';
+import { BiNotepad } from 'react-icons/bi';
+import NoteModal from './component/NoteModal';
+import { useState } from 'react';
+import {
+  DeleteNote,
+  FetchNote,
+  SaveNote,
+  UpdateNote,
+} from '../../../services/note';
 
 const Singles = () => {
   const { id } = useParams();
+  const [state, setState] = useState({
+    open: false,
+    showNote: false,
+    memberId: null,
+    controls: {
+      comment: '',
+      notes: [],
+    },
+  });
+
   const [memberParams, setMemberParams] = useLocalStorage(
     'activityListParams',
     { type: 'Present' }
@@ -24,6 +43,23 @@ const Singles = () => {
     memberParams
   );
 
+  //! FETCH NOTE
+  const { mutate, isLoading } = FetchNote(setState);
+  //! END OF FETCH NOTE
+
+  //! SAVE NOTE
+  const { mutate: saveMutate, isLoading: loading } = SaveNote(fetchNote);
+  //! END OF SAVE NOTE
+
+  //! DELETE NOTE
+  const { mutate: deleteMutate, isLoading: deleteLoading } =
+    DeleteNote(fetchNote);
+  //! END OF DELETE NOTE
+
+  //! UPDATE NOTE
+  const { mutate: updateMutate, isLoading: loadingUpdate } =
+    UpdateNote(fetchNote);
+  //!END OF UPDATE NOTE
   const DATA = SingleData({ data });
 
   const columns = [
@@ -73,17 +109,40 @@ const Singles = () => {
         return (
           <>
             {record?.phone && (
-              <span>
-                <a href={`tel:${record.phone}`}>
-                  <FaPhoneFlip size={15} />
-                </a>{' '}
-              </span>
+              <div
+                style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
+              >
+                <span>
+                  <a href={`tel:${record.phone}`}>
+                    <FaPhoneFlip size={17} />
+                  </a>{' '}
+                </span>
+                <span>
+                  <a
+                    href={`#`}
+                    onClick={() => {
+                      setState((p) => ({
+                        ...p,
+                        open: true,
+                        memberId: record.key,
+                      }));
+                      mutate(record.key);
+                    }}
+                  >
+                    <BiNotepad size={17} />
+                  </a>{' '}
+                </span>
+              </div>
             )}
           </>
         );
       },
     },
   ];
+
+  function fetchNote() {
+    mutate(state.memberId);
+  }
 
   const handlePagination = (pageNumber, limit) => {
     setMemberParams((p) => ({
@@ -103,6 +162,17 @@ const Singles = () => {
 
   return (
     <Container>
+      <NoteModal
+        saveMutate={saveMutate}
+        loading={loading}
+        state={state}
+        setState={setState}
+        isLoading={isLoading}
+        deleteMutate={deleteMutate}
+        deleteLoading={deleteLoading}
+        updateMutate={updateMutate}
+        loadingUpdate={loadingUpdate}
+      />
       <Head text={'RPP Church Portal'} />
       <div>
         <div

@@ -93,7 +93,7 @@ const AddNewRole = ({
                   },
                 }))
               }
-              disabled
+              disabled={state.openPermission}
             />
           </div>
           <div className='child'>
@@ -123,11 +123,13 @@ const AddNewRole = ({
                   weight={'20%'}
                   onClick={() => {
                     if (state.controls.role && state.controls.name) {
-                      const check = state.controls.permissions?.find(
-                        (c) =>
-                          c.name?.toLowerCase() ===
-                          state.controls.role?.toLowerCase()
-                      );
+                      const check =
+                        state?.controls?.permissions?.length > 0 &&
+                        state?.controls?.permissions?.find(
+                          (c) =>
+                            c.name?.toLowerCase() ===
+                            state.controls.role?.toLowerCase()
+                        );
 
                       if (check?.name) {
                         return Notification({

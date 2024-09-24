@@ -42,7 +42,8 @@ const Index = () => {
       size: 10,
       page: 1,
       serviceName: '',
-      date: '',
+      startDate: '',
+      endDate: '',
     },
     controls: {
       serviceName: '',
