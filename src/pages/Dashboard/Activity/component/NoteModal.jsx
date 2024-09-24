@@ -95,11 +95,10 @@ const NoteModal = ({
     <Modals
       open={state.open}
       width={'40%'}
-      onCancel={() => setState((p) => ({ ...p, open: false }))}
       //   handleOK={handleSubmit}
       //   loading={isLoading}
       okText={'Create service'}
-      footer={null}
+      footer={<Footer setState={setState} />}
       closeIcon={null}
     >
       {isLoading ? (
@@ -308,4 +307,37 @@ AddNote.propTypes = {
   loading: propTypes.bool,
   updateMutate: propTypes.func,
   loadingUpdate: propTypes.bool,
+};
+
+const Footer = ({ setState }) => {
+  return (
+    <div style={{ borderTop: '2px solid #b7b7b7', marginTop: '1em' }}>
+      <span
+        style={{
+          cursor: 'pointer',
+          color: 'blue',
+          fontWeight: '600',
+          marginTop: '1em',
+        }}
+        onClick={() =>
+          setState((p) => ({
+            ...p,
+            open: false,
+            showNote: false,
+            memberId: null,
+            controls: {
+              comment: '',
+              notes: [],
+            },
+          }))
+        }
+      >
+        Close
+      </span>
+    </div>
+  );
+};
+
+Footer.propTypes = {
+  setState: propTypes.func,
 };
