@@ -6,6 +6,28 @@ const Wrapper = styled.section`
   @media screen and (min-width: 1025px) {
     padding: 2rem;
   }
+
+  .switch,
+  .controller {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+  }
+
+  .controller {
+    margin-block: 1.2em 0;
+  }
+
+  @media screen and (max-width: 40rem) {
+    .controller {
+      display: block;
+    }
+
+    .switch {
+      margin-top: 1em;
+    }
+  }
 `;
 export default function Container({ children }) {
   return <Wrapper>{children}</Wrapper>;

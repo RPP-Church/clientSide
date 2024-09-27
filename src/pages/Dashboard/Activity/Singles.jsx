@@ -9,8 +9,7 @@ import Image from '../Member/component/Image';
 import { Pager } from '../../../components/Pagination';
 import { useLocalStorage } from '../../../hook/useLocalStorage';
 import Tips from '../../../components/Tips';
-import { FaListCheck, FaPhoneFlip } from 'react-icons/fa6';
-import { FaList } from 'react-icons/fa';
+import { FaPhoneFlip } from 'react-icons/fa6';
 import { BiNotepad } from 'react-icons/bi';
 import NoteModal from './component/NoteModal';
 import { useState } from 'react';
@@ -20,6 +19,7 @@ import {
   SaveNote,
   UpdateNote,
 } from '../../../services/note';
+import { Switch } from 'antd';
 
 const Singles = () => {
   const { id } = useParams();
@@ -152,9 +152,9 @@ const Singles = () => {
     }));
   };
 
-  if (isFetching) {
-    return <Splash />;
-  }
+  // if (isFetching) {
+  //   return <Splash />;
+  // }
 
   if (isError) {
     return <FetchErrorAnimation refetch={refetch} error={error} />;
@@ -175,57 +175,63 @@ const Singles = () => {
       />
       <Head text={'RPP Church Portal'} />
       <div>
-        <div
-          style={{
-            margin: '10px 0',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
+        <div className='controller'>
           <h3 style={{ margin: 0 }}>
             Total Result for {memberParams?.type} Attendance for{' '}
             {data?.data?.activity?.date}:{' '}
             {data?.data?.totalElement ? data?.data?.totalElement : ''}
           </h3>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-            }}
-          >
-            <p style={{ margin: 0, fontSize: '.9em' }}>Switch List</p>
+          <div className='switch'>
+            <p style={{ margin: 0, fontSize: '.9em' }}>
+              Switch to{' '}
+              {memberParams?.type === 'Present' ? 'Absent' : 'Present'}
+            </p>
             <div style={{ display: 'flex' }}>
-              {memberParams?.type !== 'Present' ? (
-                <Tips title='Present List'>
-                  <span
-                    style={{ cursor: 'pointer' }}
-                    onClick={() =>
+              {/* {memberParams?.type !== 'Present' ? ( */}
+              <Tips title={memberParams?.type + ' List'}>
+                <span
+                  style={{ cursor: 'pointer' }}
+                  onClick={() =>
+                    setMemberParams((p) => ({
+                      ...p,
+                      type: p.type === 'Present' ? 'Absent' : 'Present',
+                    }))
+                  }
+                >
+                  <Switch
+                    checkedChildren={memberParams?.type}
+                    unCheckedChildren={memberParams?.type}
+                    checked={memberParams?.checked}
+                    onChange={(e) =>
                       setMemberParams((p) => ({
                         ...p,
-                        type: 'Present',
+                        checked: e,
                       }))
                     }
-                  >
-                    <FaListCheck size={15} color='blue' />
-                  </span>
-                </Tips>
-              ) : (
-                <Tips title='Absent List'>
-                  <span
-                    style={{ cursor: 'pointer' }}
-                    onClick={() =>
-                      setMemberParams((p) => ({
-                        ...p,
-                        type: 'Absent',
-                      }))
-                    }
-                  >
-                    <FaList size={15} color='orange' />
-                  </span>
-                </Tips>
-              )}
+                    loading={isFetching}
+                  />
+                </span>
+              </Tips>
+              {/* // ) : (
+              //   <Tips title='Absent List'>
+              //     <span
+              //       style={{ cursor: 'pointer' }}
+              //       onClick={() =>
+              //         setMemberParams((p) => ({
+              //           ...p,
+              //           type: 'Absent',
+              //         }))
+              //       }
+              //     >
+              //       <Switch
+              //         checkedChildren='开启'
+              //         unCheckedChildren='关闭'
+              //         defaultChecked
+              //       />
+
+              //     </span>
+              //   </Tips>
+              // )} */}
             </div>
           </div>
         </div>

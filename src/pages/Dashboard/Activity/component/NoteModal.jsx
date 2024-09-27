@@ -13,9 +13,10 @@ const NoteContainer = styled.div`
     border-bottom: 2px solid #b7b7b7;
 
     p {
-      font-size: 1.3em;
+      font-size: clamp(1.1em, 20vw, 1.2em);
       font-weight: 500;
       margin: 0;
+      font-style: italic;
     }
   }
 
@@ -37,7 +38,7 @@ const NoteContainer = styled.div`
       }
     }
     span {
-      font-size: 0.9em;
+      font-size: 0.8em;
       font-weight: 600;
       display: block;
     }
