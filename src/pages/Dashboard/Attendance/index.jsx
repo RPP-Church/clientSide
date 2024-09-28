@@ -165,15 +165,14 @@ const Index = () => {
           <span
             style={{ cursor: 'pointer' }}
             onClick={() => {
-              const today = new Date();
-              // const options = {
-              //   day: '2-digit',
-              //   month: '2-digit',
-              //   year: 'numeric',
-              // };
-              // const formatter = new Intl.DateTimeFormat('en-GB', options);
-              // const formattedDate = formatter.format(today);
+              const month = new Date().getMonth() + 1;
+              const day = new Date().getDate();
+              const year = new Date().getFullYear();
               const time = new Date()?.toLocaleTimeString();
+
+              const today = `${month.toString()?.padStart(2, '0')}/${day
+                .toString()
+                ?.padStart(2, '0')}/${year}`;
               setState((p) => ({
                 ...p,
                 controls: {
@@ -183,7 +182,7 @@ const Index = () => {
               }));
 
               handleSearchParams('memberId', record.record.key);
-              mutateActivity(today.toISOString(), time);
+              mutateActivity(today);
             }}
           >
             {(isLoading && record?.record.key === state.controls.Id) ||

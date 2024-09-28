@@ -46,6 +46,7 @@ export const FetchAllActivityByDate = (
 
   const { mutate, isLoading, data } = useMutation({
     mutationFn: async (form) => {
+      console.log(form, 'form');
       const data = await axios.get(`/activities?date=${form}`);
 
       return { data, form };
@@ -53,6 +54,8 @@ export const FetchAllActivityByDate = (
     onSuccess: ({ data, form }) => {
       const service = data?.data?.data?.length > 0 ? 'found' : false;
       const serviceName = data?.data?.data[0]?.serviceName;
+
+
       const handler = () => {
         if (service === false) {
           const data = {
