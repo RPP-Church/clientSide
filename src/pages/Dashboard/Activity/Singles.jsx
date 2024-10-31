@@ -13,6 +13,8 @@ import { FaPhoneFlip } from 'react-icons/fa6';
 import { BiNotepad } from 'react-icons/bi';
 import NoteModal from './component/NoteModal';
 import { useState } from 'react';
+import { Popconfirm, Spin } from 'antd';
+
 import {
   DeleteNote,
   FetchNote,
@@ -20,6 +22,8 @@ import {
   UpdateNote,
 } from '../../../services/note';
 import { Switch } from 'antd';
+import { FaFileArchive } from 'react-icons/fa';
+import { CreateArchive } from '../../../services/archive';
 
 const Singles = () => {
   const { id } = useParams();
@@ -60,6 +64,11 @@ const Singles = () => {
   const { mutate: updateMutate, isLoading: loadingUpdate } =
     UpdateNote(fetchNote);
   //!END OF UPDATE NOTE
+
+  //! CREATE ARCHIVE
+  const { mutate: archiveMutate, isLoading: loadingArchive } = CreateArchive(refetch);
+
+  //! END OF CREATE ARCHIVE
   const DATA = SingleData({ data });
 
   const columns = [
@@ -107,7 +116,7 @@ const Singles = () => {
       dataIndex: 'action',
       render: (_, record) => {
         return (
-          <>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             {record?.phone && (
               <div
                 style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
@@ -134,7 +143,34 @@ const Singles = () => {
                 </span>
               </div>
             )}
-          </>
+            <Popconfirm
+              title='Archive record'
+              description={() => (
+                <span style={{ fontWeight: 600, color: 'red' }}>
+                  Please click ok to archive record
+                </span>
+              )}
+              // open={open}
+              onConfirm={() => {
+                setState((p) => ({
+                  ...p,
+                  memberId: record.key,
+                }));
+                archiveMutate(record.key);
+              }}
+              // onCancel={handleCancel}
+            >
+              <span>
+                {loadingArchive && state.memberId === record.key ? (
+                  <Spin size='small' />
+                ) : (
+                  <a href={`#`}>
+                    <FaFileArchive size={17} />
+                  </a>
+                )}
+              </span>
+            </Popconfirm>
+          </div>
         );
       },
     },
