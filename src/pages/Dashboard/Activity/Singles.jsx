@@ -2,7 +2,7 @@ import Container from '../../../style/container';
 import Head from '../../../components/Head';
 import { useParams } from 'react-router-dom';
 import { GetSingleActivity } from '../../../services/generateAttendance';
-import { FetchErrorAnimation, Splash } from '../../../components/animation';
+import { FetchErrorAnimation } from '../../../components/animation';
 import SingleData from './component/SingleData';
 import { Table } from '../../../components/Table';
 import Image from '../Member/component/Image';
@@ -24,6 +24,7 @@ import {
 import { Switch } from 'antd';
 import { FaFileArchive } from 'react-icons/fa';
 import { CreateArchive } from '../../../services/archive';
+import { UserOutlined } from '@ant-design/icons';
 
 const Singles = () => {
   const { id } = useParams();
@@ -66,7 +67,8 @@ const Singles = () => {
   //!END OF UPDATE NOTE
 
   //! CREATE ARCHIVE
-  const { mutate: archiveMutate, isLoading: loadingArchive } = CreateArchive(refetch);
+  const { mutate: archiveMutate, isLoading: loadingArchive } =
+    CreateArchive(refetch);
 
   //! END OF CREATE ARCHIVE
   const DATA = SingleData({ data });
@@ -121,6 +123,16 @@ const Singles = () => {
               <div
                 style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
               >
+                <span>
+                  <a
+                    href={`/dashboard/member/${record.key}`}
+                    onClick={() =>
+                      navigator(`/dashboard/member/${record.key}`)
+                    }
+                  >
+                    <UserOutlined size={17} />
+                  </a>{' '}
+                </span>
                 <span>
                   <a href={`tel:${record.phone}`}>
                     <FaPhoneFlip size={17} />
