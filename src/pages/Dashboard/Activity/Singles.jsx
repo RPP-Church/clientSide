@@ -119,20 +119,18 @@ const Singles = () => {
       render: (_, record) => {
         return (
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span>
+              <a
+                href={`/dashboard/member/${record.key}`}
+                onClick={() => navigator(`/dashboard/member/${record.key}`)}
+              >
+                <UserOutlined size={17} />
+              </a>{' '}
+            </span>
             {record?.phone && (
               <div
                 style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
               >
-                <span>
-                  <a
-                    href={`/dashboard/member/${record.key}`}
-                    onClick={() =>
-                      navigator(`/dashboard/member/${record.key}`)
-                    }
-                  >
-                    <UserOutlined size={17} />
-                  </a>{' '}
-                </span>
                 <span>
                   <a href={`tel:${record.phone}`}>
                     <FaPhoneFlip size={17} />
