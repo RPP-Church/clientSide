@@ -1,5 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import useAxiosPrivate from './usePrivate';
+import { ErrorHandler } from '../components/ErrorHandler';
+import { Notification } from '../components/Notification';
 
 export const GetStream = () => {
   const axios = useAxiosPrivate();
@@ -20,4 +22,32 @@ export const GetStream = () => {
     isError,
     error,
   };
+};
+
+export const GetAuth = () => {
+  const axios = useAxiosPrivate();
+
+  const { mutate, isLoading, data } = useMutation({
+    mutationFn: async () => {
+      return await axios.get('/stream/auth');
+    },
+    onSuccess: (data) => {
+      console.log(data.data);
+    //   window.location.href = data.data;
+    },
+    onError: (error) => {
+      const message = ErrorHandler(error);
+      Notification({
+        type: 'error',
+        message:
+          message?.error ||
+          message?.mesage ||
+          message?.msg ||
+          message.data.mesage ||
+          message.data.msg,
+      });
+    },
+  });
+
+  return { mutate, isLoading, data };
 };
