@@ -15,20 +15,11 @@ const queryClient = new QueryClient({
   },
 });
 
-const CLIENT_ID =
-  '483138805363-0acd5b25u82cuq2sqvekoo268ao97oei.apps.googleusercontent.com';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <Routes>
-        <Route
-          path='/*'
-          element={
-            <GoogleOAuthProvider clientId={CLIENT_ID}>
-              <App />
-            </GoogleOAuthProvider>
-          }
-        />
+        <Route path='/*' element={<App />} />
       </Routes>
     </BrowserRouter>
   </QueryClientProvider>
