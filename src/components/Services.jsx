@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { FaPlus } from 'react-icons/fa6';
+import { FaPlus, FaVideo } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import { IoPaperPlaneOutline } from 'react-icons/io5';
 import { IoDocumentTextOutline } from 'react-icons/io5';
@@ -78,18 +78,18 @@ const Services = () => {
           </Card>
           <p>Capture Attendance</p>
         </Link>
-        {/* <Link to={'/print'}>
+        <Link to={'/dashboard/stream'}>
           <Card>
-            <IoPrint size={40} color='white' />
+            <FaVideo size={40} color='white' />
           </Card>
-          <p>Download Stickers</p>
+          <p>Watch Live</p>
         </Link>
-        <Link to={'/generate/code'}>
+        {/* <Link to={'/generate/code'}>
           <Card>
             <IoQrCodeSharp size={40} color='white' />
           </Card>
           <p>Generate Code</p>
-        </Link> */}
+        </Link>  */}
         <Link to={'/dashboard/permission'}>
           <Card>
             <MdOutlineSecurity size={40} color='white' />

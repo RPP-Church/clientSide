@@ -15,6 +15,8 @@ import Settings from './pages/Dashboard/Settings/Index';
 import Permission from './pages/Dashboard/Permission/index';
 import Users from './pages/Dashboard/Users';
 import ActivitiesDetails from './pages/Dashboard/Activity/Singles';
+import Stream from './pages/Dashboard/Stream';
+
 import { ErrorAnimation } from './components/animation';
 function App() {
   const { pathname } = useLocation();
@@ -46,6 +48,7 @@ function App() {
             <Route element={<Settings />} path='/dashboard/settings' />
             <Route element={<Permission />} path='/dashboard/permission' />
             <Route element={<Users />} path='/dashboard/users' />
+            <Route element={<Stream />} path='/dashboard/stream' />
           </Route>
           <Route element={<ErrorAnimation />} path='*' />
         </Routes>
