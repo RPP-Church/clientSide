@@ -1,54 +1,65 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import BackgroundPicture from '../../assets/gift-habeshaw-ZPNj0vbn0FE-unsplash.jpg';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { useMutation } from '@tanstack/react-query';
 import { ErrorHandler } from '../../components/ErrorHandler';
 import { login } from '../../services/login';
 import { userState } from '../../state/userState';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Splash } from '../../components/animation';
 import { Notification } from '../../components/Notification';
-import { Checkbox } from 'antd';
 import PasswordInput from '../../components/PasswordInput';
+import Logo from '../../assets/RCCG_logo_400px 1.png';
+import Slider from 'react-slick';
+import SliderOne from '../../assets/Property 1=RPP Footage.png';
+import SliderTwo from '../../assets/Property 1=RPP Footage 01.png';
+import SliderThree from '../../assets/Property 1=RPP Footage 02.png';
 
 const Wrapper = styled.div`
   background: ${({ loaded, src }) =>
-    loaded === 'true' ? `url(${src})` : '#333333d3'};
-  height: 100%;
+    loaded === 'true' ? `url(${src})` : '#fff'};
+  height: 100vh;
   background-size: cover;
   background-position: center;
   background-attachment: scroll;
-  padding-top: 2rem;
-  height: 100vh;
+  /* padding-top: 2rem;
+  height: 100vh; */
+
+  .slick-track {
+    /* width: 100% !important; */
+  }
 
   .ant-input {
-    background-color: #33333359 !important;
-    color: white !important;
-    border: 1px solid #fff !important;
-    border-radius: 30px;
+    background-color: #fff !important;
+    color: var(--gray-color) !important;
+    border: 1px solid var(--gray-color) !important;
+    border-radius: 10px;
     height: 60px;
     padding: 0 0 0 2rem;
     margin-top: 1rem;
     font-size: 1.2rem;
+    font-family: var(--Inter-family) !important;
+    font-weight: 300 !important;
   }
 
   .ant-input::placeholder {
-    color: white !important;
+    color: var(--gray-color) !important;
+    font-family: var(--Inter-family);
+    font-weight: 300;
   }
 `;
 
 const Container = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
   justify-content: center;
   flex-direction: column;
   height: 100%;
-  align-items: center;
-  padding: 0 2rem;
-  div {
+  /* padding: 0 2rem; */
+  /* div {
     margin-bottom: 2rem;
-  }
+  } */
 
   label {
     font-weight: 700;
@@ -77,11 +88,11 @@ const Login = () => {
     show: false,
   });
 
-  const img = new Image();
-  img.src = BackgroundPicture;
-  img.onload = () => {
-    setLoaded(true);
-  };
+  // const img = new Image();
+  // img.src = BackgroundPicture;
+  // img.onload = () => {
+  //   setLoaded(true);
+  // };
 
   const { mutate, isLoading } = useMutation({
     mutationFn: async (form) => {
@@ -123,65 +134,253 @@ const Login = () => {
     mutate(data);
   };
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    // appendDots: (dots) => (
+    //   <div
+    //     style={{
+    //       backgroundColor: '#ddd',
+    //       borderRadius: '10px',
+    //       padding: '10px',
+    //     }}
+    //   >
+    //     <ul style={{ margin: '0px' }}> {dots} </ul>
+    //   </div>
+    // ),
+  };
+
   if (isLoading) {
     return <Splash />;
   }
-  return (
-    <Wrapper loaded={loaded.toString()} src={img.src}>
-      <Container>
-        <form
-          onSubmit={handleRegister}
-          autoSave={'true'}
-          autoComplete={'true'}
-          autoFocus={true}
-        >
-          <div>
-            <label>Phone</label>
-            <Input
-              placeholder={'Phone'}
-              size={'large'}
-              height={'500px'}
-              bordered={'1px solid #f1efef'}
-              handleChange={(e) =>
-                setFormdata((p) => ({ ...p, phone: e.target.value }))
-              }
-              value={formdata.phone}
-            />
-          </div>
-          <PasswordInput
-            show={formdata.show}
-            handleChange={(e) =>
-              setFormdata((p) => ({ ...p, password: e.target.value }))
-            }
-            value={formdata.password}
-            title={'Password'}
-            handleCheck={(e) =>
-              setFormdata((p) => ({ ...p, show: e.target.checked }))
-            }
-            showCheckBox
-          />
 
-          <div>
-            <Button
-              text={isLoading ? 'Loading' : 'Login'}
-              disable={isLoading}
-              background='rgb(241, 239, 239)'
-              border={'1px solid #090808'}
-              color='#090808'
-              radius={'30px'}
-              width={'100%'}
-              height={'3.5rem'}
-              hoverBackground='#f1efef'
-              hoverColor='#090808'
-              size={'1.3rem'}
-              weight={'600'}
-              onClick={handleRegister}
-            />
+  //  loaded={loaded.toString()} src={img.src}
+  return (
+    <Wrapper>
+      <Container>
+        <CarouselContainer>
+          <div className='slider-container'>
+            <Slider {...settings} autoplay>
+              <div className='child'>
+                <img
+                  src={SliderOne}
+                  style={{ height: '100%', objectFit: 'cover' }}
+                />
+              </div>
+              <div className='child'>
+                <img
+                  src={SliderTwo}
+                  style={{ height: '100%', objectFit: 'cover' }}
+                />
+              </div>
+              <div className='child'>
+                <img
+                  src={SliderThree}
+                  style={{ height: '100%', objectFit: 'cover' }}
+                />
+              </div>
+            </Slider>
+            <div className='text'>
+              <p>JESUS CHRIST THE SAME YESTERDAY, TODAY AND FOREVER</p>
+            </div>
           </div>
-        </form>
+        </CarouselContainer>
+        <FormContainer>
+          <div className='wrapper'>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <img src={Logo} />
+            </div>
+            <div className='content'>
+              <h1>Resurrection Power Parish</h1>
+              <h3>Welcome To House of Favour</h3>
+              <div className='formInput'>
+                <div>
+                  <Input
+                    placeholder={'Phone number or email'}
+                    size={'large'}
+                    height={'500px'}
+                    bordered={'1px solid #f1efef'}
+                    handleChange={(e) =>
+                      setFormdata((p) => ({ ...p, phone: e.target.value }))
+                    }
+                    value={formdata.phone}
+                  />
+                  <PasswordInput
+                    show={formdata.show}
+                    handleChange={(e) =>
+                      setFormdata((p) => ({ ...p, password: e.target.value }))
+                    }
+                    value={formdata.password}
+                    placeholder={'Password'}
+                    handleCheck={(e) =>
+                      setFormdata((p) => ({ ...p, show: e.target.checked }))
+                    }
+                    showCheckBox
+                  />
+                  <div className='link'>
+                    <Link>Forget Password?</Link>
+                  </div>
+                </div>
+                <div>
+                  <Button
+                    text={isLoading ? 'Loading' : 'Login'}
+                    disable={isLoading}
+                    background='var( --primary-color)'
+                    border={'none'}
+                    color='#fff'
+                    radius={'15.57px'}
+                    width={'100%'}
+                    height={'3.5rem'}
+                    hoverBackground='#f1efef'
+                    hoverColor='#090808'
+                    size={'20px'}
+                    weight={'600'}
+                    onClick={handleRegister}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </FormContainer>
       </Container>
     </Wrapper>
   );
 };
 
 export default Login;
+
+const CarouselContainer = styled.div`
+  grid-column: 1/7;
+  color: white;
+
+  .child {
+    height: 85vh;
+    width: 100%;
+
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .text {
+    height: 6.5em;
+    background: #28166fa6;
+    position: absolute;
+    width: 100%;
+    /* bottom: -16%; */
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    transform: translate(0px, -4%);
+    p {
+      font-family: var(--Inter-family);
+      font-weight: 600;
+      text-align: center;
+      padding: 1em;
+      width: 60%;
+      line-height: 1.5em;
+    }
+  }
+
+  .slider-container {
+    position: relative;
+
+    /* .slick-dots li button:before {
+      font-family: 'slick';
+      font-size: 36px;
+      line-height: 20px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      content: '•';
+      text-align: center;
+      opacity: 0.25;
+      color: #636363;
+      
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    } */
+  }
+
+  @media screen and (max-width: 60rem) {
+    display: none;
+  }
+`;
+
+const FormContainer = styled.div`
+  grid-column: 7/13;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  .wrapper {
+    padding: 1em 2em;
+    width: 100%;
+  }
+
+  h1 {
+    font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+    font-family: var(--mobile-family);
+  }
+
+  h3 {
+    font-family: var(--Inter-family);
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+
+    color: #848484b2;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 3em;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .formInput {
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    gap: 4em;
+  }
+
+  .link {
+    display: flex;
+    justify-content: end;
+    margin: 14px 0 0 0;
+    font-weight: 400;
+
+    a {
+      color: var(--red-color);
+      font-family: var(--Inter-family);
+      font-weight: 500;
+      font-size: 16px;
+      text-decoration: none;
+    }
+  }
+
+  @media screen and (max-width: 60rem) {
+    grid-column: 1/13;
+    .wrapper {
+      padding: 3em 2em;
+    }
+
+    .content {
+      gap: 4em;
+    }
+  }
+`;

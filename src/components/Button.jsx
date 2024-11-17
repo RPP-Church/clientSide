@@ -15,7 +15,10 @@ const Btn = styled.button`
   font-size: ${({ size }) => size};
   font-weight: ${({ weight }) => weight};
   cursor: pointer;
-  box-shadow: ${({ shadow }) => shadow};
+  /* box-shadow: ${({ shadow }) => shadow}; */
+  font-family: var(--Inter-family);
+  box-shadow: 0px 6.23px 18.68px 0px #636363;
+
 `;
 
 const Button = ({
@@ -89,5 +92,5 @@ Button.propTypes = {
   disable: propTypes.bool,
   margin: propTypes.string,
   loading: propTypes.bool,
-  shadow: propTypes.string
+  shadow: propTypes.string,
 };

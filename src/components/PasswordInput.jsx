@@ -19,7 +19,7 @@ const PasswordInput = ({
   return (
     <div>
       <div>
-        <label>{title}</label>
+        {title && <label>{title}</label>}
         {isRequired && (
           <span>
             <FaAsterisk size={8} color='red' />
@@ -40,11 +40,11 @@ const PasswordInput = ({
           handleFocus={handleFocus}
         />
       </div>
-      {showCheckBox && (
+      {/* {showCheckBox && (
         <Checkbox checked={show} onChange={(e) => handleCheck(e)}>
           <p>Show Password</p>
         </Checkbox>
-      )}
+      )} */}
     </div>
   );
 };
