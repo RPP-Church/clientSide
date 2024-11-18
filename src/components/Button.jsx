@@ -50,7 +50,7 @@ const Button = ({
         background: hoverBackground,
         color: hoverColor,
       }}
-      whileTap={{ scale: 0.1 }}
+      whileTap={{ scale: 0.5 }}
       transition={{ duration: 0.5, type: 'spring' }}
       color={color}
       size={size}
