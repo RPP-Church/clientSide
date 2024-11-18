@@ -16,6 +16,7 @@ import Permission from './pages/Dashboard/Permission/index';
 import Users from './pages/Dashboard/Users';
 import ActivitiesDetails from './pages/Dashboard/Activity/Singles';
 import Stream from './pages/Dashboard/Stream';
+import Testimony from './pages/Testimony';
 
 import { ErrorAnimation } from './components/animation';
 function App() {
@@ -24,15 +25,16 @@ function App() {
 
   return (
     <>
-      {pathname?.includes('dashboard') || pathname == '/login' ? (
+      {/* {pathname?.includes('dashboard') || pathname == '/login' ? (
         ''
       ) : (
         <Nav pathname={pathname} user={token?.name} />
-      )}
+      )} */}
 
       <AuthContext>
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/testimony' element={<Testimony />} />
           <Route element={<AdminLogin />} path='login' />
           <Route path='/dashboard' element={<Layout />}>
             <Route element={<DashboardIndex />} index />
