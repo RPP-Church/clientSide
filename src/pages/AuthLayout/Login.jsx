@@ -403,5 +403,10 @@ const FormContainer = styled.div`
     .content {
       gap: 4em;
     }
+
+    .formInput {
+      width: 90%;
+      gap: 2em;
+    }
   }
 `;
