@@ -1,7 +1,22 @@
 import Input from './Input';
-import { Checkbox } from 'antd';
 import propTypes from 'prop-types';
-import { FaAsterisk } from 'react-icons/fa';
+import { FaAsterisk, FaRegEyeSlash } from 'react-icons/fa';
+import { FiEye } from 'react-icons/fi';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  .inputContainer {
+    position: relative;
+
+    .eyes {
+      position: absolute;
+      right: 2px;
+      top: 50%;
+      transform: translate(-50%, 0);
+      cursor: pointer;
+    }
+  }
+`;
 
 const PasswordInput = ({
   name,
@@ -17,7 +32,7 @@ const PasswordInput = ({
   showCheckBox,
 }) => {
   return (
-    <div>
+    <Container>
       <div>
         {title && <label>{title}</label>}
         {isRequired && (
@@ -26,26 +41,26 @@ const PasswordInput = ({
           </span>
         )}
 
-        <Input
-          status={status}
-          placeholder={'Password'}
-          size={'large'}
-          height={'500px'}
-          bordered={'1px solid #f1efef'}
-          handleChange={(e) => handleChange(e)}
-          type={show ? 'text' : 'password'}
-          value={value}
-          name={name}
-          handleBlur={handleBlur}
-          handleFocus={handleFocus}
-        />
+        <div className='inputContainer'>
+          <Input
+            status={status}
+            placeholder={'Password'}
+            size={'large'}
+            height={'500px'}
+            bordered={'1px solid #f1efef'}
+            handleChange={(e) => handleChange(e)}
+            type={show ? 'text' : 'password'}
+            value={value}
+            name={name}
+            handleBlur={handleBlur}
+            handleFocus={handleFocus}
+          />
+          <div className='eyes' onClick={(e) => handleCheck(e)}>
+            {show ? <FiEye size={25} /> : <FaRegEyeSlash size={25} />}
+          </div>
+        </div>
       </div>
-      {/* {showCheckBox && (
-        <Checkbox checked={show} onChange={(e) => handleCheck(e)}>
-          <p>Show Password</p>
-        </Checkbox>
-      )} */}
-    </div>
+    </Container>
   );
 };
 

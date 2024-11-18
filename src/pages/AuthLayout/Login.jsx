@@ -15,6 +15,8 @@ import Slider from 'react-slick';
 import SliderOne from '../../assets/Property 1=RPP Footage.png';
 import SliderTwo from '../../assets/Property 1=RPP Footage 01.png';
 import SliderThree from '../../assets/Property 1=RPP Footage 02.png';
+import SliderFour from '../../assets/Property 1=RPP Footage 03.png';
+import SliderFive from '../../assets/Property 1=RPP Footage 04.png';
 
 const Wrapper = styled.div`
   background: ${({ loaded, src }) =>
@@ -41,6 +43,7 @@ const Wrapper = styled.div`
     font-size: 1.2rem;
     font-family: var(--Inter-family) !important;
     font-weight: 300 !important;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
   }
 
   .ant-input::placeholder {
@@ -140,17 +143,15 @@ const Login = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    // appendDots: (dots) => (
-    //   <div
-    //     style={{
-    //       backgroundColor: '#ddd',
-    //       borderRadius: '10px',
-    //       padding: '10px',
-    //     }}
-    //   >
-    //     <ul style={{ margin: '0px' }}> {dots} </ul>
-    //   </div>
-    // ),
+    appendDots: (dots) => (
+      <div
+        style={{
+          zIndex: 999999,
+        }}
+      >
+        <ul style={{ margin: '0px' }}> {dots} </ul>
+      </div>
+    ),
   };
 
   if (isLoading) {
@@ -179,6 +180,18 @@ const Login = () => {
               <div className='child'>
                 <img
                   src={SliderThree}
+                  style={{ height: '100%', objectFit: 'cover' }}
+                />
+              </div>
+              <div className='child'>
+                <img
+                  src={SliderFour}
+                  style={{ height: '100%', objectFit: 'cover' }}
+                />
+              </div>
+              <div className='child'>
+                <img
+                  src={SliderFive}
                   style={{ height: '100%', objectFit: 'cover' }}
                 />
               </div>
@@ -221,7 +234,7 @@ const Login = () => {
                     value={formdata.password}
                     placeholder={'Password'}
                     handleCheck={(e) =>
-                      setFormdata((p) => ({ ...p, show: e.target.checked }))
+                      setFormdata((p) => ({ ...p, show: !p.show }))
                     }
                     showCheckBox
                   />
@@ -239,11 +252,11 @@ const Login = () => {
                     radius={'15.57px'}
                     width={'100%'}
                     height={'3.5rem'}
-                    hoverBackground='#f1efef'
-                    hoverColor='#090808'
+                    hoverBackground='var( --primary-color)'
                     size={'20px'}
                     weight={'600'}
                     onClick={handleRegister}
+                    hoverColor='#fff'
                   />
                 </div>
               </div>
@@ -294,23 +307,31 @@ const CarouselContainer = styled.div`
   .slider-container {
     position: relative;
 
-    /* .slick-dots li button:before {
+    .slick-dots li button:before {
       font-family: 'slick';
-      font-size: 36px;
-      line-height: 20px;
+      font-size: 20px;
+      line-height: 10px;
       position: absolute;
       top: 0;
       left: 0;
-      width: 20px;
-      height: 20px;
+      width: 7px;
+      height: 7px;
       content: '•';
       text-align: center;
-      opacity: 0.25;
-      color: #636363;
-      
+      opacity: 1;
+      color: #d9d9d9;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      z-index: 2222;
+    }
+
+    /* .slick-dots li {
+      margin: 4px 10px;
     } */
+  }
+
+  .slick-active button:before {
+    color: #636363 !important;
   }
 
   @media screen and (max-width: 60rem) {
@@ -376,7 +397,7 @@ const FormContainer = styled.div`
   @media screen and (max-width: 60rem) {
     grid-column: 1/13;
     .wrapper {
-      padding: 3em 2em;
+      padding: 0;
     }
 
     .content {
