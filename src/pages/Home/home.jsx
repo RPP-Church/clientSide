@@ -27,11 +27,17 @@ const Wrapper = styled.div`
   background-position: center;
   background-attachment: scroll;
   height: 100vh;
+
+  button {
+    font-weight: 600;
+  }
 `;
 
 const Container = styled.div`
   overflow: hidden;
   position: relative;
+  height: 100%;
+
   .slider-container {
     .child {
       height: 100vh;
@@ -47,7 +53,7 @@ const Container = styled.div`
     position: absolute;
     z-index: 999999;
     transform: translate(0px, -30px);
-    bottom: 10px;
+    bottom: 50px;
     width: 100%;
 
     .content {
