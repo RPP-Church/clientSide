@@ -6,6 +6,9 @@ import DragAndDrop from './components/DragDrop';
 import Button from '../../components/Button';
 import { useState } from 'react';
 import SliderOne from '../../assets/testimonyPic.png';
+import { CreateTestimony } from '../../services/testimony';
+import { Splash } from '../../components/animation';
+import SuccessModal from './components/SuccessModal';
 
 const Wrapper = styled.section`
   position: relative;
@@ -45,7 +48,7 @@ const Container = styled.div`
   label {
     margin: 0;
     font-family: var(--Inter-family);
-    font-size: clamp(0.7rem, 2.5vw, .9rem);
+    font-size: clamp(0.7rem, 2.5vw, 0.9rem);
     font-weight: 400;
   }
 
@@ -113,7 +116,7 @@ const Container = styled.div`
     }
 
     button {
-      width: 20%;
+      width: clamp(9em, 2.5vw, 12em);
     }
   }
 `;
@@ -125,7 +128,23 @@ const Index = () => {
     media: [],
     public: true,
     rating: null,
+    open: false,
   });
+
+  //! *******************************************SUBMIT TESTIMONY******************************
+  const handlesuccess = () => {
+    setState((p) => ({
+      ...p,
+      open: true,
+      name: '',
+      phone: '',
+      media: [],
+      public: true,
+      rating: null,
+      testimony: '',
+    }));
+  };
+  const { mutate, isLoading } = CreateTestimony(handlesuccess);
 
   //! CHECK IF IMAGE IS LOADED
   const [loaded, setLoaded] = useState(false);
@@ -135,12 +154,32 @@ const Index = () => {
     setLoaded(true);
   };
 
-  console.log(state);
   const handleForm = (e) => {
     e.preventDefault();
+
+    const { name, phone, testimony, public: pub, media } = state;
+
+    const data = {
+      name,
+      phone,
+      testimony,
+      public: pub,
+      media,
+    };
+
+    mutate(data);
   };
+
+  if (isLoading) {
+    return <Splash />;
+  }
   return (
     <Wrapper loaded={loaded.toString()} src={img.src}>
+      <SuccessModal
+        open={state.open}
+        title={'Thank you for sharing your testimonies'}
+        onCancel={() => setState((p) => ({ ...p, open: false }))}
+      />
       <Header>
         <h1>Share Your Testimonies </h1>
       </Header>

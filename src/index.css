@@ -13,6 +13,7 @@
   --primary-blue: #1c1fd8;
   --primary-red: #e20202;
   --primary-green: #06923f;
+  --primary-gray: #444444;
 }
 
 html {
@@ -43,4 +44,13 @@ html {
   background-color: unset;
   box-shadow: unset !important;
   padding: 0;
+}
+
+.success .ant-modal-content {
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.success {
+  top: 25%;
 }

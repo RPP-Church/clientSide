@@ -44,14 +44,14 @@ const Button = ({
   return (
     <Btn
       as={motion.button}
-      initial={{ background: background }}
-      whileHover={{
-        scale: 1.1,
-        background: hoverBackground,
-        color: hoverColor,
-      }}
-      whileTap={{ scale: 0.5 }}
-      transition={{ duration: 0.5, type: 'spring' }}
+      // initial={{ background: background }}
+      // whileHover={{
+      //   scale: 1.1,
+      //   background: hoverBackground,
+      //   color: hoverColor,
+      // }}
+      // whileTap={{ scale: 0.5 }}
+      // transition={{ duration: 0.5, type: 'spring' }}
       color={color}
       size={size}
       height={height}

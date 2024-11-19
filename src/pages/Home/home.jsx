@@ -111,6 +111,8 @@ const Index = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     fade: true,
+    nextArrow: <div />,
+    prevArrow: <div />,
   };
   return (
     <Wrapper loaded={loaded.toString()} src={img.src}>

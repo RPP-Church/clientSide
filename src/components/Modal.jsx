@@ -13,7 +13,8 @@ const Modals = ({
   footer,
   rootClassName,
   addClass,
-  closeIcon
+  closeIcon,
+  className
 }) => {
 
   return (
@@ -31,6 +32,7 @@ const Modals = ({
       }
       style={{ backgroundColor: 'unset' }}
       closeIcon={closeIcon}
+      className={className}
     >
       {children}
     </Mod>
