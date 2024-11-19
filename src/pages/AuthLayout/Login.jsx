@@ -258,6 +258,23 @@ const Login = () => {
                     onClick={handleRegister}
                     hoverColor='#fff'
                   />
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      marginBlock: '1em',
+                    }}
+                  >
+                    <Link
+                      style={{
+                        textDecoration: 'none',
+                        fontFamily: 'var(--Inter-family)',
+                      }}
+                      to='/'
+                    >
+                      Go Home
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
