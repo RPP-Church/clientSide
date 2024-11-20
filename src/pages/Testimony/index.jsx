@@ -9,6 +9,7 @@ import SliderOne from '../../assets/testimonyPic.png';
 import { CreateTestimony } from '../../services/testimony';
 import { Splash } from '../../components/animation';
 import SuccessModal from './components/SuccessModal';
+import { covertBase } from '../../hook/covertImage';
 
 const Wrapper = styled.section`
   position: relative;
@@ -129,6 +130,7 @@ const Index = () => {
     public: true,
     rating: null,
     open: false,
+    mediaUpload: [],
   });
 
   //! *******************************************SUBMIT TESTIMONY******************************
@@ -154,17 +156,26 @@ const Index = () => {
     setLoaded(true);
   };
 
-  const handleForm = (e) => {
+  const handleForm = async (e) => {
     e.preventDefault();
 
     const { name, phone, testimony, public: pub, media } = state;
+
+    let medias = [];
+    if (media.length > 0) {
+      media.map((item) => {
+        if (item.base64) {
+          medias.push({ file: item.base64, type: item.type });
+        }
+      });
+    }
 
     const data = {
       name,
       phone,
       testimony,
       public: pub,
-      media,
+      media: medias,
     };
 
     mutate(data);
@@ -271,7 +282,7 @@ const Index = () => {
           </div> */}
           <div className='inputContent'>
             <label>Optional Upload</label>
-            <DragAndDrop setState={setState} />
+            <DragAndDrop setState={setState} state={state.media} />
           </div>
           <div
             style={{

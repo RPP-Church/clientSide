@@ -21,6 +21,7 @@ export const CreateTestimony = (handlesuccess) => {
           message?.msg ||
           message.data.mesage ||
           message.data.msg,
+        placement: 'bottomLeft',
       });
     },
   });

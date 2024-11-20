@@ -11,9 +11,9 @@ const Index = () => {
   const [videoId] = useState('i0VhNNHr9Gs');
 
   const { data, isError, isFetching, error, refetch } = GetStream();
-  const { mutate } = StartStream();
+  const { mutate, data: response } = StartStream();
 
-  console.log(data);
+  console.log(data?.videoId, response?.data?.broadcastId);
 
   const opts = {
     height: '590',
@@ -51,9 +51,10 @@ const Index = () => {
       const result = await validateToken(token);
       if (result.valid) {
         const data = {
-          title: 'test',
-          description: 'test',
+          title: 'Node api start stream',
+          description: 'This is a backend test',
           access_token: token,
+          scheduledStartTime: '2024-11-19T09:45:52.288Z',
         };
         mutate(data);
       } else {
@@ -106,8 +107,8 @@ const Index = () => {
       <Head text={'RPP Church Portal'} />
       <h1>Live Stream.... This is a test</h1>
       <button onClick={() => handleLogin()}>Start Stream</button>
-      {videoId ? (
-        <YouTube videoId={videoId} opts={opts} />
+      {data?.videoId ? (
+        <YouTube videoId={data?.videoId} opts={opts} />
       ) : (
         <p>No live stream available</p>
       )}
