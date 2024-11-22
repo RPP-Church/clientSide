@@ -197,7 +197,7 @@ const SideBar = ({ pathname }) => {
                     <span>Members</span>
                   </div>
                 </NavLink>
-                <NavLink to={'/dashboard/visitors'}>
+                <NavLink to={'/dashboard/visitors'} onClick={handleClose}>
                   <div
                     className={`${
                       pathname === '/dashboard/visitors' ? 'isActive' : ''
@@ -219,7 +219,7 @@ const SideBar = ({ pathname }) => {
                     <span>Visitors</span>
                   </div>
                 </NavLink>
-                <NavLink to={'/dashboard/archive'}>
+                <NavLink to={'/dashboard/archive'} onClick={handleClose}>
                   <div
                     className={`${
                       pathname === '/dashboard/archive' ? 'isActive' : ''
@@ -239,7 +239,7 @@ const SideBar = ({ pathname }) => {
                     <span>Archives</span>
                   </div>
                 </NavLink>
-                <NavLink to='/dashboard/department'>
+                <NavLink to='/dashboard/department' onClick={handleClose}>
                   <div
                     className={`${
                       pathname === '/dashboard/department' ? 'isActive' : ''
@@ -261,7 +261,7 @@ const SideBar = ({ pathname }) => {
                     <span>Depatments</span>
                   </div>
                 </NavLink>
-                <NavLink to='/dashboard/activity'>
+                <NavLink to='/dashboard/activity' onClick={handleClose}>
                   <div
                     className={`${
                       pathname === '/dashboard/activity' ? 'isActive' : ''
@@ -283,7 +283,7 @@ const SideBar = ({ pathname }) => {
                     <span>Our Programmes</span>
                   </div>
                 </NavLink>
-                <NavLink to='/dashboard/attendance'>
+                <NavLink to='/dashboard/attendance' onClick={handleClose}>
                   <div
                     className={`${
                       pathname === '/dashboard/attendance' ? 'isActive' : ''
@@ -305,7 +305,7 @@ const SideBar = ({ pathname }) => {
                     <span>Capture Attendance</span>
                   </div>
                 </NavLink>
-                <NavLink to='/dashboard/report'>
+                <NavLink to='/dashboard/report' onClick={handleClose}>
                   {' '}
                   <div
                     className={`${
@@ -326,7 +326,7 @@ const SideBar = ({ pathname }) => {
                     <span>Generate Report</span>
                   </div>
                 </NavLink>
-                <NavLink to='/dashboard/testimonies'>
+                <NavLink to='/dashboard/testimonies' onClick={handleClose}>
                   <div
                     className={`${
                       pathname === '/dashboard/testimonies' ? 'isActive' : ''
@@ -348,7 +348,7 @@ const SideBar = ({ pathname }) => {
                     <span>View Testimonies</span>
                   </div>
                 </NavLink>
-                <NavLink to='/dashboard/setting'>
+                <NavLink to='/dashboard/setting' onClick={handleClose}>
                   <div
                     className={`${
                       pathname === '/dashboard/setting' ? 'isActive' : ''

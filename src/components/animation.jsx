@@ -8,7 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ErrorHandler } from './ErrorHandler';
 const Container = styled.div`
   position: absolute;
-  z-index: 99999999;
+  z-index: 1;
   background-color: white;
   width: 97%;
   height: 100vh;

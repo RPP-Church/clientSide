@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 const Wrapper = styled.section`
   padding: 12px;
+  height: 87vh;
 
   @media screen and (min-width: 1025px) {
     padding: 2rem;
@@ -12,11 +13,14 @@ const Wrapper = styled.section`
     display: flex;
     align-items: center;
     gap: 20px;
-
   }
 
   .controller {
     margin-block: 1.2em 0;
+  }
+
+  @media screen and (min-width: 801px) {
+    height: unset;
   }
 
   @media screen and (max-width: 40rem) {
