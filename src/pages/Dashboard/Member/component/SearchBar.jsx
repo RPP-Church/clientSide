@@ -197,7 +197,10 @@ const SearchBars = ({
           background={'#059212'}
           radius={'2px'}
           padding={'10px 15px'}
-          onClick={() => refetch()}
+          onClick={() => {
+            console.log(refetch);
+            refetch();
+          }}
         />
         <Button
           text={'Reset'}

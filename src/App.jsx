@@ -51,6 +51,7 @@ function App() {
             <Route element={<Permission />} path='/dashboard/permission' />
             <Route element={<Users />} path='/dashboard/users' />
             <Route element={<Stream />} path='/dashboard/stream' />
+            <Route element={<ErrorAnimation />} path='*' />
           </Route>
           <Route element={<ErrorAnimation />} path='*' />
         </Routes>
