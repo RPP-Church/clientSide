@@ -169,7 +169,7 @@ export function OuiAppReporting(props) {
       height='1em'
       viewBox='0 0 32 32'
       {...props}
-      style={props.style}
+      style={props.styles}
     >
       <g fill='currentColor'>
         <path d='M25 5h-.17v2H25a1 1 0 0 1 1 1v20a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h.17V5H7a3 3 0 0 0-3 3v20a3 3 0 0 0 3 3h18a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3'></path>
@@ -234,6 +234,24 @@ export function MaterialSymbolsContentPasteGo(props) {
       <path
         fill='currentColor'
         d='m18 21l-1.4-1.425L18.175 18H12v-2h6.175L16.6 14.4L18 13l4 4zm3-10h-2V5h-2v3H7V5H5v14h5v2H5q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h4.175q.275-.875 1.075-1.437T12 1q1 0 1.788.563T14.85 3H19q.825 0 1.413.588T21 5zm-9-6q.425 0 .713-.288T13 4t-.288-.712T12 3t-.712.288T11 4t.288.713T12 5'
+      ></path>
+    </svg>
+  );
+}
+
+export function GameIconsHamburgerMenu(props) {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='1em'
+      height='1em'
+      viewBox='0 0 512 512'
+      {...props}
+      style={props.styles}
+    >
+      <path
+        fill='currentColor'
+        d='M32 96v64h448V96zm0 128v64h448v-64zm0 128v64h448v-64z'
       ></path>
     </svg>
   );

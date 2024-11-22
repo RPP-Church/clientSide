@@ -9,7 +9,6 @@ import SliderOne from '../../assets/testimonyPic.png';
 import { CreateTestimony } from '../../services/testimony';
 import { Splash } from '../../components/animation';
 import SuccessModal from './components/SuccessModal';
-import { covertBase } from '../../hook/covertImage';
 
 const Wrapper = styled.section`
   position: relative;

@@ -11,12 +11,8 @@ import { Splash } from '../../components/animation';
 import { Notification } from '../../components/Notification';
 import PasswordInput from '../../components/PasswordInput';
 import Logo from '../../assets/RCCG_logo_400px 1.png';
-import Slider from 'react-slick';
-import SliderOne from '../../assets/Property 1=RPP Footage.png';
-import SliderTwo from '../../assets/Property 1=RPP Footage 01.png';
-import SliderThree from '../../assets/Property 1=RPP Footage 02.png';
-import SliderFour from '../../assets/Property 1=RPP Footage 03.png';
-import SliderFive from '../../assets/Property 1=RPP Footage 04.png';
+
+import CarouselLogin from './CarouselLogin';
 
 const Wrapper = styled.div`
   background: ${({ loaded, src }) =>
@@ -164,38 +160,7 @@ const Login = () => {
       <Container>
         <CarouselContainer>
           <div className='slider-container'>
-            <Slider {...settings} autoplay>
-              <div className='child'>
-                <img
-                  src={SliderOne}
-                  style={{ height: '100%', objectFit: 'cover' }}
-                />
-              </div>
-              <div className='child'>
-                <img
-                  src={SliderTwo}
-                  style={{ height: '100%', objectFit: 'cover' }}
-                />
-              </div>
-              <div className='child'>
-                <img
-                  src={SliderThree}
-                  style={{ height: '100%', objectFit: 'cover' }}
-                />
-              </div>
-              <div className='child'>
-                <img
-                  src={SliderFour}
-                  style={{ height: '100%', objectFit: 'cover' }}
-                />
-              </div>
-              <div className='child'>
-                <img
-                  src={SliderFive}
-                  style={{ height: '100%', objectFit: 'cover' }}
-                />
-              </div>
-            </Slider>
+            <CarouselLogin />
             <div className='text'>
               <p>JESUS CHRIST THE SAME YESTERDAY, TODAY AND FOREVER</p>
             </div>

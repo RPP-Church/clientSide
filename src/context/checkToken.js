@@ -6,13 +6,15 @@ export const checkDecodeToken = ({ user, pathname }) => {
     const decodedToken = jwtDecode(user.token);
     if (decodedToken?.exp * 1000 < currentDate.getTime()) {
       localStorage.removeItem('user');
-      return '/login';
+      return false;
     } else {
-      const link = pathname === '/login' ? true : pathname === '/';
+      // const link = pathname === '/login' ? true : pathname === '/';
 
-      return link ? '/dashboard' : pathname;
+      // return link ? '/dashboard' : pathname;
+      return true;
     }
   } else {
-    return pathname?.includes('dashboard') ? '/login' : pathname;
+    return false;
+    // return pathname?.includes('dashboard') ? '/login' : pathname;
   }
 };

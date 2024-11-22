@@ -55,3 +55,45 @@ html {
 .success {
   top: 25%;
 }
+
+.ant-drawer-content-wrapper {
+  top: 50px !important;
+}
+
+.ant-drawer-mask {
+  background: rgba(0, 0, 0, 0.3) !important;
+}
+
+.ant-drawer-content {
+  border-radius: 0 3px 3px 7px !important;
+}
+
+.ant-drawer .ant-drawer-body {
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+.mobileNav {
+  height: 100%;
+  padding: 2em 13px;
+  h2 {
+    font-family: var(--Inter-family);
+    font-size: 1em;
+  }
+
+  a {
+    font-weight: 300;
+    color: black;
+    font-family: var(--Inter-family);
+    border-bottom: 1px solid #84848463;
+    padding-bottom: 5px;
+  }
+
+  nav {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    padding: 2em 0;
+  }
+}
