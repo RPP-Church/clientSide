@@ -14,6 +14,8 @@ import { covertBase } from '../../hook/covertImage';
 const Wrapper = styled.section`
   position: relative;
   background-color: white;
+  overflow-y: scroll;
+  height: 100vh;
 
   @media screen and (min-width: 50em) {
     background: ${({ loaded, src }) =>
