@@ -55,7 +55,7 @@ const Wrapper = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 4px 15px;
+      padding: 10px 15px;
       gap: 30px;
 
       .streamVideo {
@@ -82,8 +82,9 @@ const Wrapper = styled.div`
         p {
           margin: 0;
           color: var(--secondary-gray);
-          font-size: 11px;
+          font-size: 12px;
           text-align: right;
+          font-family: var(--Inter-family);
         }
       }
     }
@@ -126,7 +127,7 @@ const Wrapper = styled.div`
 const Section = styled.section`
   overflow-y: auto;
   overflow-x: hidden;
-  height: 90vh;
+  height: 80vh;
 `;
 
 const Home = () => {
