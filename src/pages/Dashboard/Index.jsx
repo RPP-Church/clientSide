@@ -5,6 +5,9 @@ import {
   RivetIconsUserGroup,
 } from '../../components/SideBar/Icons';
 import MiniLogo from '../../assets/miniLogo.png';
+import Desktop from '../../assets/DesktopHome1.png';
+import { useState } from 'react';
+import Button from '../../components/Button';
 
 const Wrapper = styled.div`
   display: none;
@@ -223,13 +226,100 @@ const Section = styled.section`
   overflow: hidden;
 `;
 
+const DesktopContainer = styled.div`
+  height: 100vh;
+  padding: 0 0 0 3em;
+  .imageCover {
+    background: ${({ loaded, src }) =>
+      loaded === 'true' ? `url(${src})` : '#333333d3'};
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-attachment: scroll;
+    object-fit: cover;
+    position: relative;
+
+    .imageText {
+      display: flex;
+      flex-direction: column;
+      /* justify-content: center; */
+      align-items: center;
+      gap: 10em;
+      height: 100%;
+      padding: 2em;
+
+      p,
+      h1 {
+        color: white;
+        font-family: var(--Inter-family);
+      }
+
+      h1 {
+        font-size: clamp(3.5em, 2.5vw, 4em);
+        font-weight: 600;
+      }
+
+      p {
+        font-weight: 500;
+      }
+
+      .buttonContainer {
+        display: flex;
+        gap: 3em;
+        width: 60%;
+        justify-content: center;
+      }
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    display: none;
+  }
+`;
+
 const Home = () => {
-  // const { userInfo } = useSelector((state) => state.user);
-  // const { state } = useLocation();
-  // const user = getToken();
+  //! CHECK IF IMAGE IS LOADED
+  const [loaded, setLoaded] = useState(false);
+  const img = new Image();
+  img.src = Desktop;
+  img.onload = () => {
+    setLoaded(true);
+  };
 
   return (
     <Section>
+      <DesktopContainer loaded={loaded.toString()} src={img.src}>
+        <div className='imageCover'>
+          <div className='imageText'>
+            <p>Resurrection Power Parish Portal</p>
+            <h1>Here, in the love of Christ, I stand</h1>
+            <div className='buttonContainer'>
+              <Button
+                text={'Watch us Live'}
+                background={'var(--primary-green)'}
+                color='#f1efef'
+                radius={'30px'}
+                height={'4rem'}
+                hoverColor='#fff'
+                size={'clamp(1.1em, 2.5vw, 1.3em)'}
+                width={'50%'}
+              />
+
+              <Button
+                text={'View past events'}
+                background={'var(--primary-red)'}
+                color='#f1efef'
+                radius={'30px'}
+                height={'4rem'}
+                hoverBackground='var(--primary-red)'
+                hoverColor='#fff'
+                size={'clamp(1.1em, 2.5vw, 1.3em)'}
+                width={'50%'}
+              />
+            </div>
+          </div>
+        </div>
+      </DesktopContainer>
       <Wrapper>
         <CarouselLogin />
         <div style={{ height: '2.5em' }} />
