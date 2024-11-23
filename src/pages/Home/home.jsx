@@ -18,6 +18,7 @@ import SliderFiveD from '../../assets/Desktop5.png';
 
 import Slider from 'react-slick';
 import Button from '../../components/Button';
+import { Spin } from 'antd';
 
 const Wrapper = styled.div`
   background-color: ${({ loaded }) =>
@@ -116,6 +117,11 @@ const Index = () => {
   };
   return (
     <Wrapper loaded={loaded.toString()} src={img.src}>
+      {!loaded && (
+        <div className='imageIsLoading'>
+          <Spin size='large' />
+        </div>
+      )}
       <Container>
         <div className='slider-container'>
           <Slider {...settings} autoplay>
