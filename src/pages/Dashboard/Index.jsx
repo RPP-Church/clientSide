@@ -112,6 +112,10 @@ const Wrapper = styled.div`
       font-size: 20px;
     }
 
+    .slick-dots {
+      z-index: 1 !important;
+    }
+
     .slick-slide img {
       display: block;
       width: 100% !important;
