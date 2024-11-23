@@ -76,24 +76,25 @@ html {
 .mobileNav {
   height: 100%;
   padding: 2em 13px;
-  h2 {
-    font-family: var(--Inter-family);
-    font-size: 1em;
-  }
+}
 
-  a {
-    font-weight: 300;
-    color: black;
-    font-family: var(--Inter-family);
-    border-bottom: 1px solid #84848463;
-    padding-bottom: 5px;
-  }
+.mobileNav h2 {
+  font-family: var(--Inter-family);
+  font-size: 1em;
+}
 
-  nav {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 17px;
-    padding: 2em 0;
-  }
+.mobileNav a {
+  font-weight: 300;
+  color: black;
+  font-family: var(--Inter-family);
+  border-bottom: 1px solid #84848463;
+  padding-bottom: 5px;
+}
+
+.mobileNav nav {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  padding: 2em 0;
 }

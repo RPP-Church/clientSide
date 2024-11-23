@@ -11,10 +11,11 @@ const Wrapper = styled.div`
     display: block;
     .worship {
       background-color: #dddddd;
-      padding: 20px;
+      padding: 40px 20px;
       h2 {
         font-size: 1.3em;
         margin-bottom: 0.6em;
+        font-weight: 500;
       }
       p {
         font-weight: 300;
@@ -46,7 +47,7 @@ const Home = () => {
     <Section>
       <Wrapper>
         <CarouselLogin />
-        <div style={{ height: '2.2em' }} />
+        <div style={{ height: '2.5em' }} />
         <div className='worship'>
           <h2>Worship with us</h2>
           <p>
