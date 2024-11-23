@@ -62,7 +62,7 @@ const Wrapper = styled.div`
         flex: 1;
         h3 {
           font-family: var(--Inter-family);
-          font-size: 15px;
+          font-size: 12px;
           margin: 0;
         }
 
@@ -78,12 +78,12 @@ const Wrapper = styled.div`
       }
 
       .streamText {
-        flex: 1;
+        flex: 2;
         p {
           margin: 0;
           color: var(--secondary-gray);
-          font-size: 12px;
-          text-align: right;
+          font-size: 9px;
+          text-align: start;
           font-family: var(--Inter-family);
         }
       }
