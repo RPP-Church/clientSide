@@ -1,13 +1,10 @@
-import Card from '../../components/Card';
-import Services from '../../components/Services';
-import Head from '../../components/Head';
-import Container from '../../style/container';
 import CarouselLogin from '../AuthLayout/CarouselLogin';
 import styled from 'styled-components';
 import {
   MdiTelevisionAmbientLight,
   RivetIconsUserGroup,
 } from '../../components/SideBar/Icons';
+import MiniLogo from '../../assets/miniLogo.png';
 
 const Wrapper = styled.div`
   display: none;
@@ -93,7 +90,7 @@ const Wrapper = styled.div`
       background-color: #dddddd;
       padding: 20px;
       h2 {
-        font-size: 15px;
+        font-size: clamp(14px, 2vw, 17px);
         margin-bottom: 0.6em;
         font-weight: 500;
       }
@@ -114,6 +111,94 @@ const Wrapper = styled.div`
       .footer-first {
         display: grid;
         grid-template-columns: repeat(12, 1fr);
+        padding: 15px;
+        gap: 10px;
+        .first {
+          grid-column: 1/6;
+
+          .first-head {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            p {
+              font-size: clamp(6px, 2vw, 10px);
+              font-weight: 500;
+            }
+
+            img {
+              background-color: white;
+              border-radius: 20px;
+            }
+          }
+
+          p {
+            font-family: var(--Inter-family);
+            margin: 0;
+            font-weight: 500;
+            color: white;
+          }
+
+          .text {
+            margin-top: 0.4em;
+          }
+
+          .text p {
+            font-size: clamp(9px, 2vw, 10px);
+            font-weight: 300;
+            line-height: 17px;
+          }
+        }
+
+        .second {
+          grid-column: 6/9;
+
+          .second-first-child {
+            height: 20px;
+            display: flex;
+            align-items: center;
+            p {
+              font-size: clamp(6px, 2vw, 10px);
+              font-weight: 500;
+              color: white;
+              font-family: var(--Inter-family);
+            }
+          }
+
+          .second-address {
+            margin-top: 1em;
+
+            address {
+              font-size: clamp(9px, 2vw, 10px);
+              font-weight: 300;
+              font-family: var(--Inter-family);
+              color: white;
+            }
+          }
+        }
+
+        .third {
+          grid-column: 9/14;
+
+          p {
+            font-size: clamp(6px, 2vw, 10px);
+            font-weight: 500;
+            color: white;
+            font-family: var(--Inter-family);
+          }
+        }
+      }
+
+      @media screen and (max-width: 350px) {
+        .footer-first {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+        }
+
+        .second-address {
+          margin-top: 0 !important;
+        }
       }
     }
 
@@ -200,8 +285,34 @@ const Home = () => {
         </div>
         <div className='footer'>
           <div className='footer-first'>
-            <div>
-              <p>Resurrection Power Parish</p>
+            <div className='first'>
+              <div className='first-head'>
+                <div>
+                  <img src={MiniLogo} />
+                </div>
+                <p>Resurrection Power Parish</p>
+              </div>
+              <div className='text'>
+                <p>
+                  In Resurrection Power Parish. We share live services every
+                  Sunday and special services where God Favour due
+                </p>
+              </div>
+            </div>
+            <div className='second'>
+              <div className='second-first-child'>
+                <p>Official Info</p>
+              </div>
+              <div className='second-address'>
+                <address>
+                  17 Molade street off wilmer crescent, Olodi Apapa Lagos.
+                </address>
+              </div>
+            </div>
+            <div className='third'>
+              <div>
+                <p>Social Media</p>
+              </div>
             </div>
           </div>
         </div>
