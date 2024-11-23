@@ -88,9 +88,10 @@ const Wrapper = styled.div`
         }
       }
     }
+
     .worship {
       background-color: #dddddd;
-      padding: 30px 20px;
+      padding: 20px;
       h2 {
         font-size: 15px;
         margin-bottom: 0.6em;
@@ -104,6 +105,15 @@ const Wrapper = styled.div`
       h2 {
         font-family: var(--Inter-family);
         text-align: center;
+      }
+    }
+
+    .footer {
+      background-color: #232323;
+
+      .footer-first {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
       }
     }
 
@@ -125,9 +135,7 @@ const Wrapper = styled.div`
 `;
 
 const Section = styled.section`
-  overflow-y: auto;
-  overflow-x: hidden;
-  height: 80vh;
+  overflow: hidden;
 `;
 
 const Home = () => {
@@ -188,6 +196,13 @@ const Home = () => {
               notification bell so that you will be notified each time will go
               live.
             </p>
+          </div>
+        </div>
+        <div className='footer'>
+          <div className='footer-first'>
+            <div>
+              <p>Resurrection Power Parish</p>
+            </div>
           </div>
         </div>
       </Wrapper>

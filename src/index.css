@@ -15,7 +15,7 @@
   --primary-green: #06923f;
   --primary-gray: #444444;
   --secondary-gray: #636363;
-  --primary-red: #D8241C
+  --primary-red: #d8241c;
 }
 
 html {
@@ -24,6 +24,13 @@ html {
   font-weight: 400;
   font-style: normal;
   overflow: hidden !important;
+}
+
+@media screen and (max-width: 800px) {
+  html {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
 }
 
 .ant-select-single,
