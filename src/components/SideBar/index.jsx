@@ -28,6 +28,7 @@ const SideContainer = styled.aside`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 50px;
   .header {
     display: flex;
     align-items: center;
@@ -57,6 +58,7 @@ const SideContainer = styled.aside`
       display: none;
     }
     display: block !important;
+    height: unset !important;
     grid-column: 1 / 3;
     background-color: var(--primary-color);
     height: 100%;
@@ -148,7 +150,7 @@ const SideBar = ({ pathname }) => {
           placement={'left'}
           onClose={() => handleClose()}
           width={
-            width <= 300 ? '65%' : width > 300 && width <= 470 ? '45%' : '35%'
+            width <= 300 ? '65%' : width > 300 && width <= 470 ? '55%' : '35%'
           }
           child={
             <div className='mobileNav'>

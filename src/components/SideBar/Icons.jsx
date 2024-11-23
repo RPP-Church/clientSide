@@ -256,3 +256,39 @@ export function GameIconsHamburgerMenu(props) {
     </svg>
   );
 }
+
+export function RivetIconsUserGroup(props) {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='1em'
+      height='1em'
+      viewBox='0 0 16 16'
+      {...props}
+      style={props.styles}
+    >
+      <path
+        fill='currentColor'
+        d='M11 0a3 3 0 1 0 0 6a3 3 0 0 0 0-6m-1 3a1 1 0 1 1 2 0a1 1 0 0 1-2 0M5 3a3 3 0 1 0 0 6a3 3 0 0 0 0-6M4 6a1 1 0 1 1 2 0a1 1 0 0 1-2 0m-4 7a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v3H0zm3-1a1 1 0 0 0-1 1v1h6v-1a1 1 0 0 0-1-1zm6-5v2h4a1 1 0 0 1 1 1v1h-3v2h5v-3a3 3 0 0 0-3-3z'
+      ></path>
+    </svg>
+  );
+}
+
+export function MdiTelevisionAmbientLight(props) {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='1em'
+      height='1em'
+      viewBox='0 0 24 24'
+      {...props}
+      style={props.styles}
+    >
+      <path
+        fill='currentColor'
+        d='M3 11H0V9h3zm0 3H0v2h3zm2-8.88L2.88 3L1.46 4.41l2.13 2.13zM10 5V2H8v3zm14 4h-3v2h3zm-8-4V2h-2v3zm4.41 1.54l2.13-2.12L21.12 3L19 5.12zM24 14h-3v2h3zm-5-5v7c0 1.1-.9 2-2 2h-2v2H9v-2H7c-1.1 0-2-.9-2-2V9c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2m-2 0H7v7h10zm2 10.88L21.12 22l1.42-1.41l-2.13-2.12zM3.59 18.46l-2.12 2.13L2.88 22L5 19.88z'
+      ></path>
+    </svg>
+  );
+}
