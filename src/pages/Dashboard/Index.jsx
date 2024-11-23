@@ -30,7 +30,7 @@ const Wrapper = styled.div`
 
           p {
             font-family: var(--Inter-family);
-            font-size: 12px;
+            font-size: 9px;
             text-align: start;
             color: var(--secondary-gray);
             text-align: end;
@@ -90,15 +90,15 @@ const Wrapper = styled.div`
     }
     .worship {
       background-color: #dddddd;
-      padding: 40px 20px;
+      padding: 30px 20px;
       h2 {
-        font-size: 1.3em;
+        font-size: 15px;
         margin-bottom: 0.6em;
         font-weight: 500;
       }
       p {
         font-weight: 300;
-        font-size: 0.9em;
+        font-size: 10px;
       }
       p,
       h2 {
