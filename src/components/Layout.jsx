@@ -8,13 +8,13 @@ const LayoutContainer = styled.div`
     grid-template-columns: repeat(12, 1fr);
     overflow: hidden;
     height: 100vh;
-  }
 
-  .child {
-    grid-column: 3/14;
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: 100%;
+    .child {
+      grid-column: 3/14;
+      overflow-y: auto;
+      overflow-x: hidden;
+      height: 100%;
+    }
   }
 `;
 

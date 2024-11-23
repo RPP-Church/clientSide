@@ -177,7 +177,7 @@ const SideBar = ({ pathname }) => {
                   }
                 />
 
-                <NavLink to={'/dashboard/member'}>
+                <NavLink to={'/dashboard/member'} onClick={handleClose}>
                   <div
                     className={`${
                       pathname === '/dashboard/member' ? 'isActive' : ''

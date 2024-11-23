@@ -2,7 +2,8 @@ import styled, { css } from 'styled-components';
 
 const Wrapper = styled.section`
   padding: 12px;
-  height: 87vh;
+  height: 90vh;
+  overflow: auto;
 
   @media screen and (min-width: 1025px) {
     padding: 2rem;
