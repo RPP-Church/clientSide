@@ -282,7 +282,6 @@ const AddNote = ({
                   comment: state.controls.comment,
                 };
 
-                console.log(formdata);
                 updateMutate({ memberId: state.memberId, formdata });
                 return;
               }

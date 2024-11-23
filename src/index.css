@@ -23,7 +23,9 @@ html {
 
   font-weight: 400;
   font-style: normal;
-  overflow: hidden !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+
 }
 
 @media screen and (max-width: 800px) {
@@ -106,4 +108,15 @@ html {
   flex-direction: column;
   gap: 17px;
   padding: 2em 0;
+}
+
+.imageIsLoading {
+  height: 100vh;
+  position: absolute;
+  z-index: 1;
+  background: white;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

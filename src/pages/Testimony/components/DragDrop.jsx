@@ -32,15 +32,20 @@ const DragAndDrop = ({ setState, state }) => {
       Notification({
         type: 'warning',
         message: 'Only one image allowed for now',
-        placement: 'bottomLeft'
+        placement: 'bottomLeft',
       });
-      
 
       return;
     }
     if (e?.fileList?.length > 0) {
       for (var i = 0; i < e.fileList.length; i++) {
         if (e.fileList[i].type?.includes('image')) {
+          if (e.fileList[i].size > 205000) {
+            return Notification({
+              type: 'warning',
+              message: 'Image must be not be greater than 200kb',
+            });
+          }
           const image = await covertBase(e.fileList[i]?.originFileObj);
           setState((p) => ({
             ...p,
@@ -106,8 +111,6 @@ const DragAndDrop = ({ setState, state }) => {
       }
     }
   };
-
-  console.log(state);
 
   return (
     <Dragger

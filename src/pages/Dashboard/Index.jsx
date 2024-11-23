@@ -8,6 +8,9 @@ import MiniLogo from '../../assets/miniLogo.png';
 import Desktop from '../../assets/DesktopHome1.png';
 import { useState } from 'react';
 import Button from '../../components/Button';
+import { Spin } from 'antd';
+import MobileOne from '../../assets/MobileLogin1.png';
+import { useWindowDimensions } from '../../hook/getDimension';
 
 const Wrapper = styled.div`
   display: none;
@@ -232,7 +235,7 @@ const DesktopContainer = styled.div`
   .imageCover {
     background: ${({ loaded, src }) =>
       loaded === 'true' ? `url(${src})` : '#333333d3'};
-    height: 100%;
+    height: ${({ show }) => (show === 'true' ? '80%' : '100%')};
     background-size: cover;
     background-position: center;
     background-attachment: scroll;
@@ -244,7 +247,7 @@ const DesktopContainer = styled.div`
       flex-direction: column;
       /* justify-content: center; */
       align-items: center;
-      gap: 10em;
+      gap: ${({ show }) => (show === 'true' ? '5em' : '10em')};
       height: 100%;
       padding: 2em;
 
@@ -266,7 +269,7 @@ const DesktopContainer = styled.div`
       .buttonContainer {
         display: flex;
         gap: 3em;
-        width: 60%;
+        width: ${({ show }) => (show === 'true' ? '80%' : '60%')};
         justify-content: center;
       }
     }
@@ -278,17 +281,28 @@ const DesktopContainer = styled.div`
 `;
 
 const Home = () => {
+  const { height, width } = useWindowDimensions();
+
   //! CHECK IF IMAGE IS LOADED
   const [loaded, setLoaded] = useState(false);
   const img = new Image();
-  img.src = Desktop;
+  img.src = width > 801 ? Desktop : MobileOne;
   img.onload = () => {
     setLoaded(true);
   };
 
   return (
     <Section>
-      <DesktopContainer loaded={loaded.toString()} src={img.src}>
+      {!loaded && (
+        <div className='imageIsLoading'>
+          <Spin size='large' />
+        </div>
+      )}
+      <DesktopContainer
+        loaded={loaded.toString()}
+        src={img.src}
+        show={width >= 801 && width <= 1100 && height < 680 ? 'true' : 'false'}
+      >
         <div className='imageCover'>
           <div className='imageText'>
             <p>Resurrection Power Parish Portal</p>
@@ -299,10 +313,16 @@ const Home = () => {
                 background={'var(--primary-green)'}
                 color='#f1efef'
                 radius={'30px'}
-                height={'4rem'}
+                height={
+                  width >= 801 && width <= 1100 && height < 680
+                    ? '3.2em'
+                    : '4rem'
+                }
                 hoverColor='#fff'
-                size={'clamp(1.1em, 2.5vw, 1.3em)'}
-                width={'50%'}
+                size={'clamp(1em, 2vw, 1.1em)'}
+                width={
+                  width >= 801 && width <= 1100 && height < 680 ? '80%' : '50%'
+                }
               />
 
               <Button
@@ -310,11 +330,17 @@ const Home = () => {
                 background={'var(--primary-red)'}
                 color='#f1efef'
                 radius={'30px'}
-                height={'4rem'}
+                height={
+                  width >= 801 && width <= 1100 && height < 680
+                    ? '3.2em'
+                    : '4rem'
+                }
                 hoverBackground='var(--primary-red)'
                 hoverColor='#fff'
-                size={'clamp(1.1em, 2.5vw, 1.3em)'}
-                width={'50%'}
+                size={'clamp(1em, 2vw, 1.1em)'}
+                width={
+                  width >= 801 && width <= 1100 && height < 680 ? '80%' : '50%'
+                }
               />
             </div>
           </div>

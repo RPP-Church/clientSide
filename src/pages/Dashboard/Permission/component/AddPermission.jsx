@@ -159,7 +159,6 @@ const AddPermission = ({ state, setState, mutate, isLoading }) => {
     } else {
       mutate({ formData: data, onClose, Id: data.id, refetch });
 
-      console.log(data)
       // Notification({
       //   type: 'warning',
       //   message: 'Select a user and roles before saving',

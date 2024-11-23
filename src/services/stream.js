@@ -32,7 +32,6 @@ export const GetAuth = () => {
       return await axios.get('/stream/auth');
     },
     onSuccess: (data) => {
-      console.log(data.data);
       window.location.href = data.data;
     },
     onError: (error) => {

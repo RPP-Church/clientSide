@@ -198,7 +198,6 @@ const SearchBars = ({
           radius={'2px'}
           padding={'10px 15px'}
           onClick={() => {
-            console.log(refetch);
             refetch();
           }}
         />

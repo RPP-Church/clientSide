@@ -13,8 +13,6 @@ import SuccessModal from './components/SuccessModal';
 const Wrapper = styled.section`
   position: relative;
   background-color: white;
-  overflow-y: scroll;
-  height: 100vh;
 
   @media screen and (min-width: 50em) {
     background: ${({ loaded, src }) =>
@@ -104,6 +102,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     padding: 0;
+   
 
     form {
       width: 45%;

@@ -7,7 +7,6 @@ import { Notification } from '../components/Notification';
 export const FetchAllActivities = (query) => {
   const axios = useAxiosPrivate();
 
-  console.log(query);
   const params = `${`?page=${query.page || 1}`}${
     query.serviceName ? `&serviceName=${query.serviceName}` : ''
   }${query.startDate ? `&startDate=${query.startDate}` : ''}${
@@ -46,7 +45,6 @@ export const FetchAllActivityByDate = (
 
   const { mutate, isLoading, data } = useMutation({
     mutationFn: async (form) => {
-      console.log(form, 'form');
       const data = await axios.get(`/activities?date=${form}`);
 
       return { data, form };
