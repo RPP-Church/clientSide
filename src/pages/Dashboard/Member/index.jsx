@@ -15,9 +15,10 @@ import { MemberState } from './Logics/memberstate';
 import QueryParameter from './component/queryParameter';
 import { useLocalStorage } from '../../../hook/useLocalStorage';
 import Columns from './component/Column';
-import { FaUserEdit } from 'react-icons/fa';
+import { FaFileArchive, FaUserEdit } from 'react-icons/fa';
 import { AiFillDelete } from 'react-icons/ai';
-import { Spin } from 'antd';
+import { Popconfirm, Spin } from 'antd';
+import { CreateArchive } from '../../../services/archive';
 
 const Wrapper = styled.div`
   .new-post {
@@ -37,6 +38,10 @@ const Index = () => {
   const { data, isError, isFetching, refetch } = GetMembers(
     memberParams?.query
   );
+
+  //! ARCHIVE
+  const { mutate: ArchiveMutate, isLoading: loadingArchive } =
+    CreateArchive(refetch);
 
   //! Submit New Member
   const { mutate, isLoading } = CreateMember({
@@ -83,7 +88,33 @@ const Index = () => {
           onClick={() => navigator(`/dashboard/member/${record?.record.key}`)}
         >
           <FaUserEdit size={14} />
-        </span>{' '}
+        </span>
+        <Popconfirm
+          title='Archive record'
+          description={() => (
+            <span style={{ fontWeight: 600, color: 'red' }}>
+              Please click ok to archive record
+            </span>
+          )}
+          onConfirm={() => {
+            setState((p) => ({
+              ...p,
+              memberId: record?.record.key,
+            }));
+            ArchiveMutate(record?.record.key);
+          }}
+        >
+          <span>
+            {loadingArchive && state.memberId === record?.record.key ? (
+              <Spin size='small' />
+            ) : (
+              <a href={`#`}>
+                <FaFileArchive size={14} />
+              </a>
+            )}
+          </span>
+        </Popconfirm>
+
         <span
           style={{ cursor: 'pointer' }}
           onClick={() => {
