@@ -51,15 +51,19 @@ export const GetAuth = () => {
   return { mutate, isLoading, data };
 };
 
-export const StartStream = () => {
+export const StartStream = (handleSuccess) => {
   const axios = useAxiosPrivate();
 
   const { mutate, isLoading, data } = useMutation({
     mutationFn: async (form) => {
       return await axios.post('/stream', form);
     },
-    onSuccess: (data) => {
-      console.log(data.data);
+    onSuccess: () => {
+      handleSuccess();
+      Notification({
+        type: 'success',
+        message: 'Stream scheduled successfully',
+      });
     },
     onError: (error) => {
       const message = ErrorHandler(error);

@@ -25,7 +25,6 @@ html {
   font-style: normal;
   overflow-x: hidden !important;
   overflow-y: auto !important;
-
 }
 
 @media screen and (max-width: 800px) {
@@ -120,3 +119,4 @@ html {
   justify-content: center;
   align-items: center;
 }
+

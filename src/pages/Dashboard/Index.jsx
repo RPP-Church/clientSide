@@ -11,6 +11,7 @@ import Button from '../../components/Button';
 import { Spin } from 'antd';
 import MobileOne from '../../assets/MobileLogin1.png';
 import { useWindowDimensions } from '../../hook/getDimension';
+import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
   display: none;
@@ -281,6 +282,7 @@ const DesktopContainer = styled.div`
 `;
 
 const Home = () => {
+  const navigate = useNavigate();
   const { height, width } = useWindowDimensions();
 
   //! CHECK IF IMAGE IS LOADED
@@ -309,6 +311,7 @@ const Home = () => {
             <h1>Here, in the love of Christ, I stand</h1>
             <div className='buttonContainer'>
               <Button
+                onClick={() => navigate('/dashboard/stream')}
                 text={'Watch us Live'}
                 background={'var(--primary-green)'}
                 color='#f1efef'

@@ -67,6 +67,11 @@ const SideContainer = styled.aside`
       rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
       rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
     padding: 2em 0 !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-color: red var(--primary-color);
+    scrollbar-width: thin;
+
     .header {
       display: flex;
       justify-content: center;

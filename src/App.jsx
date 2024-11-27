@@ -59,7 +59,7 @@ function App() {
           />
           <Route
             element={<PrivateRoute component={Settings} />}
-            path='/dashboard/settings'
+            path='/dashboard/setting'
           />
           <Route
             element={<PrivateRoute component={Permission} />}

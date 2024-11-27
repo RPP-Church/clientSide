@@ -2,18 +2,51 @@ import { useEffect, useState } from 'react';
 import YouTube from 'react-youtube';
 import axios from 'axios';
 import Container from '../../../style/container';
-import Head from '../../../components/Head';
 import { GetStream, StartStream } from '../../../services/stream';
 import { FetchErrorAnimation, Splash } from '../../../components/animation';
 import { Notification } from '../../../components/Notification';
+import Button from '../../../components/Button';
+import styled from 'styled-components';
+import NewStreamModal from './components/NewStreamModal';
+
+const Wrapper = styled.div`
+  height: 70dvh;
+
+  .noLive {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+`;
 
 const Index = () => {
-  const [videoId] = useState('i0VhNNHr9Gs');
-
+  const [state, setState] = useState({
+    open: false,
+    controls: {
+      title: '',
+      scheduledStartTime: '',
+      description: '',
+    },
+  });
   const { data, isError, isFetching, error, refetch } = GetStream();
-  const { mutate, data: response } = StartStream();
 
-  console.log(data?.videoId, response?.data?.broadcastId);
+  //! ******************** SCHEDULE A STREAM WITH START DATE *****************************
+  const handleSuccess = () => {
+    setState({
+      open: false,
+      controls: {
+        title: '',
+        scheduledStartTime: '',
+        description: '',
+      },
+    });
+  };
+  const {
+    mutate,
+    isLoading: loadingScheduleStream,
+  } = StartStream(handleSuccess);
+  //! ******************** SCHEDULE A STREAM WITH START DATE *****************************
 
   const opts = {
     height: '590',
@@ -51,11 +84,31 @@ const Index = () => {
       const result = await validateToken(token);
       if (result.valid) {
         const data = {
-          title: 'Node api start stream',
-          description: 'This is a backend test',
+          title: state.controls.title,
+          description: state.controls.description,
           access_token: token,
-          scheduledStartTime: '2024-11-19T09:45:52.288Z',
+          scheduledStartTime: state.controls.scheduledStartTime,
         };
+
+        if (!data.title) {
+          return Notification({
+            type: 'warning',
+            message: 'Enter stream Title',
+          });
+        }
+
+        if (!data.scheduledStartTime) {
+          return Notification({
+            type: 'warning',
+            message: 'Enter Schedule Date and Time',
+          });
+        }
+        if (!data.description) {
+          return Notification({
+            type: 'warning',
+            message: 'Enter stream Discription',
+          });
+        }
         mutate(data);
       } else {
         sessionStorage.removeItem('google_access_token');
@@ -80,12 +133,6 @@ const Index = () => {
 
       if (accessToken) {
         sessionStorage.setItem('google_access_token', accessToken);
-        const data = {
-          title: 'test',
-          description: 'test',
-          access_token: accessToken,
-        };
-        mutate(data);
       } else {
         console.log('No access token found');
       }
@@ -104,14 +151,34 @@ const Index = () => {
 
   return (
     <Container>
-      <Head text={'RPP Church Portal'} />
-      <h1>Live Stream.... This is a test</h1>
-      <button onClick={() => handleLogin()}>Start Stream</button>
-      {data?.videoId ? (
-        <YouTube videoId={data?.videoId} opts={opts} />
-      ) : (
-        <p>No live stream available</p>
-      )}
+      <NewStreamModal
+        state={state}
+        setState={setState}
+        handleSubmit={handleLogin}
+        isLoading={loadingScheduleStream}
+      />
+      <Wrapper>
+        <div>
+          <Button
+            text='Schedule Stream'
+            color={'white'}
+            radius={'4px'}
+            onClick={() =>
+              setState((p) => ({
+                ...p,
+                open: true,
+              }))
+            }
+          />
+        </div>
+        {data?.videoId ? (
+          <YouTube videoId={data?.videoId} opts={opts} />
+        ) : (
+          <div className='noLive'>
+            <h2>No Live Stream Available</h2>
+          </div>
+        )}
+      </Wrapper>
     </Container>
   );
 };
