@@ -47,10 +47,10 @@ const Head = ({ text, back, sub, button, link }) => {
   };
 
   const handleNavigate = () => {
-    if (pathname === '/dashboard/settings') {
+    if (pathname === '/dashboard/setting') {
       handleLogout();
     } else {
-      navigate('/dashboard/settings');
+      navigate('/dashboard/setting');
     }
   };
   return (
@@ -82,8 +82,8 @@ const Head = ({ text, back, sub, button, link }) => {
             <FaHome />
           </span>
           <span onClick={() => handleNavigate()}>
-            {pathname === '/dashboard/settings' ? 'Logout' : 'Settings'}
-            {pathname === '/dashboard/settings' ? (
+            {pathname === '/dashboard/setting' ? 'Logout' : 'Settings'}
+            {pathname === '/dashboard/setting' ? (
               <IoLogOut />
             ) : (
               <IoMdSettings />

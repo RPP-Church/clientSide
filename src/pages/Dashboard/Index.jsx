@@ -388,8 +388,7 @@ const Home = () => {
             <h3>
               Watch our streamed videos{' '}
               <span>
-                {' '}
-                <button>Click to watch</button>
+                <button onClick={() => navigate('/dashboard/stream')}>Click to watch</button>
               </span>
             </h3>
           </div>

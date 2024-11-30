@@ -1,5 +1,3 @@
-import React from 'react';
-import Head from '../../../components/Head';
 import Container from '../../../style/container';
 import SearchBars from '../Member/component/SearchBar';
 import TableComponent from '../Member/component/TableComponent';
@@ -8,7 +6,10 @@ import { GetArchive } from '../../../services/getArchive';
 import { useLocalStorage } from '../../../hook/useLocalStorage';
 import QueryParameter from '../Member/component/queryParameter';
 import TableData from '../Member/Logics/TableData';
-import Columns from '../Member/component/Column'; 
+import Columns from '../Member/component/Column';
+import { FaTrashRestore } from 'react-icons/fa';
+import { RestoreArchive } from '../../../services/restoreArchive';
+import { Popconfirm, Spin } from 'antd';
 
 const Index = () => {
   const { state, setState } = MemberState();
@@ -20,16 +21,36 @@ const Index = () => {
     memberParams?.query
   );
 
-  const Action = (record) => {
+  const { mutate, isLoading } = RestoreArchive(refetch);
+
+  const Action = ({ record }) => {
     return (
       <div style={{ display: 'flex', gap: '12px' }}>
-        {/* <span
-          style={{ cursor: 'pointer' }}
-          onClick={() => navigator(`/dashboard/member/${record?.record.key}`)}
+        <Popconfirm
+          title='Archive record'
+          description={() => (
+            <span style={{ fontWeight: 600, color: 'red' }}>
+              Please click ok to restore archive record
+            </span>
+          )}
+          onConfirm={() => {
+            setState((p) => ({
+              ...p,
+              memberId: record.key,
+            }));
+            mutate(record.key);
+          }}
         >
-          <FaUserEdit size={14} />
-        </span>{' '}
-        <span
+          <span style={{ cursor: 'pointer' }}>
+            {isLoading && state.memberId === record.key ? (
+              <Spin size='small' />
+            ) : (
+              <FaTrashRestore size={14} />
+            )}
+          </span>
+        </Popconfirm>
+
+        {/* <span
           style={{ cursor: 'pointer' }}
           onClick={() => {
             setState((p) => ({
@@ -44,7 +65,7 @@ const Index = () => {
           ) : (
             <AiFillDelete size={14} />
           )}
-        </span> */}
+        </span>  */}
       </div>
     );
   };
@@ -68,7 +89,6 @@ const Index = () => {
 
   return (
     <Container>
-      
       <SearchBars
         setState={setState}
         state={state}
