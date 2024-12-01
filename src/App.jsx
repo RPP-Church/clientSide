@@ -15,6 +15,7 @@ import ActivitiesDetails from './pages/Dashboard/Activity/Singles';
 import Stream from './pages/Dashboard/Stream';
 import Testimony from './pages/Testimony';
 import Archive from './pages/Dashboard/Archive';
+import TestimonyHome from './pages/Dashboard/Testimonies';
 
 import { ErrorAnimation } from './components/animation';
 import PrivateRoute from './PrivateRoute';
@@ -76,6 +77,10 @@ function App() {
           <Route
             element={<PrivateRoute component={Archive} />}
             path='/dashboard/archive'
+          />
+          <Route
+            element={<PrivateRoute component={TestimonyHome} />}
+            path='/dashboard/testimonies'
           />
           <Route element={<ErrorAnimation />} path='*' />
         </Route>
