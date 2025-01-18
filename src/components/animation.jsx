@@ -83,6 +83,8 @@ export const ErrorAnimation = () => {
 export const FetchErrorAnimation = ({ refetch, error }) => {
   const message = ErrorHandler(error)?.error || ErrorHandler(error)?.message;
   const navigate = useNavigate();
+
+  console.log(error?.response?.status);
   return (
     <Container width={'200px'}>
       <div style={{ marginBottom: '2em' }}>
@@ -98,7 +100,11 @@ export const FetchErrorAnimation = ({ refetch, error }) => {
       <div className='firstChild'>
         <h3 className='font-Bold text-5xl text-red-500 '>Oops!</h3>
         <p className='font-Medium text-[16px] leading-6 text-center text-gray-500'>
-          {message}
+          {message
+            ? message
+            : error?.response?.status === 403
+            ? 'Access Denied, contact admin for access'
+            : 'An error occurred'}
         </p>
       </div>
       <div className='secondChild'>
