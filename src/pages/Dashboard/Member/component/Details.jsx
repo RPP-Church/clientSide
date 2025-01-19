@@ -253,6 +253,7 @@ const Details = ({ state, handleInput, data }) => {
               <p>Date: {item.date}</p>
               <p>Time: {item.time || '---'}</p>
               <p>Attendance: {item.attendance}</p>
+              <p>CreatedBy: {item.createdBy || '---'}</p>
             </Card>
           ))}
         </div>
