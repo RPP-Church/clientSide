@@ -19,6 +19,7 @@ import {
   MaterialSymbolsContentPasteGo,
   UilSetting,
   GameIconsHamburgerMenu,
+  CallIcon,
 } from './Icons';
 import SideLink from './Link';
 
@@ -246,6 +247,26 @@ const SideBar = ({ pathname }) => {
                     <span>Archives</span>
                   </div>
                 </NavLink>
+                <NavLink to={'/dashboard/call'} onClick={handleClose}>
+                  <div
+                    className={`${
+                      pathname === '/dashboard/call' ? 'isActive' : ''
+                    } linkContent`}
+                  >
+                    <CallIcon
+                      styles={{
+                        color:
+                          pathname === '/dashboard/call' ? 'black' : 'white',
+                        fontSize:
+                          width >= 600 && width <= 960 && height >= 600
+                            ? '1em'
+                            : '1.2em',
+                        display: 'none',
+                      }}
+                    />
+                    <span>Call</span>
+                  </div>
+                </NavLink>
                 <NavLink to='/dashboard/department' onClick={handleClose}>
                   <div
                     className={`${
@@ -466,6 +487,24 @@ const SideBar = ({ pathname }) => {
               }}
             />
             <span>Archives</span>
+          </div>
+        </NavLink>
+        <NavLink to={'/dashboard/call'}>
+          <div
+            className={`${
+              pathname === '/dashboard/call' ? 'isActive' : ''
+            } linkContent`}
+          >
+            <CallIcon
+              styles={{
+                color: pathname === '/dashboard/call' ? 'black' : 'white',
+                fontSize:
+                  width >= 600 && width <= 960 && height >= 600
+                    ? '1em'
+                    : '1.2em',
+              }}
+            />
+            <span>Call Management</span>
           </div>
         </NavLink>
         <NavLink to='/dashboard/department'>

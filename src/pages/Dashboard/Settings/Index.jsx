@@ -102,9 +102,9 @@ const Index = () => {
     return <Splash />;
   }
 
-  if (isError) {
-    return <FetchErrorAnimation refetch={refetch} />;
-  }
+  // if (isError) {
+  //   return <FetchErrorAnimation refetch={refetch} />;
+  // }
   return (
     <Container>
       <Head text={'RPP Church Portal'} />

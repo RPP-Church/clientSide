@@ -1,6 +1,6 @@
 import axios from 'axios';
 const BASE_URL = 'https://rppserver.resurrectionpowerparish.ng/api/v1';
-//https://server.resurrectionpowerparish.ng
+//https://rppserver.resurrectionpowerparish.ng
 export default axios.create({
   baseURL: BASE_URL,
 });

@@ -16,6 +16,7 @@ import Stream from './pages/Dashboard/Stream';
 import Testimony from './pages/Testimony';
 import Archive from './pages/Dashboard/Archive';
 import TestimonyHome from './pages/Dashboard/Testimonies';
+import CallManagement from './pages/Dashboard/Call'
 
 import { ErrorAnimation } from './components/animation';
 import PrivateRoute from './PrivateRoute';
@@ -81,6 +82,10 @@ function App() {
           <Route
             element={<PrivateRoute component={TestimonyHome} />}
             path='/dashboard/testimonies'
+          />
+           <Route
+            element={<PrivateRoute component={CallManagement} />}
+            path='/dashboard/call'
           />
           <Route element={<ErrorAnimation />} path='*' />
         </Route>

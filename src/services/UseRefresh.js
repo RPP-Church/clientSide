@@ -7,11 +7,11 @@ const useRefreshToken = () => {
   const refresh = async () => {
     const response = await axios.get(`/refresh`, {
       params: {
-        userId: token.userId
-      }
+        userId: token.userId,
+      },
     });
 
-    return response.data.token;
+    return response.data;
   };
   return refresh;
 };

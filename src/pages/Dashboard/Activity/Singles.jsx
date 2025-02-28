@@ -134,7 +134,7 @@ const Singles = () => {
                 <span>
                   <a href={`tel:${record.phone}`}>
                     <FaPhoneFlip size={17} />
-                  </a>{' '}
+                  </a>
                 </span>
                 <span>
                   <a
