@@ -17,7 +17,6 @@ const Index = () => {
   });
 
   const { mutate, isLoading, error: err, isError: isErr } = DownloadTestimony();
-  console.log(err, 'error');
 
   const columns = [
     {

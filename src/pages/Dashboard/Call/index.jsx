@@ -15,6 +15,8 @@ import { Popconfirm, message, Popover, Tooltip } from 'antd';
 import { useState } from 'react';
 import Button from '../../../components/Button';
 import { FetchErrorAnimation } from '../../../components/animation';
+import { BiNotepad } from 'react-icons/bi';
+import NoteModal from '../Note';
 
 const Wrapper = styled.div`
   .new-post {
@@ -37,6 +39,8 @@ const Index = () => {
     id: null,
     openUpdate: false,
   });
+
+  const [show, setShow] = useState(false);
 
   const user = getToken();
   const DATA = TableData(data);
@@ -245,17 +249,30 @@ const Index = () => {
               <StatusIcon />
             </span>
           </Popover>
+          <div>
+            <span
+              onClick={() => {
+                setState((p) => ({
+                  ...p,
+                  id: record.key,
+                }));
+                setShow(true);
+              }}
+            >
+              <BiNotepad size={17} />
+            </span>
+          </div>
         </div>
       ),
     },
   ];
 
-  console.log(DATA, 'DATA');
   if (isError) {
     return <FetchErrorAnimation refetch={refetch} error={error} />;
   }
   return (
     <Container>
+      <NoteModal show={show} setShow={setShow} memberId={state.id} />
       <Head text={'RPP Church Portal'} />
       <Wrapper>
         <div style={{ margin: '10px 0' }}>

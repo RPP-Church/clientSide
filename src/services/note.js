@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import useAxiosPrivate from './usePrivate';
 import { ErrorHandler } from '../components/ErrorHandler';
 import { Notification } from '../components/Notification';
@@ -39,6 +39,22 @@ export const FetchNote = (setState) => {
   });
 
   return { mutate, isLoading, data };
+};
+
+export const FetchNoteQuery = ({ memberId, show }) => {
+  const axios = useAxiosPrivate();
+
+  const { data, isFetching, refetch, isError, error } = useQuery({
+    queryKey: ['FetchNoteQuery', memberId],
+    queryFn: async () => {
+      const { data } = await axios.get(`/note/${memberId}`);
+
+      return data?.data?.notes;
+    },
+    enabled: show && memberId ? true : false,
+  });
+
+  return { isFetching, refetch, isError, error, data };
 };
 
 export const SaveNote = (fetchNote) => {

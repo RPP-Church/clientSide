@@ -134,7 +134,6 @@ const Index = () => {
       if (accessToken) {
         sessionStorage.setItem('google_access_token', accessToken);
       } else {
-        console.log('No access token found');
       }
     };
 

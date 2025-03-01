@@ -84,7 +84,6 @@ export const FetchErrorAnimation = ({ refetch, error }) => {
   const message = ErrorHandler(error)?.error || ErrorHandler(error)?.message;
   const navigate = useNavigate();
 
-  console.log(error?.response?.status);
   return (
     <Container width={'200px'}>
       <div style={{ marginBottom: '2em' }}>

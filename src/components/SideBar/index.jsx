@@ -264,7 +264,7 @@ const SideBar = ({ pathname }) => {
                         display: 'none',
                       }}
                     />
-                    <span>Call</span>
+                    <span>Call Management</span>
                   </div>
                 </NavLink>
                 <NavLink to='/dashboard/department' onClick={handleClose}>

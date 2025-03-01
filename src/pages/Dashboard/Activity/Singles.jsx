@@ -9,18 +9,18 @@ import Image from '../Member/component/Image';
 import { Pager } from '../../../components/Pagination';
 import { useLocalStorage } from '../../../hook/useLocalStorage';
 import Tips from '../../../components/Tips';
-import { FaPhoneFlip } from 'react-icons/fa6';
-import { BiNotepad } from 'react-icons/bi';
-import NoteModal from './component/NoteModal';
+// import { FaPhoneFlip } from 'react-icons/fa6';
+// import { BiNotepad } from 'react-icons/bi';
+// import NoteModal from './component/NoteModal';
 import { useState } from 'react';
 import { Popconfirm, Spin } from 'antd';
 
-import {
-  DeleteNote,
-  FetchNote,
-  SaveNote,
-  UpdateNote,
-} from '../../../services/note';
+// import {
+//   DeleteNote,
+//   FetchNote,
+//   SaveNote,
+//   UpdateNote,
+// } from '../../../services/note';
 import { Switch } from 'antd';
 import { FaFileArchive } from 'react-icons/fa';
 import { CreateArchive } from '../../../services/archive';
@@ -48,23 +48,23 @@ const Singles = () => {
     memberParams
   );
 
-  //! FETCH NOTE
-  const { mutate, isLoading } = FetchNote(setState);
-  //! END OF FETCH NOTE
+  // //! FETCH NOTE
+  // const { mutate, isLoading } = FetchNote(setState);
+  // //! END OF FETCH NOTE
 
-  //! SAVE NOTE
-  const { mutate: saveMutate, isLoading: loading } = SaveNote(fetchNote);
-  //! END OF SAVE NOTE
+  // //! SAVE NOTE
+  // const { mutate: saveMutate, isLoading: loading } = SaveNote(fetchNote);
+  // //! END OF SAVE NOTE
 
-  //! DELETE NOTE
-  const { mutate: deleteMutate, isLoading: deleteLoading } =
-    DeleteNote(fetchNote);
-  //! END OF DELETE NOTE
+  // //! DELETE NOTE
+  // const { mutate: deleteMutate, isLoading: deleteLoading } =
+  //   DeleteNote(fetchNote);
+  // //! END OF DELETE NOTE
 
-  //! UPDATE NOTE
-  const { mutate: updateMutate, isLoading: loadingUpdate } =
-    UpdateNote(fetchNote);
-  //!END OF UPDATE NOTE
+  // //! UPDATE NOTE
+  // const { mutate: updateMutate, isLoading: loadingUpdate } =
+  //   UpdateNote(fetchNote);
+  // //!END OF UPDATE NOTE
 
   //! CREATE ARCHIVE
   const { mutate: archiveMutate, isLoading: loadingArchive } =
@@ -131,12 +131,12 @@ const Singles = () => {
               <div
                 style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
               >
-                <span>
+                {/* <span>
                   <a href={`tel:${record.phone}`}>
                     <FaPhoneFlip size={17} />
                   </a>
-                </span>
-                <span>
+                </span> */}
+                {/* <span>
                   <a
                     href={`#`}
                     onClick={() => {
@@ -150,7 +150,7 @@ const Singles = () => {
                   >
                     <BiNotepad size={17} />
                   </a>{' '}
-                </span>
+                </span> */}
               </div>
             )}
             <Popconfirm
@@ -186,9 +186,9 @@ const Singles = () => {
     },
   ];
 
-  function fetchNote() {
-    mutate(state.memberId);
-  }
+  // function fetchNote() {
+  //   mutate(state.memberId);
+  // }
 
   const handlePagination = (pageNumber, limit) => {
     setMemberParams((p) => ({
@@ -208,7 +208,7 @@ const Singles = () => {
 
   return (
     <Container>
-      <NoteModal
+      {/* <NoteModal
         saveMutate={saveMutate}
         loading={loading}
         state={state}
@@ -218,7 +218,7 @@ const Singles = () => {
         deleteLoading={deleteLoading}
         updateMutate={updateMutate}
         loadingUpdate={loadingUpdate}
-      />
+      /> */}
       <Head text={'RPP Church Portal'} />
       <div>
         <div className='controller'>
