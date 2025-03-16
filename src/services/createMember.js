@@ -3,18 +3,14 @@ import useAxiosPrivate from './usePrivate';
 import { ErrorHandler } from '../components/ErrorHandler';
 import { Notification } from '../components/Notification';
 
-export const CreateMember = ({ refetch, reset }) => {
+export const CreateMember = ({ refetch, reset, onSuccessCreate }) => {
   const axios = useAxiosPrivate();
 
   const { mutate, isLoading, data } = useMutation({
     mutationFn: async (form) => {
       return await axios.post('/member', form);
     },
-    onSuccess: (data) => {
-      reset();
-      Notification({ type: 'success', message: data.data?.mesage });
-      refetch();
-    },
+    onSuccess: onSuccessCreate,
     onError: (error) => {
       const message = ErrorHandler(error);
       Notification({

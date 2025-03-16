@@ -53,7 +53,6 @@ export const FetchAllActivityByDate = (
       const service = data?.data?.data?.length > 0 ? 'found' : false;
       const serviceName = data?.data?.data[0]?.serviceName;
 
-
       const handler = () => {
         if (service === false) {
           const data = {

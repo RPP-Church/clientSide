@@ -19,6 +19,14 @@ import { FaFileArchive, FaUserEdit } from 'react-icons/fa';
 import { AiFillDelete } from 'react-icons/ai';
 import { Popconfirm, Spin } from 'antd';
 import { CreateArchive } from '../../../services/archive';
+import {
+  AutoCreateActivity,
+  FetchAllActivityByDate,
+} from '../../../services/fetchActivity';
+import CustomNotification from '../../../components/CustomNotification';
+import { CaptureAttendance } from '../../../services/captureAttendance';
+import { Notification } from '../../../components/Notification';
+import { useState } from 'react';
 
 const Wrapper = styled.div`
   .new-post {
@@ -33,11 +41,15 @@ const Index = () => {
   const { state, setState } = MemberState();
   const { handleSearchParams } = QueryParameter();
   const [memberParams, setMemberParams] = useLocalStorage('memberParams', {});
+  const { contextHolder, openNotification } = CustomNotification();
+  const [memberId, setID] = useState('');
 
   //! FETCH MEMEBERS
   const { data, isError, isFetching, refetch } = GetMembers(
     memberParams?.query
   );
+
+  console.log(memberId, 'memberId');
 
   //! ARCHIVE
   const { mutate: ArchiveMutate, isLoading: loadingArchive } =
@@ -47,6 +59,7 @@ const Index = () => {
   const { mutate, isLoading } = CreateMember({
     refetch,
     reset: handleReset,
+    onSuccessCreate,
   });
   //! END
 
@@ -55,6 +68,43 @@ const Index = () => {
     refetch,
     reset: handleReset,
   });
+
+  const MemberId = memberId;
+
+  //! CAPTURE ATTENDANCE
+  const { mutate: captureMutate, isLoading: loadCapture } = CaptureAttendance();
+  //! END
+
+  //! AUTO CREATE SERVICE
+  const { mutate: AutoMutate, isLoading: AutoLoad } = AutoCreateActivity(
+    MemberId,
+    captureMutate
+  );
+
+  //! FETCH ACTIVITY BY DATE
+  const { mutate: mutateActivity, isLoading: lo } = FetchAllActivityByDate(
+    openNotification,
+    AutoMutate,
+    MemberId,
+    captureMutate
+  );
+
+  function onSuccessCreate(data) {
+    console.log(data);
+    setID(data.data?.record?._id);
+
+    handleReset();
+    Notification({ type: 'success', message: data.data?.mesage });
+    refetch();
+    const month = new Date().getMonth() + 1;
+    const day = new Date().getDate();
+    const year = new Date().getFullYear();
+    const today = `${month.toString()?.padStart(2, '0')}/${day
+      .toString()
+      ?.padStart(2, '0')}/${year}`;
+
+    mutateActivity(today);
+  }
   const Data = TableData({ data });
 
   function handleReset() {
@@ -205,6 +255,7 @@ const Index = () => {
 
   return (
     <Container>
+      {contextHolder}
       <AddMemberModal
         state={state}
         setState={setState}
