@@ -9,9 +9,9 @@ export const GetStream = () => {
   const { data, isFetching, refetch, isError, error } = useQuery({
     queryKey: ['stream'],
     queryFn: async () => {
-      const { data } = await axios.get(`/stream`);
+      const { data } = await axios.get(`/open/livestreams`);
 
-      return data;
+      return data?.data;
     },
   });
 

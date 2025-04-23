@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import YouTube from 'react-youtube';
 import axios from 'axios';
 import Container from '../../../style/container';
@@ -27,6 +27,8 @@ const Index = () => {
       title: '',
       scheduledStartTime: '',
       description: '',
+      thumbnail: '',
+      visibility: 'Public',
     },
   });
   const { data, isError, isFetching, error, refetch } = GetStream();
@@ -42,10 +44,10 @@ const Index = () => {
       },
     });
   };
-  const {
-    mutate,
-    isLoading: loadingScheduleStream,
-  } = StartStream(handleSuccess);
+
+  console.log(data);
+  const { mutate, isLoading: loadingScheduleStream } =
+    StartStream(handleSuccess);
   //! ******************** SCHEDULE A STREAM WITH START DATE *****************************
 
   const opts = {
@@ -75,70 +77,81 @@ const Index = () => {
   };
 
   const handleLogin = async () => {
-    const CLIENT_ID = import.meta.env.VITE_APP_CLIENT_ID;
-    const REDIRECT_URI = import.meta.env.VITE_APP_REDIRECT_URI;
+    // const CLIENT_ID = import.meta.env.VITE_APP_CLIENT_ID;
+    // const REDIRECT_URI = import.meta.env.VITE_APP_REDIRECT_URI;
 
-    const token = sessionStorage.getItem('google_access_token');
+    // const token = sessionStorage.getItem('google_access_token');
 
-    if (token) {
-      const result = await validateToken(token);
-      if (result.valid) {
-        const data = {
-          title: state.controls.title,
-          description: state.controls.description,
-          access_token: token,
-          scheduledStartTime: state.controls.scheduledStartTime,
-        };
+    // if (token) {
+    // const result = await validateToken(token);
+    // if (result.valid) {
+    const { title, description, scheduledStartTime, visibility, thumbnail } =
+      state.controls;
 
-        if (!data.title) {
-          return Notification({
-            type: 'warning',
-            message: 'Enter stream Title',
-          });
-        }
-
-        if (!data.scheduledStartTime) {
-          return Notification({
-            type: 'warning',
-            message: 'Enter Schedule Date and Time',
-          });
-        }
-        if (!data.description) {
-          return Notification({
-            type: 'warning',
-            message: 'Enter stream Discription',
-          });
-        }
-        mutate(data);
-      } else {
-        sessionStorage.removeItem('google_access_token');
-        Notification({
-          type: 'error',
-          message: 'Please sign in with google to start stream',
-        });
-      }
-
-      return;
+    if (!title) {
+      return Notification({
+        type: 'warning',
+        message: 'Enter stream Title',
+      });
     }
 
-    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token&scope=https://www.googleapis.com/auth/youtube`;
+    if (!scheduledStartTime) {
+      return Notification({
+        type: 'warning',
+        message: 'Enter Schedule Date and Time',
+      });
+    }
+    if (!description) {
+      return Notification({
+        type: 'warning',
+        message: 'Enter stream Discription',
+      });
+    }
+    if (!visibility) {
+      return Notification({
+        type: 'warning',
+        message: 'Enter stream Discription',
+      });
+    }
 
-    window.location.href = authUrl;
+    const Form = new FormData();
+    Form.append('title', title);
+    Form.append('description', description);
+    Form.append('scheduledStartTime', scheduledStartTime);
+    Form.append('visibility', visibility);
+    Form.append('thumbnail', thumbnail);
+    // Form.append('access_token', token);
+
+    mutate(Form);
+    // } else {
+    //   sessionStorage.removeItem('google_access_token');
+    //   Notification({
+    //     type: 'error',
+    //     message: 'Please sign in with google to start stream',
+    //   });
+    // }
+
+    // return;
+    // }
+
+    // const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token&scope=https://www.googleapis.com/auth/youtube`;
+
+    // window.location.href = authUrl;
   };
 
-  useEffect(() => {
-    const extractTokenFromUrl = () => {
-      const hashParams = new URLSearchParams(window.location.hash.substring(1));
-      const accessToken = hashParams.get('access_token');
+  // useEffect(() => {
+  //   const extractTokenFromUrl = () => {
+  //     const hashParams = new URLSearchParams(window.location.hash.substring(1));
+  //     const accessToken = hashParams.get('access_token');
 
-      if (accessToken) {
-        sessionStorage.setItem('google_access_token', accessToken);
-      } else {
-      }
-    };
+  //     if (accessToken) {
+  //       sessionStorage.setItem('google_access_token', accessToken);
+  //     } else {
+  //     }
+  //   };
 
-    extractTokenFromUrl();
-  }, []);
+  //   extractTokenFromUrl();
+  // }, []);
 
   if (isFetching) {
     return <Splash />;
