@@ -30,19 +30,19 @@ export default defineConfig({
             purpose: 'any',
           },
         ],
-        screenshots: [
-          {
-            src: './src/assets/web4.jpg',
-            sizes: '1280x800',
-            type: 'image/png',
-            form_factor: 'wide',
-          },
-          {
-            src: './src/assets/web3.jpg',
-            sizes: '360x640',
-            type: 'image/png',
-          },
-        ],
+        // screenshots: [
+        //   {
+        //     src: './src/assets/web4.jpg',
+        //     sizes: '1280x800',
+        //     type: 'image/png',
+        //     form_factor: 'wide',
+        //   },
+        //   {
+        //     src: './src/assets/web3.jpg',
+        //     sizes: '360x640',
+        //     type: 'image/png',
+        //   },
+        // ],
       },
       workbox: {
         maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // Optional: Set file size limit for caching
