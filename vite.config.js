@@ -21,13 +21,12 @@ export default defineConfig({
             src: './src/assets/web1.png',
             sizes: '192x192',
             type: 'image/png',
-            purpose: 'any',
           },
           {
             src: './src/assets/web2.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'any',
+          
           },
         ],
         // screenshots: [
