@@ -18,30 +18,30 @@ export default defineConfig({
         theme_color: '#000000',
         icons: [
           {
-            src: './src/assets/web1.png',
+            src: '/src/assets/web1.png',
             sizes: '192x192',
             type: 'image/png',
           },
           {
-            src: './src/assets/web2.png',
+            src: '/src/assets/web2.png',
             sizes: '512x512',
             type: 'image/png',
           
           },
         ],
-        // screenshots: [
-        //   {
-        //     src: './src/assets/web4.jpg',
-        //     sizes: '1280x800',
-        //     type: 'image/png',
-        //     form_factor: 'wide',
-        //   },
-        //   {
-        //     src: './src/assets/web3.jpg',
-        //     sizes: '360x640',
-        //     type: 'image/png',
-        //   },
-        // ],
+        screenshots: [
+          {
+            src: '/src/assets/web4.jpg',
+            sizes: '1280x800',
+            type: 'image/png',
+            form_factor: 'wide',
+          },
+          {
+            src: '/src/assets/web3.jpg',
+            sizes: '360x640',
+            type: 'image/png',
+          },
+        ],
       },
       workbox: {
         maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // Optional: Set file size limit for caching
