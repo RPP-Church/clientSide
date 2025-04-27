@@ -28,3 +28,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </BrowserRouter>
   </QueryClientProvider>
 );
+
+ServiceWorker.register({
+  onUpdate: (registration) => {
+    if (confirm("New version available! Do you want to update?")) {
+      registration.waiting.postMessage({ type: "SKIP_WAITING" });
+      window.location.reload();
+    }
+  },
+});
