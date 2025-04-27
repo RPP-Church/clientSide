@@ -28,11 +28,14 @@ export default defineConfig({
           },
         ],
       },
-        workbox: {
+      workbox: {
         maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // Optional: Set file size limit for caching
       },
     }),
   ],
+  build: {
+    outDir: 'build',
+  },
   server: {
     watch: {
       usePolling: true,
