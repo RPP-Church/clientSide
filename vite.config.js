@@ -8,16 +8,14 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      workbox: {
-        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
-      },
       manifest: {
-        name: 'RPP App',
-        short_name: 'Scanner',
-        start_url: '/',
-        display: 'standalone',
-        background_color: '#ffffff',
-        theme_color: '#007bff',
+        name: 'RPP App', // Name of the app
+        short_name: 'RPP', // Short name of the app
+        description: 'A church app for attendance and services', // App description
+        start_url: '/', // The starting point of the app
+        display: 'standalone', // Standalone mode (no browser UI)
+        background_color: '#ffffff', // Background color of the splash screen
+        theme_color: '#000000',
         icons: [
           {
             src: '/src/assets/web-app-manifest-192x192.png',
@@ -30,6 +28,9 @@ export default defineConfig({
             type: 'image/png',
           },
         ],
+      },
+      workbox: {
+        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // Optional: Set file size limit for caching
       },
     }),
   ],

@@ -21,7 +21,7 @@ const queryClient = new QueryClient({
 if (import.meta.NODE_ENV === 'production') {
   if ('serviceWorker' in navigator) {
     import('workbox-window').then(({ Workbox }) => {
-      const wb = new Workbox('/public/service-worker.js');
+      const wb = new Workbox('/service-worker.js');
       wb.register();
     });
   }
