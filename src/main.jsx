@@ -3,10 +3,9 @@ import App from './App.jsx';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './index.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import "slick-carousel/slick/slick.css";
+import 'slick-carousel/slick/slick.css';
 
-import "slick-carousel/slick/slick-theme.css";
-
+import 'slick-carousel/slick/slick-theme.css';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,6 +18,14 @@ const queryClient = new QueryClient({
   },
 });
 
+if (import.meta.NODE_ENV === 'production') {
+  if ('serviceWorker' in navigator) {
+    import('workbox-window').then(({ Workbox }) => {
+      const wb = new Workbox('/public/service-worker.js');
+      wb.register();
+    });
+  }
+}
 ReactDOM.createRoot(document.getElementById('root')).render(
   <QueryClientProvider client={queryClient}>
     <BrowserRouter>
@@ -28,12 +35,3 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </BrowserRouter>
   </QueryClientProvider>
 );
-
-ServiceWorker.register({
-  onUpdate: (registration) => {
-    if (confirm("New version available! Do you want to update?")) {
-      registration.waiting.postMessage({ type: "SKIP_WAITING" });
-      window.location.reload();
-    }
-  },
-});

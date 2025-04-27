@@ -30,6 +30,7 @@
     "slick-carousel": "^1.8.1",
     "styled-components": "^6.0.8",
     "use-debounce": "^10.0.2",
+    "workbox-window": "^7.3.0",
     "zustand": "^4.4.1"
   },
   "devDependencies": {
