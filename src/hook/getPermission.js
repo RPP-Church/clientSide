@@ -11,7 +11,6 @@ export const useGetPermission = () => {
         const permission = await Notification.requestPermission();
 
         if (permission === 'granted') {
-          // ✅ Wait until Service Worker is READY
           const registration = await navigator.serviceWorker.ready;
 
           const token = await getToken(messaging, {
@@ -21,7 +20,6 @@ export const useGetPermission = () => {
           });
 
           if (token) {
-            console.log('Token obtained:', token);
             setToken(token);
           } else {
             console.error(
@@ -29,9 +27,7 @@ export const useGetPermission = () => {
             );
           }
         } else {
-          alert(
-            'Please enable notifications in your browser settings to receive messages.'
-          );
+          alert('Please enable notifications');
         }
       } catch (error) {
         console.error('An error occurred while retrieving token.', error);
