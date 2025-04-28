@@ -18,12 +18,27 @@ const queryClient = new QueryClient({
   },
 });
 
-if (import.meta.NODE_ENV === 'production') {
+if (import.meta.env.MODE === 'production') {
   if ('serviceWorker' in navigator) {
     import('workbox-window').then(({ Workbox }) => {
       const wb = new Workbox('/service-worker.js');
       wb.register();
     });
+
+    navigator.serviceWorker
+      .register('/firebase-messaging-sw.js')
+      .then((registration) => {
+        console.log(
+          'Firebase messaging service worker registered:',
+          registration
+        );
+      })
+      .catch((err) => {
+        console.error(
+          'Firebase messaging service worker registration failed:',
+          err
+        );
+      });
   }
 }
 ReactDOM.createRoot(document.getElementById('root')).render(
