@@ -13,8 +13,8 @@ export default defineConfig({
         short_name: 'Scanner',
         start_url: '/',
         display: 'standalone',
-        background_color: '#ffffff',
-        theme_color: '#007bff',
+        background_color: '#28166f',
+        theme_color: '#06923f',
         icons: [
           {
             src: '/icon-192.png',
