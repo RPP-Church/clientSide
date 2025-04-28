@@ -23,6 +23,17 @@ if (import.meta.env.MODE === 'production') {
   if ('serviceWorker' in navigator) {
     import('workbox-window').then(({ Workbox }) => {
       const wb = new Workbox('/service-worker.js');
+
+      wb.addEventListener('waiting', () => {
+        // 🔥 New service worker is waiting to activate
+        if (window.confirm('New version available! Reload to update?')) {
+          wb.addEventListener('controlling', () => {
+            window.location.reload();
+          });
+          wb.messageSW({ type: 'SKIP_WAITING' });
+        }
+      });
+
       wb.register();
     });
 
@@ -42,6 +53,7 @@ if (import.meta.env.MODE === 'production') {
       });
   }
 }
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <QueryClientProvider client={queryClient}>
     <MessageTokenProvider>
