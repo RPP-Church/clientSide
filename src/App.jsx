@@ -16,11 +16,14 @@ import Stream from './pages/Dashboard/Stream';
 import Testimony from './pages/Testimony';
 import Archive from './pages/Dashboard/Archive';
 import TestimonyHome from './pages/Dashboard/Testimonies';
-import CallManagement from './pages/Dashboard/Call'
+import CallManagement from './pages/Dashboard/Call';
 
 import { ErrorAnimation } from './components/animation';
 import PrivateRoute from './PrivateRoute';
+import { useGetPermission } from './hook/getPermission';
+
 function App() {
+  useGetPermission();
   return (
     <>
       {/* {pathname?.includes('dashboard') || pathname == '/login' ? (
@@ -83,7 +86,7 @@ function App() {
             element={<PrivateRoute component={TestimonyHome} />}
             path='/dashboard/testimonies'
           />
-           <Route
+          <Route
             element={<PrivateRoute component={CallManagement} />}
             path='/dashboard/call'
           />
