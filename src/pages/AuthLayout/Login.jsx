@@ -13,6 +13,7 @@ import PasswordInput from '../../components/PasswordInput';
 import Logo from '../../assets/RCCG_logo_400px 1.png';
 
 import CarouselLogin from './CarouselLogin';
+import { useMessageToken } from '../../context/getToken';
 
 const Wrapper = styled.div`
   background: ${({ loaded, src }) =>
@@ -80,7 +81,8 @@ const Container = styled.div`
 const Login = () => {
   const navigate = useNavigate();
   const { setUser } = userState();
-  const [loaded, setLoaded] = useState(false);
+  const { token } = useMessageToken();
+
   const [formdata, setFormdata] = useState({
     phone: '',
     password: '',
@@ -123,6 +125,7 @@ const Login = () => {
     const data = {
       password,
       phone,
+      deviceToken: token,
     };
 
     if (!data.phone && !data.password) {

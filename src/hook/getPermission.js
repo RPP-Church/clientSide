@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { messaging, getToken, onMessage } from '../firebase';
+import { useMessageToken } from '../context/getToken';
 
 export const useGetPermission = () => {
+  const { setToken } = useMessageToken();
   useEffect(() => {
     async function requestPermission() {
       console.log('Requesting permission...');
@@ -14,9 +16,13 @@ export const useGetPermission = () => {
           vapidKey:
             'BOoxj7o_hta0JjE-Lo0HAOv1MnJ1wUUdfrxN_F7g2y49W5ADQOIL7IlOC8_B_GpEGkJ5vwrYdL66TmLjR6KowpQ',
         });
-        console.log('FCM Token:', token);
+
+        setToken(token);
       } else {
         console.log('Notification permission denied.');
+        alert(
+          'Please enable notifications in your browser settings to receive messages.'
+        );
       }
     }
 
