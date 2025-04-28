@@ -35,6 +35,12 @@ export default defineConfig({
             type: 'image/png',
             form_factor: 'wide',
           },
+          {
+            src: '/screenshot.png',
+            sizes: '540x720',
+            type: 'image/png',
+            form_factor: 'narrow',
+          },
         ],
       },
       workbox: {
