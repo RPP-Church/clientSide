@@ -189,7 +189,7 @@ const Index = () => {
               width={'70%'}
             />
             <Button
-              text={'Watch us Live'}
+              text={'Login'}
               background={'var(--primary-green)'}
               color='#f1efef'
               radius={'30px'}
@@ -197,6 +197,7 @@ const Index = () => {
               hoverColor='#fff'
               size={'clamp(1.1em, 2.5vw, 1.3em)'}
               width={'70%'}
+              onClick={() => navigate('/login')}
             />
           </div>
         </div>
