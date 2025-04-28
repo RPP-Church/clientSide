@@ -20,11 +20,26 @@ export default defineConfig({
             src: '/assets/RCCG_logo_400px 1.png',
             sizes: '192x192',
             type: 'image/png',
+            purpose: 'any'
           },
           {
             src: '/assets/RCCG_logo_400px 1.png',
             sizes: '512x512',
             type: 'image/png',
+          },
+        ],
+        screenshots: [
+          {
+            src: '/assets/RCCG_logo_400px 1.png',
+            sizes: '192x192',
+            type: 'image/png',
+            form_factor: 'wide'
+          },
+          {
+            src: '/assets/RCCG_logo_400px 1.png',
+            sizes: '512x512',
+            type: 'image/png',
+            form_factor: 'narrow'
           },
         ],
       },
