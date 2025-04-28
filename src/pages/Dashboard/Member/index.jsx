@@ -49,7 +49,6 @@ const Index = () => {
     memberParams?.query
   );
 
-  console.log(memberId, 'memberId');
 
   //! ARCHIVE
   const { mutate: ArchiveMutate, isLoading: loadingArchive } =
@@ -90,7 +89,6 @@ const Index = () => {
   );
 
   function onSuccessCreate(data) {
-    console.log(data);
     setID(data.data?.record?._id);
 
     handleReset();

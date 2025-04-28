@@ -4,33 +4,49 @@ import { useMessageToken } from '../context/getToken';
 
 export const useGetPermission = () => {
   const { setToken } = useMessageToken();
+
   useEffect(() => {
     async function requestPermission() {
-      console.log('Requesting permission...');
-      const permission = await Notification.requestPermission();
+      try {
+        const permission = await Notification.requestPermission();
 
-      if (permission === 'granted') {
-        console.log('Notification permission granted.');
+        if (permission === 'granted') {
+          // ✅ Wait until Service Worker is READY
+          const registration = await navigator.serviceWorker.ready;
 
-        const token = await getToken(messaging, {
-          vapidKey:
-            'BOoxj7o_hta0JjE-Lo0HAOv1MnJ1wUUdfrxN_F7g2y49W5ADQOIL7IlOC8_B_GpEGkJ5vwrYdL66TmLjR6KowpQ',
-        });
+          const token = await getToken(messaging, {
+            vapidKey:
+              'BOoxj7o_hta0JjE-Lo0HAOv1MnJ1wUUdfrxN_F7g2y49W5ADQOIL7IlOC8_B_GpEGkJ5vwrYdL66TmLjR6KowpQ',
+            serviceWorkerRegistration: registration, // ✅ Force FCM to use correct registration
+          });
 
-        setToken(token);
-      } else {
-        console.log('Notification permission denied.');
-        alert(
-          'Please enable notifications in your browser settings to receive messages.'
-        );
+          if (token) {
+            console.log('Token obtained:', token);
+            setToken(token);
+          } else {
+            console.error(
+              'No registration token available. Request permission to generate one.'
+            );
+          }
+        } else {
+          alert(
+            'Please enable notifications in your browser settings to receive messages.'
+          );
+        }
+      } catch (error) {
+        console.error('An error occurred while retrieving token.', error);
       }
     }
 
     requestPermission();
 
-    onMessage(messaging, (payload) => {
+    const unsubscribe = onMessage(messaging, (payload) => {
       console.log('Message received: ', payload);
-      alert(payload.notification.title + '\n' + payload.notification.body);
+      alert(`${payload?.notification?.title}\n${payload?.notification?.body}`);
     });
-  }, []);
+
+    return () => {
+      unsubscribe();
+    };
+  }, [setToken]);
 };

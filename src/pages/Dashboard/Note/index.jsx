@@ -132,7 +132,6 @@ const NoteModal = ({ show, setShow, memberId }) => {
   const { mutate: updateMutate, isLoading: loadingUpdate } = UpdateNote(onPost);
   //!END OF UPDATE NOTE
 
-  console.log(data);
   return (
     <Modals
       open={show}

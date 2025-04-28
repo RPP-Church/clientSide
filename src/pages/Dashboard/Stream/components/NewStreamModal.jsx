@@ -66,7 +66,6 @@ const RangeDatePicker = (props) => {
 };
 
 const NewStreamModal = ({ state, setState, handleSubmit, isLoading }) => {
-  console.log(state);
 
   return (
     <Modals

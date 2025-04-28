@@ -45,7 +45,6 @@ const Index = () => {
     });
   };
 
-  console.log(data);
   const { mutate, isLoading: loadingScheduleStream } =
     StartStream(handleSuccess);
   //! ******************** SCHEDULE A STREAM WITH START DATE *****************************
