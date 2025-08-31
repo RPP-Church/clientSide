@@ -17,15 +17,11 @@ firebase.initializeApp({
 // Initialize messaging
 const messaging = firebase.messaging();
 
-// Handle background messages
-messaging.onBackgroundMessage(function (payload) {
-  console.log('[firebase-messaging-sw.js] Received background message ', payload);
-  
-  const notificationTitle = payload.notification.title;
-  const notificationOptions = {
-    body: payload.notification.body,
-    icon: '/icon-192.png', // Make sure you have an icon
-  };
-
-  self.registration.showNotification(notificationTitle, notificationOptions);
-});
+messaging.onBackgroundMessage(function(payload) {
+  console.log('[firebase-messaging-sw.js] Background message received:', payload);
+  const { title, body } = payload.notification;
+  self.registration.showNotification(title, {
+    body,
+    icon: '/icon-192.png', // Optional: ensure this path exists
+  });
+})
